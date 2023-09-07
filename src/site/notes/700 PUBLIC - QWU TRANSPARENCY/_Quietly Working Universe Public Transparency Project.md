@@ -1,8 +1,9 @@
 ---
-{"dg-publish":true,"permalink":"/700-public-qwu-transparency/quietly-working-universe-public-transparency-project/","tags":["gardenEntry"]}
+{"dg-publish":true,"permalink":"/700-public-qwu-transparency/quietly-working-universe-public-transparency-project/","tags":["gardenEntry"],"created":"","updated":""}
 ---
 
-# Quietly Working Universe Public Transparency Project
+dg-updated
+# QWU PTP Table of Contents
 *We value transparency. This site will contain a complete unfiltered record of all Quietly Working Org and Project SOPs and data. We will make efforts to ensure it is up to date. If there is any way the data contained within can help you or your org operate better or scale more effectively, you are free to use it under our [[700 PUBLIC - QWU TRANSPARENCY/Intellectual Property Rights & Open Source with Attribution\|Intellectual Property Rights & Open Source with Attribution]] policy.*
 
 
