@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/700-public-qwu-transparency/intellectual-property-rights-and-open-source-with-attribution/","tags":["Intellectual","Property","openSource","attribution"]}
+{"dg-publish":true,"permalink":"/700-public-qwu-transparency/intellectual-property-rights-and-open-source-with-attribution/","tags":["Intellectual","Property","openSource","attribution"],"created":"","updated":""}
 ---
 
 # Intellectual Property Rights & Open Source with Attribution
