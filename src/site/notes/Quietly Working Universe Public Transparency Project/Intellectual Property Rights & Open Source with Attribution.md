@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/intellectual-property-rights-and-open-source-with-attribution/","tags":["Intellectual","Property","openSource","attribution"],"noteIcon":"","created":"","updated":""}
+{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/intellectual-property-rights-and-open-source-with-attribution/","tags":["Intellectual","Property","openSource","attribution"],"noteIcon":""}
 ---
 
 # Intellectual Property Rights & Open Source with Attribution
