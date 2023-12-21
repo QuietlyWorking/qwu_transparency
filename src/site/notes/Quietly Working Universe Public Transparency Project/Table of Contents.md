@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry","gardenEntry","gardenEntry","gardenEntry"],"noteIcon":"","created":"","updated":""}
+{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry"],"noteIcon":""}
 ---
 
 # Table of Contents
@@ -23,6 +23,20 @@
 ### War on Hopelessness #WOH
 ### Chaplain TIG #TIG
 <br>
+## Tools
+These are the tools that the #QWU uses.
+
+### [[Quietly Working Universe Public Transparency Project/QW Online Meeting World (OMW)\|QW Online Meeting World (OMW)]]
+This is our virtual worldbuilding space. We use the #OMW for
+- 121 Meetings
+- Co-Working Spaces
+- Activity Rooms
+- Presentations
+- Training Rooms
+- Daylies
+- and any other excuse we can create to spend more time together as a community of world-changers.
+
+
 ---
 
 STRUCTURE NOTES
@@ -42,3 +56,4 @@ Org Name
 - Flowchart 
 
 Updated on dg-updated
+
