@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry","gardenEntry"],"noteIcon":""}
+{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry"],"noteIcon":""}
 ---
 
 # Table of Contents
@@ -26,7 +26,7 @@
 ## Tools
 These are the tools that the #QWU uses.
 
-### [[Quietly Working Universe Public Transparency Project/QW Online Meeting World (OMW)\|QW Online Meeting World (OMW)]]
+### [[Quietly Working Universe Public Transparency Project/QWU Online Meeting World (OMW)\|QWU Online Meeting World (OMW)]]
 This is our virtual worldbuilding space. We use the #OMW for
 - 121 Meetings
 - Co-Working Spaces
