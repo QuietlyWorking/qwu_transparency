@@ -1,0 +1,23 @@
+---
+{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/qwu-online-meeting-world-omw/","noteIcon":""}
+---
+
+# QWU Online Meeting World (OMW)
+## Purpose
+The online meeting world #OMW exists to provide a place for the people of the #QWU to come together no matter when in the world you currently are.
+
+## Rules 
+The #OMW is a place of hope, love, joy, and peace. The [[QWU Values\|QWU Values]] will reign throughout this community, and it's rules will support those values in action.
+- We accept
+
+## Sketch
+![[QWU Online Meeting World (OMW) Sketch.canvas|QWU Online Meeting World (OMW) Sketch]]
+
+## Usage
+
+- Appointments: All of our Quietly Working online meetings will be held in the OMW.
+	- When someone with an appointment enters the lobby, they are welcome to enter their prepared room up to 15 minutes before their scheduled meeting time. 
+	- To enter their meeting room, they simply click on their name (or business name) on the "Today's Meetings" welcome sign.
+	- If a visitor doesn't see their name (or business name) on the "Today's Meetings" welcome sign, and they believe they have a meeting scheduled, then the Super Grover chat bot should,
+		1. Ask who they had a meeting with?
+		2. And offer to get ahold of that person.
