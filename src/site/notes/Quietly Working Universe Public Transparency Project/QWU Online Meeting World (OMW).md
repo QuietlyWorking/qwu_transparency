@@ -3,6 +3,8 @@
 ---
 
 # QWU Online Meeting World (OMW)
+Domain used: https://meeting.quietlyworking.org
+
 ## Purpose
 The online meeting world #OMW exists to provide a place for the people of the #QWU to come together no matter when in the world you currently are.
 
@@ -16,8 +18,9 @@ The #OMW is a place of hope, love, joy, and peace. The [[QWU Values\|QWU Values]
 ## Usage
 
 - Appointments: All of our Quietly Working online meetings will be held in the OMW.
-	- When someone with an appointment enters the lobby, they are welcome to enter their prepared room up to 15 minutes before their scheduled meeting time. 
-	- To enter their meeting room, they simply click on their name (or business name) on the "Today's Meetings" welcome sign.
-	- If a visitor doesn't see their name (or business name) on the "Today's Meetings" welcome sign, and they believe they have a meeting scheduled, then the Super Grover chat bot should,
+	- When someone with an appointment enters the lobby, they are welcome to enter their prepared room up to 10 minutes before their scheduled meeting time. 
+	- To enter their meeting room, they simply click on the button next to their name (or business name) on the "Today's Meetings" welcome sign.
+	- If a visitor doesn't see their name (or business name) on the "Today's Meetings" welcome sign, and they believe they have a meeting scheduled, then Super Grover should,
 		1. Ask who they had a meeting with?
 		2. And offer to get ahold of that person.
+			1. If they think they have a meeting with Chaplain TIG, please text me their contact info to (949) 371-5844.
