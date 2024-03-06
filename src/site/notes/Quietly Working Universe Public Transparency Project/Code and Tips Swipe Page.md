@@ -8,7 +8,11 @@
 # Related to specific tools
 
 ## Markdown (Obsidian specific)
-[[www.help.obsidian.md/Home\|www.help.obsidian.md/Home]]
+Click [here]([https://www.geeksforgeeks.org/](https://help.obsidian.md/){:target="_blank"}  
+for the Obsidian help site.
+
 
 ## GoBrunch [[https://gobrunch.com\|https://gobrunch.com]]
+
+![ ](https://vento.so/view/0e7596e0-1ea0-46b1-8d3e-beec12c49b99?utm_medium=share)
 
