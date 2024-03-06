@@ -25,7 +25,20 @@
 <br>
 ## Tools
 These are the tools that the #QWU uses.
+It's currently very incomplete, but feel free to checkout the beginnings of our [[Quietly Working Universe Public Transparency Project/Code & Tips Swipe Page\|Code & Tips Swipe Page]].
+### QWU CRM & Family Portal
+family.quietlyworking.org
 
+This is our primary relationship management tool. We use it for
+- Keeping track of
+	- contact information
+	- meeting details
+	- email messaging and marketing
+	- project management
+	- client and student progress management
+	- invoicing
+	- support
+	- process automations
 ### [[Quietly Working Universe Public Transparency Project/QWU Online Meeting World (OMW)\|QWU Online Meeting World (OMW)]]
 This is our virtual worldbuilding space. We use the #OMW for
 - 121 Meetings
