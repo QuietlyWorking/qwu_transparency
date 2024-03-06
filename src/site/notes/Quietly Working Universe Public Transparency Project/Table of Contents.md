@@ -25,7 +25,8 @@
 <br>
 ## Tools
 These are the tools that the #QWU uses.
-It's currently very incomplete, but feel free to checkout the beginnings of our [[Quietly Working Universe Public Transparency Project/Code & Tips Swipe Page\|Code & Tips Swipe Page]].
+It's currently very incomplete, but feel free to checkout the beginnings of our [[Quietly Working Universe Public Transparency Project/Code and Tips Swipe Page\|Code and Tips Swipe Page]].
+
 ### QWU CRM & Family Portal
 family.quietlyworking.org
 
