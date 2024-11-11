@@ -24,3 +24,6 @@ The #OMW is a place of hope, love, joy, and peace. The [[QWU Values\|QWU Values]
 		1. Ask who they had a meeting with?
 		2. And offer to get ahold of that person.
 			1. If they think they have a meeting with Chaplain TIG, please text me their contact info to (949) 371-5844.
+
+
+[[003 Humans, Orgs and Tools/Missing Pixel Project (The)/Splinter/Splinter - Luminara Story for MP\|Splinter - Luminara Story for MP]]

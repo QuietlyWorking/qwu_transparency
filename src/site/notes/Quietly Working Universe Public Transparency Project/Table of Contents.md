@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry","gardenEntry","gardenEntry","gardenEntry","gardenEntry","gardenEntry"],"noteIcon":""}
+{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry"],"noteIcon":""}
 ---
 
 # Table of Contents
