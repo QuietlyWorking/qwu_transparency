@@ -148,7 +148,7 @@ The game he made up for me, Who For Fit Flow Algo, that's got to be it! I know i
 "I may be puny, but always remember how I see you augmented by your class."
 Oh my lord, Dad made it so easy for me... just needed time to see it through the tears, just like he said. It's Punycode. Now this should be easy with punch tape... how many holes? 5 digits. "How I see you augmented by your class." "Augmented" is a multiplier, so that's one digit. I'm obvs class three, so that's another. And he saw me as precious, which he always wrote out as MPO, so "MPO * 3" with Punycode and punch tape output... That's it!
 ![Pasted image 20241020123753.png](/img/user/Resources/Attachments/Pasted%20image%2020241020123753.png)
-Lumala uses a micro punch to push in and release the correct pins. As she releases the last pin, she hears a subtle 'click' followed by a few seconds of a low whirling noise as the metal straps released and retracted back into the lock. As she reached to open the journal, she was flooded with emotion. She missed him so much. She could feel that her adventure was beginning once she opened the journal, and she want she if she was ready. Then, her dad's voice came to her again, "We're never ready for the greatest things in our life, because we don't even fully know what we don't know yet. Books, videos, advice... I got as much as I could before you were born, but from that moment I first saw you, I knew none of that mattered. Everything changed... the lights held more color and every sound was lifted by angels. What mattered the day before your birth was now a dull memory. Everything was new. Everything was better."
+Lumala uses a micro punch to push in and release the correct pins. As she releases the last pin, she hears a subtle 'click' followed by a few seconds of a low whirling noise as the metal straps released and retracted back into the lock. As she reached to open the journal, she was flooded with emotion. She missed him so much. She could feel that her adventure was beginning once she opened the journal, and she wondered if she was ready. Then, her dad's voice came to her again, "We're never ready for the greatest things in our life, because we don't even fully know what we don't know yet. Books, videos, advice... I got as much as I could before you were born, but from that moment I first saw you, I knew none of that mattered. Everything changed... the lights held more color and every sound was lifted by angels. What mattered the day before your birth was now a dull memory. Everything was new. Everything was better."
 
 She smiled at the thought and found comfort how much he loved her. She laughed to herself as see thought, "Okay Dad, let's figure out what I don't know."
 
@@ -199,13 +199,13 @@ As Ez floated above her right palm, Lumala asked, "Sooo Ez, how did this work."
 
 She did a quick internal SDF, then said, "I'm ready."
 
-With that, Ez gently placed an arm on each finger of her right palm and the other three rotated in a circle pattern on the palm. Lumala felt the light pressure of Ez's touch along with a subtle tingling feeling, as if a light electrical charge was starting at her fingertips and slowly moving up to the to of her head. Almost immediately as the feeling reached the top of her head, Ez stopped and floated over to her left hand and duplicated the process exactly like the first. Once Ez completed three process, he floated back to the table, "All done most precious one. We're both gonna need a long rest after that. Hydrate, then lie down quickly... within 15min you won't get to choose where you're lying for the next 12 hours hahaha. I'm gonna have to power down so chop chop."
+With that, Ez gently placed an arm on each finger of her right palm and the other three rotated in a circle pattern on the palm. Lumala felt the light pressure of Ez's touch along with a subtle tingling feeling, as if a light electrical charge was starting at her fingertips and slowly moving up to the to of her head. Almost immediately as the feeling reached the top of her head, Ez stopped and floated over to her left hand and duplicated the process exactly like the first. Once Ez completed the process, he floated back to the table, "All done most precious one. We're both gonna need a long rest after that. Hydrate, then lie down quickly... within 15min you won't get to choose where you're lying for the next 12 hours hahaha. I'm gonna have to power down so chop chop."
 
 Lumala chugged some water, washed her face, and just got to get bed when it hit her... lights out! She just got out a, "So this is what yoouuuu m..." as her head hit the pillow. They were both out for 20 hours.
 
 
 //Over the next two months she learns to navigate her new powers and what it's like to share thoughts with Ez...//
-Lumala wakes with a headache and sore muscles, like the day after a triathlon. Her vision feels blurry but also dull in an odd way. As she shuffled to get water and a banana the squished her eyelids shut and rolled her eyes to try and get her eyesight back. She got two bites into the banana when she heard Ez stretch on the table... as he rolled up on his legs, he opened his eyes. Lumala screamed and covered her eyes, her banana and water falling to the floor. Her eyes burned with intensity. Colors she's never seen and pain she never felt. 
+Lumala wakes with a headache and sore muscles, like the day after a triathlon. Her vision feels blurry but also dull in an odd way. As she shuffled to get water and a banana she squished her eyelids shut and rolled her eyes to try and get her eyesight back. She got two bites into the banana when she heard Ez stretch on the table... as he rolled up on his legs, he opened his eyes. Lumala screamed and covered her eyes, her banana and water falling to the floor. Her eyes burned with intensity. Colors she's never seen and pain she never felt. 
 
 It's okay! It's okay! She could hear Ez saying. Your brain's just making sense of all the new connections. The next few weeks are gonna be rough but then we can get to work. 
 
@@ -213,7 +213,7 @@ But my eyes, cried Lumala what's happening?
 
 "Ohh", Ez answered, "they're remapping the new structures so you can make sense of what you're seeing through me. The first level of that should be ready in a few hours." Ez floated over, peeled her a fresh banana, refilled her water, and led her back to her bed. "For now, just rest MPO."
 
-She lied there with her hands over her eyes and feeling pain she never experienced before. She thought she could actually feel things moving in her eyes and head, but figured it was all muscle spasms. As she tried to make sense of everything and all she was feeling, she remembered something her dad would often say, "It's just pain. A synap firing to keep me safe. If I know I'm safe and don't need that data, I can simply disregard it. It's trying to do a good job... maybe just a little broken, and broken things are often my very favorite." She smiled just remembering his silly looks and mannerisms as he'd repeat his favorite sayings. No matter how many times I'd hear'm, they always brought me joy. 
+She lied there with her hands over her eyes and feeling pain she never experienced before. She thought she could actually feel things moving in her eyes and head, but figured it was all muscle spasms. As she tried to make sense of everything and all she was feeling, she remembered something her dad would often say, "It's just pain. A synapse firing to keep me safe. If I know I'm safe and don't need that data, I can simply disregard it. It's trying to do a good job... maybe just a little broken, and broken things are often my very favorite." She smiled just remembering his silly looks and mannerisms as he'd repeat his favorite sayings. No matter how many times I'd hear'm, they always brought me joy. 
 
 //MORE SLEEP//
 
@@ -225,7 +225,7 @@ Ez, "You heard me. Just do it."
 
 As she slowed her mind, and opened to the impossible, she began to see a light flickering.
 
-Ez asked, "Tell me what you're experiencing L."
+Ez asked, "Tell me what you're experiencing."
 
 Lumala explained, "I think I'm seeing different images flickering... maybe cycling, because it seems to be repeating."
 
@@ -237,10 +237,10 @@ Ez began to explain, "Now your brain knows there are multiple choices. As you ge
 
 Lumala was speechless. She felt like a comic book character... like Spiderman climbing his first wall... and she started to cry, completely overwhelmed by the joy of seeing the world through the eyes of others. 
 
-Ez interrupted her thoughts, and she didn't care one bit... she wanted more! Ez transitioned into a pair of glasses to ease her brain into the parallax, but told her that once she got used to it, that extra parallax would be helpful for other things. "Baby steps", Ez chuckled out as he watched her burn through his exercises. She truly was made for this. 
+Ez interrupted her thoughts, and she didn't care one bit... she wanted more! Ez transitioned his shape into a pair of glasses to ease her brain into the parallax, but told her that once she got used to it, that extra parallax would be helpful for other things. "Baby steps", Ez chuckled out as he watched her burn through his exercises. She truly was made for this. 
 
 
-// Training //
+// Add more insight here into the training list and some of the training process //
 
 "Wow! Alright, that's the last check on the list before Splinter."
 
@@ -264,7 +264,7 @@ Hey MPO 💕 Ezer must believe you're ready to begin your hunt for Splinter if h
 
 Here's the tough part. There are others who will always be looking for Splinter. You can NEVER let her be found by anyone but you or your successor (if that time comes). I needed you to hear this from my hand to understand the weight of what I'm about to say. It is better for you to die than Splinter be located by anyone other than you. 
 
-I am a descendant of the first Lum, so you are a descendent of the first Lum. He came to this planet before humans were existed. He planted Splinter and gave her the purpose and orders she follows to this day...
+I am a descendant of the first Lum, so you are a descendent of the first Lum. He came to this planet before humans existed. He planted Splinter and gave her the purpose and orders she follows to this day...
 - Empower the Lum
 - Become undiscoverable by anyone other than the current Lum
 
@@ -281,31 +281,19 @@ To clue with covering tracks
 
 To clue with covering tracks
 
-Finding
+Finding Splinter
 
 //Finding splinter//
+
+Meeting Igby
 
 Yup Dad, big and small. <3 
 # /// END ACT THREE ///
 # /// END EPISODE ONE ///
 
-Meeting igby and learning and training and mission to find the pix 
-
-Burying something to deliver or keep safe in Splinter 
-
-And Lums never 
-
-This is punch tape so 
-
-etween
 
 
 
-
-Hmm chess pieces... He was moving life chess pieces around. He showed me we're everything was. Nothing here has changed. What was he moving. Dang I'm tired. Just close the eyes for a minute. 
-
-
-// MORNING NEXT DAY //
 
 
 
@@ -354,7 +342,20 @@ If you farm on the same ground the land goes bad. You have to till the soil to k
 
 ***
 
+Meeting igby and learning and training and mission to find the pix 
 
+Burying something to deliver or keep safe in Splinter 
+
+And Lums never 
+
+This is punch tape so 
+
+etween
+
+Hmm chess pieces... He was moving life chess pieces around. He showed me we're everything was. Nothing here has changed. What was he moving. Dang I'm tired. Just close the eyes for a minute. 
+
+
+// MORNING NEXT DAY //
 
 
 *** LAMALA FINDS THE FIRST CHESS PIECE ***
