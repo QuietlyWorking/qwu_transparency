@@ -5,6 +5,8 @@
 
 # /// EPISODE ONE ///
 # /// ACT ONE ///
+*Lumala's voice. Teenage female speaking*
+*Scene: deep sea wind platform*
 For centuries, the legends of the Luminara has captivated the minds of explorers and dreamers alike. Whispers tell of their hidden hand, weaving through time’s tapestry—spreading secrets to rulers in shadowed halls, tilting the scales of power, and turning the tides of epic battles. Some say they’ve sculpted the very soul of civilization and philosophy, breathing life into art, literature, and myth.
 
 They're not wrong.
@@ -20,6 +22,8 @@ Then he'd laugh or cry and mutter about it breaking so easily. Always made me so
 That defiant stare is the last one I saw. He told me, "Find the pix. Lum Netsach", and then he was gone.
 
 *** SPLINTER INTO SEQUENCE ***
+*Lumala's voice*
+*Scene: Fly into Splinter logo transition and image/vid sequence*
 My name is Lamala.
 Today's my birthday! I just turned 17 and beginning the adventure of a lifetime. I'm still feeling the crushing pain of loosing my dad, but I'm driven by a purpose that feels larger than life, and definitely bigger than me and my feelings. Plus, it was my dad who entrusted it to me. 
 *** END INTRO SEQUENCE ***
@@ -152,7 +156,7 @@ Lumala uses a micro punch to push in and release the correct pins. As she releas
 
 She smiled at the thought and found comfort how much he loved her. She laughed to herself as see thought, "Okay Dad, let's figure out what I don't know."
 
-And it didn't take long... as she began opening cover, there was resistance. Not that she expected it to be, but this was no ordinary journal. She's pushed through the resistance and opened the cover flat on the table. Interesting, not a paper journal at all. There was a small handwritten note with Dad's writing loosely laying on a solid thick black object that looked like it was built into the journal and filled almost all of its area. 
+And it didn't take long... as she began opening the cover, there was resistance. Not that she expected it to be, but this was no ordinary journal. She's pushed through the resistance and opened the cover flat on the table. Interesting, not a paper journal at all. There was a small handwritten note with Dad's writing loosely laying on a solid thick black object that looked like it was built into the journal and filled almost all of its area. 
 
 The note said, " repeat these words out loud exactly as they're written phonetically. "
 
@@ -193,15 +197,15 @@ Lumala sat down and put her hands palms up on top of her legs. She then saw the 
 
 You can call me Ezer or Ez as your dad most often called me. 
 
-As Ez floated above her right palm, Lumala asked, "Sooo Ez, how did this work."
+As Ez floated above her right palm, Lumala asked, "Sooo Ez, how does this work?"
 
 "Well, all I need to do is make contact and the process will begin. I won't start until you say you're ready. ... ready?"
 
 She did a quick internal SDF, then said, "I'm ready."
 
-With that, Ez gently placed an arm on each finger of her right palm and the other three rotated in a circle pattern on the palm. Lumala felt the light pressure of Ez's touch along with a subtle tingling feeling, as if a light electrical charge was starting at her fingertips and slowly moving up to the to of her head. Almost immediately as the feeling reached the top of her head, Ez stopped and floated over to her left hand and duplicated the process exactly like the first. Once Ez completed the process, he floated back to the table, "All done most precious one. We're both gonna need a long rest after that. Hydrate, then lie down quickly... within 15min you won't get to choose where you're lying for the next 12 hours hahaha. I'm gonna have to power down so chop chop."
+With that, Ez gently placed an arm on each finger of her right palm and the others rotated in a circle pattern on the palm. Lumala felt the light pressure of Ez's touch along with a subtle tingling feeling, as if a light electrical charge was starting at her fingertips and slowly moving up to the to of her head. Almost immediately as the feeling reached the top of her head, Ez stopped and floated over to her left hand and duplicated the process exactly like the first. Once Ez completed the process, he floated back to the table, "All done most precious one. We're both gonna need a long rest after that. Hydrate, then lie down quickly... within 15min you won't get to choose where you're lying for the next 12 hours hahaha. I'm gonna have to power down so chop chop."
 
-Lumala chugged some water, washed her face, and just got to get bed when it hit her... lights out! She just got out a, "So this is what yoouuuu m..." as her head hit the pillow. They were both out for 20 hours.
+Lumala chugged some water, washed her face, and just got to the bed when it hit her... lights out! She just got out a, "So this is what yoouuuu m..." as her head hit the pillow. They were both out for 20 hours.
 
 
 //Over the next two months she learns to navigate her new powers and what it's like to share thoughts with Ez...//
@@ -267,6 +271,13 @@ Here's the tough part. There are others who will always be looking for Splinter.
 I am a descendant of the first Lum, so you are a descendent of the first Lum. He came to this planet before humans existed. He planted Splinter and gave her the purpose and orders she follows to this day...
 - Empower the Lum
 - Become undiscoverable by anyone other than the current Lum
+- Connect all Lum
+- Find the pix 
+
+Intelligent life was already plentiful. As soon as he came across Ez he knew he'd found a friend for life. But he chose this planet because it was clear to him that something very special and rare was about to happen. As it was explained to me, "There are often Therion (animals), but extremely rarely Theriokrator (ruler of all animals), and this is to be treasured, guided, and protected." All are varied and different, but here seems to be common attributes and tendencies within all Theriokrator as they develop. 
+One of these most detrimental is the "Šumma zid kauśala"... Randomness of life being interpreted as skill. 
+And
+Over long periods of time, the perversion of that randomness coalescing an abundance of power among very few.
 
 He befriended Ezer 
 
@@ -365,7 +376,9 @@ Hmm chess pieces... He was moving life chess pieces around. He showed me we're e
 
 ***
 
-Natural talent is a piece of a much larger puzzle. We don't get to pick those. But true fulfilled talent is the result of a level of work most aren't willing to exert. A good life, distilled to its most elemental form is a stone with the sides. [Philippi puts a stone in lumala's hand ] The three sided stone is engraved with Diligentia | Eudaimonia | Succurrere one word on each side. In English, Work Hard | Enjoy Life | Help Others. You build a life on that, and you can be at peace.
+Natural talent is a piece of a much larger puzzle. We don't get to pick those. But true fulfilled talent is the result of a level of work most aren't willing to exert. 
+
+A good life, distilled to its most elemental form is a stone with the sides. [Philippi puts a stone in lumala's hand ] The three sided stone is engraved with Diligentia | Eudaimonia | Succurrere one word on each side. In English, Work Hard | Enjoy Life | Help Others. You build a life on that, and you can be at peace.
 
 Work Hard = Diligentia
 Enjoy Life = Eudaimonia
@@ -385,6 +398,9 @@ Igby
 
 Strict diet of limitation, exercise, and never skipping on sleep stretches the effects to it's limit. I'll be 242 in a month. 
 
+Tax the rich
+Feed the poor
+Till there ain't no rich no more
 
 Great guess but they are just really thin letter/number punches they would use to engrave nearly invisible serial numbers into their archeological finds after cleaning them up for purchase. She choose to use the o punch so it wouldn't slip on the little pins inside the lock (she's a smart one).😁
 
@@ -393,7 +409,16 @@ Great guess but they are just really thin letter/number punches they would use t
 
 - Magic of feeling small and large at the same time.
 
-- 
+- Wounds can become superpowers, but until fully healed you can bleed all over the folks around you. 
+
+- Shared cognition... Maybe using Ez as a way to demonstrate it's benefits in our lives with others. 
+
+- Being willing to absolutely suck at something long enough to be great.
+
+- Don't deplete your potential energy by sharing before completion.
+
+- Planned resistance 
+
 # Terms and Maps 
 
 Lum = The deep pool that's created at the bend of a river, or the opening of the clouds. 
@@ -802,3 +827,117 @@ Citations:
 [3] Koinonos - Wikipedia https://en.wikipedia.org/wiki/Koinonos
 [4] "A Suitable Helper" (in the Septuagint) - Marg Mowczko https://margmowczko.com/a-suitable-helper-in-the-septuagint/
 [5] A Suitable Helper (in Hebrew) - Marg Mowczko https://margmowczko.com/a-suitable-helper/
+
+
+is there an ancient word for "dominant animal" that could possible refer to humanity?
+
+Based on the search results and etymological information provided, there isn't a specific ancient word that directly translates to "dominant animal" referring to humanity. However, we can construct a term using ancient Greek roots that could convey this meaning. 
+
+The most appropriate term we can derive from ancient Greek would be "therioanthropos" (θηριάνθρωπος). This compound word combines two key elements:
+
+1. "Therion" (θηρίον): This word means "wild animal" or "beast"[3]. It's derived from "ther" (θήρ), which refers to any kind of wild animal, especially those that were commonly hunted.
+
+2. "Anthropos" (ἄνθρωπος): This means "human being" or "man" (in the sense of humankind).
+
+By combining these elements, "therioanthropos" could be interpreted as "beast-man" or "animal-human," which could imply a dominant or superior animal-like human.
+
+It's worth noting that this term is not attested in ancient Greek literature, but it follows the pattern of word formation in the language. The concept aligns with the idea of humans as the dominant species, combining our animal nature with our unique human characteristics.
+
+Alternatively, if we want to emphasize the dominance aspect, we could consider using the root "krat-" (κρατ-) from "kratos" (κράτος), meaning "power" or "strength"[2]. This gives us:
+
+- Theriokrator (θηριοκράτωρ): "beast-ruler" or "animal-dominator"
+
+These constructed terms, while not historically used, could serve as a scientifically plausible way to describe humanity as the dominant animal species in a fictional or worldbuilding context.
+
+Citations:
+[1] what is a "beast-men' called in your world? : r/worldbuilding - Reddit https://www.reddit.com/r/worldbuilding/comments/186mbai/what_is_a_beastmen_called_in_your_world/
+[2] Aristocracy - Wikipedia https://en.wikipedia.org/wiki/Aristocracy
+[3] θηρίον - Wiktionary, the free dictionary https://en.wiktionary.org/wiki/%CE%B8%CE%B7%CF%81%CE%AF%CE%BF%CE%BD
+[4] Dominant Definition and Examples - Biology Online Dictionary https://www.biologyonline.com/dictionary/dominant
+[5] The New Testament Greek word: θηριον - Abarim Publications https://www.abarim-publications.com/DictionaryG/th/th-et-r-i-o-n.html
+[6] Etymology of dominion by etymonline https://www.etymonline.com/word/dominion
+[7] dominion, n. meanings, etymology and more | Oxford English ... https://www.oed.com/dictionary/dominion_n?tl=true
+
+
+Creating a phrase in extremely ancient languages to convey the idea of "Randomness of life foolishly interpreted as skill" would involve drawing from multiple linguistic traditions. Here's how this might be approached:
+
+Step 1: Decompose the Idea
+
+Randomness of life: Ideas of randomness or chance often relate to fate or fortune in ancient languages.
+
+Foolishly interpreted: This involves misunderstanding or misjudging, often connected with folly or ignorance.
+
+Skill: Skill might be described in terms of craft, ability, or knowledge.
+
+
+Step 2: Identify Ancient Language Roots
+
+Here are a few potential sources:
+
+Sumerian: One of the first written languages.
+
+Akkadian: Used in Mesopotamia, it has rich vocabulary for fate and wisdom.
+
+Ancient Greek: Offers nuanced philosophical terms.
+
+Sanskrit: Rich in metaphysical and philosophical ideas.
+
+Latin: Often used for abstractions.
+
+
+Step 3: Combine Words
+
+Here’s a possible reconstruction using simplified forms and meanings:
+
+1. Randomness/Chance:
+
+Sumerian: Šumma (related to divination, fate)
+
+Greek: Tyche (chance, fortune)
+
+Latin: Fortuna (luck, fate)
+
+
+
+2. Life:
+
+Sumerian: Zid (life, breath)
+
+Sanskrit: Jīva (life, living being)
+
+
+
+3. Foolishness:
+
+Greek: Mōria (folly)
+
+Latin: Stultitia (foolishness)
+
+
+
+4. Skill:
+
+Greek: Technē (craft, skill)
+
+Sanskrit: Kauśala (skill, art)
+
+
+
+
+Suggested Combination:
+
+From Greek and Latin:
+"Tyche mōria technē"
+(Chance as foolishness interpreted as skill)
+
+From Sumerian and Sanskrit:
+"Šumma zid kauśala"
+(Randomness of life mistaken for skill)
+
+How It Works:
+
+Each phrase is a succinct attempt to encapsulate the idea by combining roots with deep cultural meanings.
+
+Phonetic combinations depend on style and purpose (e.g., poetic, philosophical, mystical).
+
+
