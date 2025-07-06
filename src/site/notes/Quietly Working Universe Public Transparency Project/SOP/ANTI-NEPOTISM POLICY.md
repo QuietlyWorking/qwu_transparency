@@ -2,7 +2,8 @@
 {"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/sop/anti-nepotism-policy/","noteIcon":""}
 ---
 
-# THE QUIETLY WORKING FOUNDATION
+# ANTI-NEPOTISM POLICY
+## The Quietly Working Foundation
 
 **Effective Date:** [Once Approved by BOD]  
 
