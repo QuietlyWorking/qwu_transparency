@@ -9,7 +9,7 @@ Domain used: https://meeting.quietlyworking.org
 The online meeting world #OMW exists to provide a place for the people of the #QWU to come together no matter when in the world you currently are.
 
 ## Rules 
-The #OMW is a place of hope, love, joy, and peace. The [[QWU Values\|QWU Values]] will reign throughout this community, and it's rules will support those values in action.
+The #OMW is a place of hope, love, joy, and peace. The [[Quietly Working Universe Public Transparency Project/QWU Values\|QWU Values]] will reign throughout this community, and it's rules will support those values in action.
 - We accept
 
 ## Sketch
