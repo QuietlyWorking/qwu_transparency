@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/intellectual-property-rights-and-open-source-with-attribution/","tags":["Intellectual","Property","openSource","attribution"],"noteIcon":""}
+{"dg-publish": true, "permalink": "/quietly-working-universe-public-transparency-project/intellectual-property-rights-open-source-with-attribution/", "noteIcon": "", "tags": ["Intellectual", "Property", "openSource", "attribution"]}
 ---
-
 # Intellectual Property Rights & Open Source with Attribution
 
 We are openly mirroring the philosophy of the [MIT Library](https://libraries.mit.edu/scholarly/about/creative-commons/) by stating that all Quietly Working organizations and projects carry the designation Licensed under the Creative Commons License unless otherwise noted.

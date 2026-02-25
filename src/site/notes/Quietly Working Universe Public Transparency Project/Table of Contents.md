@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/table-of-contents/","tags":["QWU","QWF","IYSR","MP","ACoFH","HTR","WOH","TIG","gardenEntry"],"noteIcon":""}
+{"dg-publish": true, "permalink": "/quietly-working-universe-public-transparency-project/table-of-contents/", "noteIcon": "", "dg-home": true, "tags": ["QWU", "QWF", "IYSR", "MP", "ACoFH", "HTR", "WOH", "TIG", "gardenEntry"]}
 ---
-
 # Table of Contents
 
 ## About this site
@@ -70,4 +69,3 @@ Org Name
 - Flowchart 
 
 Updated on dg-updated
-

@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/qwu-values/","noteIcon":""}
+{"dg-publish": true, "permalink": "/quietly-working-universe-public-transparency-project/qwu-values/", "noteIcon": ""}
 ---
-
 # QWU Values
 Our values create the gravity for our world. The stronger values are believed, the more effective rules of action can be created and adhered to.
 
@@ -12,4 +11,4 @@ This is love as an action. An active choice to put others before ourselves. An a
 
 It's important to clarify that you can not like someone, or not like their personal values or beliefs, all while still choosing actions that are of a more loving nature.
 
-### Courage 
+### Courage

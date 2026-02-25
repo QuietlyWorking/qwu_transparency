@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/locals-4-good/","noteIcon":""}
+{"dg-publish": true, "permalink": "/quietly-working-universe-public-transparency-project/locals-4-good/", "noteIcon": ""}
 ---
-
 # Locals 4 Good
 
 
@@ -240,4 +239,3 @@ Each color tells the story of its month, flowing naturally through the seasons w
 > **Design Note**: All colors are specifically crafted to be distinguishable from each other while maintaining the same light, airy pastel quality. Each represents the unique character, holidays, and natural phenomena that make each month special.
 
 ---
-

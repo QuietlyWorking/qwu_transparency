@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/qwu-online-meeting-world-omw/","noteIcon":""}
+{"dg-publish": true, "permalink": "/quietly-working-universe-public-transparency-project/qwu-online-meeting-world-omw/", "noteIcon": ""}
 ---
-
 # QWU Online Meeting World (OMW)
 Domain used: https://meeting.quietlyworking.org
 
@@ -26,4 +25,4 @@ The #OMW is a place of hope, love, joy, and peace. The [[Quietly Working Univers
 			1. If they think they have a meeting with Chaplain TIG, please text me their contact info to (949) 371-5844.
 
 
-[[003 Humans, Orgs and Tools/Missing Pixel Project (The)/Splinter/Splinter - Luminara Story for MP\|Splinter - Luminara Story for MP]]
+[[Splinter - Luminara Story for MP]]

@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/100-resources/unreal-engine-hotkeys/","noteIcon":""}
+{"dg-publish": true, "permalink": "/100-resources/unreal-engine-hotkeys/", "noteIcon": ""}
 ---
-
 please consider the different tool groups in unreal engine 5.4 and create a list of hotkeys for each. please create this in markdown format.
 
 Here's a comprehensive list of hotkeys for different tool groups in Unreal Engine 5.4, organized in markdown format:

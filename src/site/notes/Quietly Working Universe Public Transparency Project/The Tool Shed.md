@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"permalink":"/quietly-working-universe-public-transparency-project/the-tool-shed/","tags":["#todo"],"noteIcon":""}
+{"dg-publish": true, "permalink": "/quietly-working-universe-public-transparency-project/the-tool-shed/", "noteIcon": ""}
 ---
-
 # The QWU Tool Shed
 This is a list of the tools we use and the people behind them. Over time, we will detail 
 - How we use then
