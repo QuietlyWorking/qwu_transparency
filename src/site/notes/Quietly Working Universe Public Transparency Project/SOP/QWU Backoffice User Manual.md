@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-26 07:51 | Source version: 3.14
+> Generated: 2026-02-26 08:31 | Source version: 3.14
 
 # QWU Backoffice User Manual
 
@@ -83,9 +83,11 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 64. [[#QWR Press Release Service ⭐ NEW]]
 65. [[#Cost Intelligence System ⭐ NEW]]
 66. [[#QWR Reverse Benchmarking Intelligence ⭐ NEW]]
-67. [[#QWF Ecosystem Landing Section ⭐ NEW]]
-68. [[#Auto-Remediation System ⭐ NEW]]
-69. [[#Session Log]]
+67. [[#QWR Content Strategy System ⭐ NEW]]
+68. [[#QWR Preparation Workbook ⭐ NEW]]
+69. [[#QWF Ecosystem Landing Section ⭐ NEW]]
+70. [[#Auto-Remediation System ⭐ NEW]]
+71. [[#Session Log]]
 
 ---
 
@@ -3793,7 +3795,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.14 by generate_public_manual.py"
-generated: "2026-02-26 07:51"
+generated: "2026-02-26 08:31"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -6731,7 +6733,7 @@ draft → approved → scheduled → published/posted
 
 The Quietly Writing (QWR) app uses an n8n workflow to generate articles with optional Perplexity deep research and persona-targeted content generation.
 
-### Architecture (v5.0)
+### Architecture (v6.0)
 
 ```
 Webhook (POST /generate-article)
@@ -6767,6 +6769,8 @@ Check Research Type (IF node)
 All error outputs route to a Discord Error Alert node.
 
 **v5.0 additions:** If the article has a `persona_id`, the workflow fetches the persona's profile (demographics, pain points, objections, communication preferences) and injects it into the AI prompt so the article speaks directly to that reader. Living document enrichment (voice phrases, tonal qualities, thematic patterns) from the brand is also included for more authentic output.
+
+**v6.0 additions:** When `gap_opportunity_id` is present, fetches the full gap with evidence and injects it as the article's primary angle. Customer language injection from Reddit-derived terms, phrases, and questions. Keyword-matches against active gaps (score >= 40) for standard articles. Content strategy matching: if the article has a `content_strategy_id`, fetches the strategy's platform, expertise level, style guide, and target persona for strategy-aware generation.
 
 ### Key Details
 
@@ -6868,7 +6872,7 @@ The Audience Intelligence system enables persona-targeted article generation. Us
 | Living Documents table | Supabase | `living_documents` | Google Docs linked for voice enrichment |
 | Interview Webhook | n8n workflow | `nbUJ57ZFAjttguu4` | Handles `start`/`message` commands for conversational persona interviews |
 | Living Doc Sync | n8n workflow | `tvi5z83IrONMO40U` | Weekly sync: fetches Google Docs, extracts voice patterns via Claude |
-| Article Gen v5.0 | n8n workflow | `7NxSNqAg6aY97ZXl` | Reads persona context + living doc enrichment for targeted generation |
+| Article Gen v6.0 | n8n workflow | `7NxSNqAg6aY97ZXl` | Reads persona context + living doc enrichment + gap evidence + content strategy for targeted generation |
 | PersonaSelector | Lovable component | `PersonaSelector.tsx` | Dropdown in article creation flow |
 | usePersonas hook | Lovable hook | `usePersonas.ts` | Fetches active personas by brand |
 
@@ -7497,7 +7501,7 @@ QNT is the BNI chapter management arm of the QWF product family:
 - **Aim High BNI → QNT:** First alpha tenant (27 members), production test environment
 - **Shared Infrastructure:** Enrichment scripts inherited from Aim High backoffice (65+ scripts)
 
-### Key Features (30 Lovable Prompts)
+### Key Features (39 Lovable Prompts)
 
 | Phase | Feature | Prompts |
 |-------|---------|---------|
@@ -7525,6 +7529,12 @@ QNT is the BNI chapter management arm of the QWF product family:
 | Historical Import | CSV upload, column mapping, batch insert | 028 |
 | Alpha Polish | Alpha badge, bug reporter, alpha gate on landing page | 029 |
 | Branding | Official logo, fern icon, favicon suite, OG/Twitter meta | 030 |
+| Heritage | "Tested. Proven. Now Yours." heritage section | 031 |
+| Newsletter | 3-step composer, 11 section types, template management | 032-033 |
+| Recognition | "You Got Caught" member appreciation system | 034 |
+| Web Archive | Public newsletters, Chapter Impact stats, recognition widget | 035 |
+| Landing Refresh | MissionBanner, Ecosystem, Contact, updated features/pricing | 036 |
+| Botanical Palette | Logo-derived Forest/Fern/Bud color system, migraine-friendly | 037-039 |
 
 ### Support Tiers
 
@@ -7541,27 +7551,30 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 - **Visitor enrichment:** LinkedIn lookup → profile → website → reviews → Claude Opus 4.6 synthesis
 - **Connection reports:** AI-generated per-member reports for each visitor
 
-### Current State (February 16, 2026)
+### Current State (February 26, 2026)
 
 | Component | Status |
 |-----------|--------|
 | Supabase project | ACTIVE_HEALTHY — `caeiaprjizteokoenzad` |
-| Lovable prompts | 30 of 30 deployed |
-| Backend brain | Deployed — visitor enrichment + roster sync end-to-end |
+| Lovable prompts | 39 of 39 deployed |
+| Backend brain | Deployed — visitor enrichment + roster sync + newsletter pipeline end-to-end |
 | Stripe | Configured (TEST MODE) — 2 products, 4 prices, webhook |
 | Alpha tenant | Aim High BNI — 27 members (17 active, 2 on leave, 8 alumni), 2,373 historical visitors imported |
 | Timezone fix | Prompt 021 deployed — 8 affected areas fixed |
-| Database | 18 tables, 8 migrations, full RLS |
+| Database | 25 tables, 10 migrations, full RLS |
+| Newsletter system | 3-step composer, 11 section types, template management, send-newsletter edge function |
+| Recognition engine | "You Got Caught" member appreciation with public web archive |
+| Landing page | Botanical color palette (Forest/Fern/Bud), warm cream nav bar, full-color logo, contact form |
 | Alpha readiness | Alpha badge, bug reporter, landing page alpha gate (Prompt 029) |
-| Branding | Custom logo, fern icon, favicon suite deployed (Prompt 030) |
+| Branding | Custom logo, fern icon, favicon suite, botanical palette deployed |
 
 ### Reference
 
 - **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-networking` (Lovable-managed; `ARCHITECTURE.md` at root)
 - **System Status:** `002 Projects/_Quietly Networking/QNT-System-Status.md`
-- **Lovable Prompts:** `002 Projects/_Quietly Networking/lovable-prompts/001-030`
-- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py`, `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`
-- **Edge Functions:** `enrich-visitor`, `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`
+- **Lovable Prompts:** `002 Projects/_Quietly Networking/lovable-prompts/001-039`
+- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py`, `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`
+- **Edge Functions:** `enrich-visitor`, `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`, `send-newsletter`, `submit-contact-form`
 
 ---
 
@@ -8034,7 +8047,7 @@ The power is in the cross-reference: when competitor reviews say "reporting is w
 | `qwr_review_analyzer.py` | Python script | Built — Claude FLAGSHIP with thinking |
 | `qwr_reddit_scraper.py` | Python script | Built — PRAW-based subreddit scraping |
 | `qwr_reddit_analyzer.py` | Python script | Built — pain points, unmet needs, customer language |
-| `qwr_gap_opportunity_generator.py` | Python script | Built — cross-references sources → scored gaps |
+| `qwr_gap_opportunity_generator.py` v2.0.0 | Python script | Built — cross-references sources → scored gaps + content strategy matching (`suggested_strategy_id`) |
 | `qwr_competitor_intel.py` v2.0.0 | Extended | Added review scraping trigger |
 | `qwr_opportunity_scorer.py` v2.0.0 | Extended | Added gap opportunity scoring |
 | `qwr_update_article_gen_workflow.py` v2.0.0 | Extended | Article gen v5.0 → v6.0 |
@@ -8057,7 +8070,7 @@ The power is in the cross-reference: when competitor reviews say "reporting is w
 | `reddit_posts` | Raw scraped Reddit posts/comments |
 | `review_analysis` | Claude analysis output (strengths, weaknesses, gaps as JSONB) |
 | `reddit_analysis` | Claude analysis output (pain_points, unmet_needs, customer_language as JSONB) |
-| `gap_opportunities` | Scored content gaps (title, gap_type, score 0-100, source_evidence, suggested_angles) |
+| `gap_opportunities` | Scored content gaps (title, gap_type, score 0-100, source_evidence, suggested_angles, suggested_strategy_id) |
 
 ### Article Gen v6.0 Integration
 
@@ -8259,4 +8272,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-26 07:51 (v3.14)*
+*Last updated: 2026-02-26 08:31 (v3.14)*
