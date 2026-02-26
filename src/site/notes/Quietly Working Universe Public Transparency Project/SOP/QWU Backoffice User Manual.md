@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-26 08:31 | Source version: 3.14
+> Generated: 2026-02-26 08:33 | Source version: 3.15
 
 # QWU Backoffice User Manual
 
-**Version: 3.14 | Started: 251223 | Updated: 260226**
+**Version: 3.15 | Started: 251223 | Updated: 260226**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3794,8 +3794,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.14 by generate_public_manual.py"
-generated: "2026-02-26 08:31"
+source: "Auto-generated from private manual v3.15 by generate_public_manual.py"
+generated: "2026-02-26 08:33"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8115,6 +8115,178 @@ Gaps scoring 40+ are surfaced to article generation. Gaps scoring 70+ trigger Di
 
 ---
 
+## QWR Content Strategy System ⭐ NEW
+
+**Added: February 26, 2026**
+
+The Content Strategy System adds strategy-aware article generation to QWR. Supporters define named content strategies (e.g., "LinkedIn Thought Leadership for CMOs") that combine a target persona, platform, expertise level, and style guide. The article generation pipeline uses this context to produce platform-optimized content.
+
+### Architecture
+
+```
+STRATEGY CREATION (Frontend)
+  └── /brands → Strategy Settings tab
+       └── Create strategy: name, goal, persona_id, platform, expertise, style_guide
+            └── content_strategies table (Supabase)
+
+GAP → STRATEGY MATCHING
+  └── qwr_gap_opportunity_generator.py v2.0
+       └── Cross-references gap_opportunities with content_strategies
+       └── Sets suggested_strategy_id on gaps that match a strategy's persona/platform
+
+ARTICLE GENERATION (v6.0)
+  └── If content_strategy_id in webhook body:
+       └── Fetches strategy + target persona + platform rules
+       └── Generates platform-optimized article
+```
+
+### Components
+
+| Component | Type | Status |
+|-----------|------|--------|
+| `content_strategies` table | Supabase | Deployed — stores strategy configs per brand |
+| `qwr_gap_opportunity_generator.py` v2.0.0 | Python script | Built — adds `suggested_strategy_id` to matching gaps |
+| Article Gen v6.0 | n8n workflow `7NxSNqAg6aY97ZXl` | Deployed — reads strategy context for generation |
+| Lovable: Strategy Settings (065) | Frontend | Executed — CRUD for content strategies |
+| Lovable: Landing Page v3.0 (066) | Frontend | Executed — updated landing page with Content Strategy messaging |
+
+### Database Tables
+
+| Table | Purpose |
+|-------|---------|
+| `content_strategies` | Strategy configs: name, goal, persona_id, platform, expertise_level, style_guide, brand_id |
+| `gap_opportunities.suggested_strategy_id` | FK to content_strategies — set by gap generator when a gap matches a strategy |
+
+### Content Strategy Fields
+
+| Field | Purpose | Example |
+|-------|---------|---------|
+| `name` | Human-readable strategy name | "LinkedIn Thought Leadership for CMOs" |
+| `goal` | What the strategy achieves | "Establish authority in marketing automation" |
+| `persona_id` | Target persona (FK) | Links to `personas` table |
+| `platform` | Target platform | `linkedin`, `blog`, `twitter`, `newsletter` |
+| `expertise_level` | Content depth | `beginner`, `intermediate`, `expert` |
+| `style_guide` | Writing style notes | "Conversational but authoritative, use data" |
+
+### Reference
+
+- **System Status:** `002 Projects/_QWR Quietly Writing App/QWR-System-Status.md` → Content Strategy section
+- **Development Plan:** `002 Projects/_QWR Quietly Writing App/QWR-Content-Strategy-Development-Plan.md`
+
+---
+
+## QWR Preparation Workbook ⭐ NEW
+
+**Added: February 26, 2026**
+
+The Preparation Workbook is an interactive, AI-guided pre-signup experience at `/prepare`. Visitors build their content strategy through a 6-chapter conversational journey — without creating an account. This replaces the traditional "sign up and figure it out" onboarding with a value-first approach.
+
+### Architecture
+
+```
+VISITOR (no auth required)
+  └── /prepare route
+       └── 6 chapters, sequential progression
+            ├── Ch 1: Brand Discovery (AI conversation)
+            ├── Ch 2: Voice Discovery (URL input + AI conversation)
+            ├── Ch 3: Audience Discovery (AI conversation)
+            ├── Ch 4: Platform Selection (grid, no AI)
+            ├── Ch 5: Strategy Builder (AI conversation)
+            └── Ch 6: Review & Export (summary + PDF + signup CTA)
+
+BACKEND
+  └── n8n webhook (POST /qwr-workbook)
+       └── SSH to backoffice VM
+            └── qwr_workbook_engine.py
+                 └── workbook_sessions table (Supabase, anon RLS)
+
+POST-SIGNUP IMPORT
+  └── /signup?workbook={session_id}
+       └── import-workbook edge function (--no-verify-jwt)
+            └── Creates brand, personas, content_strategies from workbook seeds
+```
+
+### Components
+
+| Component | Type | Status |
+|-----------|------|--------|
+| `workbook_sessions` table | Supabase | Deployed — anon RLS policies for public access |
+| `qwr_workbook_engine.py` v1.0.0 | Python script | Built — 4 AI chapter types, 7 commands, magic link resume |
+| n8n: Workbook Webhook | Workflow `8S3sUIaYvJXhdzPg` | Deployed — `/webhook/qwr-workbook` |
+| Lovable: Preparation Workbook (067) | Frontend | Executed — `/prepare` route with chat UI |
+| `import-workbook` | Supabase Edge Function | Deployed — converts workbook seeds to full records |
+
+### Database: workbook_sessions
+
+| Column | Type | Purpose |
+|--------|------|---------|
+| `id` | UUID (PK) | Session identifier |
+| `email` | text | Optional — for save-and-resume |
+| `supporter_id` | UUID (FK) | Set after signup/import |
+| `status` | text | `active`, `completed`, `imported`, `abandoned` |
+| `current_chapter` | int | 1-6 progress tracker |
+| `chapters_completed` | int[] | Array of completed chapter numbers |
+| `chapter_data` | JSONB | Per-chapter metadata (phases, message counts) |
+| `brand_seed` | JSONB | Extracted: company, industry, differentiators, positioning |
+| `voice_seed` | JSONB | Extracted: core attributes, tone spectrum, A/B choices |
+| `persona_seeds` | JSONB | Extracted: array of personas with demographics, pain points, goals |
+| `platform_selections` | JSONB | User-selected platforms (up to 12 options) |
+| `strategy_seeds` | JSONB | Extracted: strategies linking persona + platform + expertise |
+| `conversation_histories` | JSONB | Per-chapter message arrays |
+| `magic_link_token` | text | 30-day token for cross-device resume |
+| `magic_link_expires_at` | timestamptz | Token expiry |
+| `imported_at` | timestamptz | When workbook was imported post-signup |
+
+### AI Conversation Flow
+
+Each AI chapter (1, 2, 3, 5) follows a 3-phase progressive methodology:
+
+1. **Discovery** — Open-ended questions to understand the visitor's situation
+2. **Clarification** — Targeted follow-ups based on extracted data gaps
+3. **Documentation** — Summary and confirmation of what was captured
+
+Phase transitions are configurable per chapter with `min_questions` and `min_completeness` thresholds. Every 4 messages (or on phase change), Claude STANDARD extracts structured data from the conversation into the chapter's seed field.
+
+### Context Threading
+
+Each chapter builds on previous chapters:
+- Chapter 2 (Voice) receives brand context from Chapter 1
+- Chapter 3 (Audience) receives brand + voice context
+- Chapter 5 (Strategy) receives brand + voice + persona + platform context
+
+### Save and Resume
+
+- **Magic link:** Visitor enters email → receives a token → can resume on any device within 30 days
+- **No auth required:** The workbook operates entirely on anon RLS policies
+- **Session ID:** Used as de facto access control (UUID is unguessable)
+
+### Post-Signup Import
+
+When a visitor signs up with `?workbook={session_id}`:
+1. Edge function `import-workbook` reads the workbook session
+2. Creates `brands` record from `brand_seed`
+3. Creates `personas` records from `persona_seeds`
+4. Creates `content_strategies` from `strategy_seeds`
+5. Sets `supporter_id` and `imported_at` on the workbook session
+
+### Reference
+
+- **System Status:** `002 Projects/_QWR Quietly Writing App/QWR-System-Status.md`
+- **Development Plan:** `002 Projects/_QWR Quietly Writing App/QWR-Content-Strategy-Development-Plan.md` (Phase 4)
+- **Prompt:** `002 Projects/_QWR Quietly Writing App/067-lovable-prompt-preparation-workbook.md`
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| Conversational AI with phase transitions | LLM prompt engineering, state machines, progressive extraction | ⭐⭐⭐ |
+| Anon RLS policies for public features | Supabase auth model, Row Level Security, access control patterns | ⭐⭐ |
+| Magic link authentication pattern | Token generation, expiry management, cross-device UX | ⭐⭐ |
+| Chat UI with typing indicators | React state management, WebSocket-like UX patterns, auto-scroll | ⭐⭐ |
+| Post-signup data import flow | Edge functions, data transformation, multi-table inserts | ⭐⭐⭐ |
+
+---
+
 ## QWF Ecosystem Landing Section ⭐ NEW
 
 **Added: February 18, 2026**
@@ -8272,4 +8444,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-26 08:31 (v3.14)*
+*Last updated: 2026-02-26 08:33 (v3.15)*
