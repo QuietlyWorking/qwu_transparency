@@ -130,6 +130,8 @@ As of February 2026, QWF runs on:
 
 Total monthly cost for all of this: less than you'd think. Several of our highest-scored tools have free tiers generous enough to run real operations on. That's Heart in action.
 
+> **Are you a nonprofit?** Check out our [[Quietly Working Universe Public Transparency Project/Nonprofit Tech Access Guide\|Nonprofit Tech Access Guide]] — a transparent, experience-based guide to every free and discounted tech program we've found, with honest notes on what the application process actually looks like.
+
 ---
 
 ## What's Coming: The Quietly Working Shed (QWS)
@@ -160,5 +162,5 @@ A few principles we hold ourselves to:
 
 ---
 
-*Last updated: 2026-02-25*
+*Last updated: 2026-02-26*
 *Tool count and scores are living data. See [[Quietly Working Universe Public Transparency Project/Table of Contents\|Home]] for more about this transparency site.*

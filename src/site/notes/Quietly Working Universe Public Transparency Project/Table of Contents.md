@@ -24,7 +24,9 @@
 <br>
 ## Tools
 These are the tools that the #QWU uses.
-It's currently very incomplete, but feel free to checkout the beginnings of our [[Quietly Working Universe Public Transparency Project/Code and Tips Swipe Page\|Code and Tips Swipe Page]].
+- [[Quietly Working Universe Public Transparency Project/The Tool Shed\|The QWU Tool Shed]] — All 48+ tools we use, scored on Heart, Soul, and 12 other metrics
+- [[Quietly Working Universe Public Transparency Project/Nonprofit Tech Access Guide\|Nonprofit Tech Access Guide]] — Free and discounted tech programs for nonprofits, with honest application notes
+- [[Quietly Working Universe Public Transparency Project/Code and Tips Swipe Page\|Code and Tips Swipe Page]] — Code snippets and tips from our work
 
 ### QWU CRM & Family Portal
 family.quietlyworking.org
