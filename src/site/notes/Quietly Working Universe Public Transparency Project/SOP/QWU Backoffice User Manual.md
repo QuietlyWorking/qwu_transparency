@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-26 04:12 | Source version: 3.13
+> Generated: 2026-02-26 07:51 | Source version: 3.14
 
 # QWU Backoffice User Manual
 
-**Version: 3.13 | Started: 251223 | Updated: 260226**
+**Version: 3.14 | Started: 251223 | Updated: 260226**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3140,16 +3140,44 @@ Every SOP includes at the bottom:
 
 ### Publishing to Transparency Site
 
-Notes with `dg-publish: true` become eligible for transparency.quietlyworking.org.
+Notes with `dg-publish: true` in YAML frontmatter become eligible for transparency.quietlyworking.org. Publishing is fully automated — no Obsidian Digital Garden plugin needed.
 
-**To publish:**
-1. Ensure note is in appropriate folder
-2. Add `dg-publish: true` to frontmatter
-3. Sync runs automatically
+**How it works:**
+1. `sync_transparency_site.py` scans the vault for all `.md` files with `dg-publish: true` in YAML frontmatter
+2. Transforms each file: YAML frontmatter → JSON frontmatter, generates permalink, resolves wikilinks
+3. Pushes to `QuietlyWorking/qwu_transparency` GitHub repo
+4. Vercel auto-deploys on push (~15 seconds)
+
+**To publish a note:**
+1. Add `dg-publish: true` to frontmatter
+2. Run: `python "005 Operations/Execution/sync_transparency_site.py" --json`
+3. Site updates live at transparency.quietlyworking.org
 
 **To keep private:**
-- Omit the field, or
-- Set `dg-publish: false`
+- Omit the field, or set `dg-publish: false`
+
+**Automated sync:**
+- After every `/session-wrap-up` (Step 3C)
+- Daily at 4 AM Pacific via n8n workflow `YnawyFKfnrOao12P`
+- Discord notification to `#system-status` on success/failure
+
+**Safety features:**
+- Private User Manual (`QWU Backoffice User Manual.md`) is blocklisted by filename stem — only the `[PUBLIC]` version passes
+- Leak detection scans for IP patterns, API tokens, SSH commands before pushing
+- `--dry-run` flag for previewing changes without pushing
+
+**Key files:**
+| File | Purpose |
+|------|---------|
+| `005 Operations/Execution/sync_transparency_site.py` | Sync script (v1.0.0) |
+| `005 Operations/Directives/sync_transparency_site.md` | Directive/SOP |
+| `005 Operations/Workflows/transparency-site-sync.json` | n8n workflow (daily 4 AM Pacific) |
+
+**Currently published pages (14 files):**
+- Table of Contents (home), QWU Values, Tool Shed, Nonprofit Tech Access Guide
+- QWC, Locals 4 Good, Code & Tips Swipe Page, OMW, IP Rights
+- 3 SOPs (User Manual [PUBLIC], BNI Workflow, Automation Workflow)
+- 2 Resource pages (Unreal Hotkeys, GoBrunch Media Note)
 
 ---
 
@@ -3764,8 +3792,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.13 by generate_public_manual.py"
-generated: "2026-02-26 04:12"
+source: "Auto-generated from private manual v3.14 by generate_public_manual.py"
+generated: "2026-02-26 07:51"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8231,4 +8259,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-26 04:12 (v3.13)*
+*Last updated: 2026-02-26 07:51 (v3.14)*
