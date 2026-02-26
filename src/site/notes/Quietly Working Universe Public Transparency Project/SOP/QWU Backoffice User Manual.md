@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-25 02:28 | Source version: 3.12
+> Generated: 2026-02-26 04:12 | Source version: 3.13
 
 # QWU Backoffice User Manual
 
-**Version: 3.12 | Started: 251223 | Updated: 260225**
+**Version: 3.13 | Started: 251223 | Updated: 260226**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -1367,23 +1367,34 @@ Agents live in `.claude/agents/`:
 
 ### MCP Server Configuration
 
-The workspace uses MCP (Model Context Protocol) servers for tool access:
+The workspace uses MCP (Model Context Protocol) servers for tool access. MCP servers are configured at the **project level** in `.mcp.json` (gitignored, contains tokens) and are **opt-in per session** to conserve memory.
 
-**File:** `.claude/mcp.json`
+**File:** `.mcp.json` (project root, NOT committed to git)
 
 ```json
 {
   "mcpServers": {
-    "vista-social": {
-      "url": "https://vistasocial.com/api/integration/mcp?api_key=YOUR_KEY"
+    "discord-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "discord-mcp@latest"],
+      "env": { "DISCORD_BOT_TOKEN": "..." }
+    },
+    "apify": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@apify/actors-mcp-server"],
+      "env": { "APIFY_TOKEN": "..." }
     }
   }
 }
 ```
 
-**Important:** For Docker environments, add MCP domains to firewall allowlist:
-- `vistasocial.com`
-- `n8n.quietlyworking.org`
+**Settings:** `.claude/settings.local.json` has `enableAllProjectMcpServers: false` — new sessions do NOT auto-spawn MCP servers. Enable per-session via `/mcp` when needed.
+
+**Why opt-in:** Each MCP server spawns ~3 Node.js processes (~160 MB). With 5 concurrent sessions, auto-spawning Discord MCP alone consumed 786 MB. Most sessions don't need Discord access, so opt-in saves significant memory on the 16 GB VM.
+
+**To enable Discord MCP in a session:** Use the `/mcp` command within the session to connect.
 
 ---
 
@@ -3753,8 +3764,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.12 by generate_public_manual.py"
-generated: "2026-02-25 02:28"
+source: "Auto-generated from private manual v3.13 by generate_public_manual.py"
+generated: "2026-02-26 04:12"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8220,4 +8231,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-25 02:28 (v3.12)*
+*Last updated: 2026-02-26 04:12 (v3.13)*
