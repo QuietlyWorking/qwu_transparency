@@ -64,7 +64,7 @@ Engaged communities, good stories, solid vendor partnership potential.
 | **Vista Social** | Social Media | ? | ? | **?** | Daily social media management. Needs research on company. |
 | **RackNerd** | Hosting | ? | ? | **?** | Budget VPS hosting. Our ESP runs on a $35/year VPS that actually works. |
 | **Amazon SES** | Email Delivery | 2 | 1 | **3.0** | Email sending at $0.10 per 1,000 emails. AWS is the opposite of founder-led, but unbeatable value. |
-| **Twilio** | Communications | 3 | 2 | **3.1** | SMS and voice. Public company, CEO change, but reliable and ubiquitous. |
+| **Twilio** | Communications | 5 | 2 | **3.5** | SMS and voice for all QWF communications. Twilio.org provides tools AND grant funds to nonprofits... we've never paid a penny. Their nonprofit program is EPIC. |
 | **GitHub** | Development | 3 | 1 | **3.3** | All our repos including this transparency site. Microsoft-owned, but the free tier is generous. |
 | **VS Code** | Development | 4 | 1 | **3.7** | Primary code editor. Microsoft-owned but fully open source, incredible community. |
 
