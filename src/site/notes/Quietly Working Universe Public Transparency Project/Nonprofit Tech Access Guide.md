@@ -136,14 +136,14 @@ Before diving into individual programs, you need to know about two organizations
 | **Difficulty** | Medium |
 | **Our Experience** | We apply for AWS credits through TechSoup annually. The amount varies and it's not guaranteed, but when approved it helps with cloud costs. Timing matters... we've had best luck applying in January/February. |
 
-### Atlassian Community Licenses
+### Atlassian Social Impact Licenses (formerly Community Licenses)
 | | |
 |---|---|
-| **What You Get** | Free Atlassian Cloud (Jira, Confluence, Trello) for qualifying organizations |
-| **Who Qualifies** | Registered nonprofits and charities |
-| **How to Apply** | atlassian.com/software/views/community-license-request |
-| **Difficulty** | Easy |
-| **Our Experience** | Haven't applied (we use Obsidian + n8n instead), but it's a strong option for nonprofits that need project management and documentation tools. |
+| **What You Get** | **100% off** annual cloud subscriptions (25 seats or less): Jira Standard/Premium, Confluence Standard/Premium, Loom Business/Business+AI, Teamwork Collection Standard/Premium |
+| **Who Qualifies** | Verified social impact organizations (501(c)(3) nonprofits) |
+| **How to Apply** | Visit admin.atlassian.com → Billing → Switch subscriptions to annual billing → 100% discount applied at next renewal |
+| **Difficulty** | Easy (if you're already an Atlassian customer) / Medium (new signup) |
+| **Our Experience** | We use Loom (previously 75% off for nonprofits). As of February 25, 2026, Atlassian upgraded to **100% off** for small social impact teams. That's Jira, Confluence, Loom, AND Teamwork Collection... completely free. This is one of the most generous nonprofit programs in tech. Heart Score: 5/5. |
 
 ---
 

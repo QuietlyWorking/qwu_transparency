@@ -85,7 +85,8 @@ Important tools, narrower audience, still worth reviewing honestly.
 | **Divi** | WordPress Theme | 3 | 5 | **3.8** | Nick Roach still leads Elegant Themes. Bootstrapped. |
 | **Discord** | Communication | 3 | 2 | **3.5** | Internal team communication. Free tier is incredible, community-first DNA. |
 | **Circle** | Community | ? | ? | **3.5** | Founder-led SaaS community platform. |
-| **Zoom** | Meetings | 3 | 2 | **3.0** | All QWF meetings. Eric Yuan still CEO, but it's a commodity tool. |
+| **Atlassian (Loom)** | Video/Productivity | 5 | 2 | **4.0** | We use Loom for video. As of Feb 2026, Atlassian offers **100% off** Jira, Confluence, Loom, and Teamwork Collection for social impact teams (25 seats or less). Previously 75% off. EPIC. |
+| **Zoom** | Meetings | 4 | 2 | **3.2** | All QWF meetings. 50% nonprofit discount via GoodStack (approved Feb 2026). Eric Yuan still CEO. |
 | **Google Workspace** | Productivity | 3 | 1 | **2.8** | Great product. Zero soul. We use it because everyone else does. |
 
 ---
