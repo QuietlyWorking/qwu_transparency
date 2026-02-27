@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-26 08:33 | Source version: 3.15
+> Generated: 2026-02-27 02:57 | Source version: 3.16
 
 # QWU Backoffice User Manual
 
-**Version: 3.15 | Started: 251223 | Updated: 260226**
+**Version: 3.16 | Started: 251223 | Updated: 260227**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3794,8 +3794,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.15 by generate_public_manual.py"
-generated: "2026-02-26 08:33"
+source: "Auto-generated from private manual v3.16 by generate_public_manual.py"
+generated: "2026-02-27 02:57"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -5382,7 +5382,7 @@ Previously created Outlook drafts requiring manual review. Now sends emails dire
 
 ## BNI Meeting Recap System ⭐ NEW
 
-Automated weekly meeting recap generation for BNI chapters. Processes Zoom chat logs to extract visitors, referrals, announcements, and engagement data, then generates personalized HTML emails for each chapter member.
+Automated weekly meeting recap generation for BNI chapters. Processes Zoom chat logs to extract visitors, referrals, announcements, and engagement data, then generates personalized HTML emails for each chapter member. As of February 2026, supports **slide-augmented recaps** that combine chat analysis with Claude Vision screenshot analysis from Google Drive meeting folders.
 
 ### Purpose
 
@@ -5448,6 +5448,7 @@ After each BNI meeting, generate a comprehensive recap email that:
 | `generate_bni_meeting_recap.py` | Generate personalized HTML recap emails |
 | `read_speaker_schedule.py` | Read speaker assignments from Google Sheets |
 | `read_cathie_visitor_sheet.py` | Read visitor attendance/interest from [Member Name]'s tracking sheet |
+| `extract_slide_intel.py` | Analyze meeting screenshots via Claude Vision (multimodal). Downloads from Google Drive shared folder, analyzes each image, synthesizes presentations + attendees + notable moments into unified JSON intelligence. |
 
 ### Usage
 
@@ -5490,6 +5491,32 @@ Each recipient receives a customized email with:
 | **Don't Forget** | Chapter announcements with dates and action links |
 | **Chat Champions** | Top engaged members in the Zoom chat |
 | **Trends** | Week-over-week attendance, referrals, engagement |
+
+### Slide-Augmented Recap (v2 — February 2026)
+
+When meeting screenshots are uploaded to a Google Drive folder, the recap can be augmented with visual intelligence:
+
+**Step 0: Extract slide intelligence from Google Drive**
+```bash
+python extract_slide_intel.py --date 2026-02-26 --folder-id <drive_folder_id>
+```
+
+This uses Claude Vision (FLAGSHIP tier) to analyze each screenshot, then synthesizes:
+- Presentation titles, speakers, and key content from each slide
+- Attendees spotted in gallery-view screenshots
+- Notable moments (reactions, celebrations, achievements)
+
+Output: `.tmp/slide_intel/YYYY-MM-DD_slide_intel.json`
+
+The slide intel JSON is then combined with chat analysis to produce a richer recap with keynote spotlights, visual context, and attendee cross-referencing.
+
+**Data integrity safeguard:** Before sending to any recipients, the send script must:
+1. Build recipient list from `BNI-Active` entity tags
+2. Call `check_send_permission(email, "meeting_recaps", fail_open=False)` for each recipient
+3. Generate per-recipient preference center footer with magic link
+4. Send individually (no BCC) for unique unsubscribe links
+
+**Official roster verification:** The authoritative member list is at `socalbni.com` (AJAX POST to `/bnicms/v3/frontend/chapterdetail/display` with `website_type=2`, `website_id=5197`). Cross-reference entity files against this periodically to catch stale `BNI-Active` tags.
 
 ### Speaker Spotlight Feature
 
@@ -8444,4 +8471,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-26 08:33 (v3.15)*
+*Last updated: 2026-02-27 02:57 (v3.16)*
