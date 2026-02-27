@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-27 09:34 | Source version: 3.18
+> Generated: 2026-02-27 09:47 | Source version: 3.18
 
 # QWU Backoffice User Manual
 
@@ -1552,7 +1552,7 @@ The Morning Briefing is an automated daily summary that surfaces what matters wh
 
 | Section | Source |
 |---------|--------|
-| Today's Schedule | Google Calendar (Main + Bills calendars) |
+| Today's Schedule | Google Calendar (Main + Alerts & Reminders calendars) |
 | Priority Tasks | `___Tasks/` files with `priority: critical` or `high` |
 | Due Today | Tasks with `due:` matching today's date |
 | Overdue | Tasks past their due date |
@@ -2727,11 +2727,12 @@ The backoffice includes a comprehensive lead generation and enrichment system su
 **Full L4G Technical Documentation:** `003 Entities/Organizations/Locals 4 Good.md`
 
 The L4G system includes:
-- **Website:** locals4good.org (WordPress + Divi 5)
-- **Data Layer:** Google Sheets (Availability, Holds, Queue, Leads)
-- **APIs:** 3 Apps Script deployments (Checkout, Area Config, Postcard)
-- **Payments:** Stripe hosted Checkout
-- **Automation:** n8n workflows for payment processing
+- **Website:** locals4good.org (Lovable app, published Feb 27, 2026)
+- **Data Layer:** Supabase (`<SUPABASE_PROJECT_ID_L4G>`) — 14 tables, migrated from Google Sheets
+- **APIs:** 3 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability)
+- **Payments:** Stripe Checkout via `create-checkout-session` edge function + n8n `L4G Stripe Payment Handler` webhook
+- **Automation:** n8n workflows for payment processing, contact pipeline
+- **Migration:** Data migrated from Google Sheets → Supabase via `migrate_l4g_sheets_to_supabase.py` (Feb 27, 2026)
 
 **Lead Generation Webhook:** `https://n8n.quietlyworking.org/webhook/lead-request`
 
@@ -3795,7 +3796,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.18 by generate_public_manual.py"
-generated: "2026-02-27 09:34"
+generated: "2026-02-27 09:47"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -4789,17 +4790,20 @@ APOLLO_API_KEY="your-api-key"
 
 **Locals 4 Good (L4G) System:**
 ```bash
-# Google Sheets - L4G Availability Tracker
-L4G_AVAILABILITY_SHEET_ID="sheet-id"
-L4G_AVAILABILITY_SHEET_URL="https://docs.google.com/spreadsheets/d/.../edit"
+# Supabase (primary backend — migrated from Google Sheets Feb 2026)
+L4G_SUPABASE_URL="https://<SUPABASE_PROJECT_ID_L4G>.supabase.co"
+L4G_SUPABASE_ANON_KEY="your-anon-key"
+L4G_SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"
+L4G_SUPABASE_DB_PASSWORD="your-db-password"
 
-# Apps Script API Endpoints
+# Stripe
+L4G_STRIPE_WEBHOOK_SECRET="whsec_..."
+
+# Legacy (deprecated — kept for reference, data migrated to Supabase)
+L4G_AVAILABILITY_SHEET_ID="sheet-id"
 L4G_CHECKOUT_API="https://script.google.com/macros/s/.../exec"
 L4G_AREA_CONFIG_API="https://script.google.com/macros/s/.../exec"
 L4G_POSTCARD_API="https://script.google.com/macros/s/.../exec"
-
-# n8n Webhooks
-L4G_CHECKOUT_CANCELLED_WEBHOOK="https://n8n.quietlyworking.org/webhook/l4g-checkout-cancelled"
 
 # SMS (Twilio via n8n)
 L4G_TWILIO_FROM_NUMBER="949-373-3730"
@@ -8477,4 +8481,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-27 09:34 (v3.18)*
+*Last updated: 2026-02-27 09:47 (v3.18)*
