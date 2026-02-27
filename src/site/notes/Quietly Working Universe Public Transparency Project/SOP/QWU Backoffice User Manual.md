@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-27 07:23 | Source version: 3.17
+> Generated: 2026-02-27 09:34 | Source version: 3.18
 
 # QWU Backoffice User Manual
 
-**Version: 3.16 | Started: 251223 | Updated: 260227**
+**Version: 3.18 | Started: 251223 | Updated: 260227**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -1674,7 +1674,7 @@ The backoffice integrates with Google Calendar for morning briefings and schedul
 | Calendar | Purpose | Environment Variable |
 |----------|---------|---------------------|
 | Main | Appointments, day blocking | `GOOGLE_CALENDAR_MAIN` |
-| Bills | Payment schedules | `GOOGLE_CALENDAR_BILLS` |
+| Alerts & Reminders | Alerts, reminders, payment schedules | `GOOGLE_CALENDAR_ALERTS` |
 | Timeslots | Future: goal time blocks | `GOOGLE_CALENDAR_TIMESLOT` |
 
 ### Setup Requirements
@@ -1688,7 +1688,7 @@ The backoffice integrates with Google Calendar for morning briefings and schedul
 ```bash
 GOOGLE_CALENDAR_CREDENTIALS="/path/to/service-account.json"
 GOOGLE_CALENDAR_MAIN="<ADMIN_EMAIL>"
-GOOGLE_CALENDAR_BILLS="bills-calendar-id@group.calendar.google.com"
+GOOGLE_CALENDAR_ALERTS="bills-calendar-id@group.calendar.google.com"
 GOOGLE_CALENDAR_TIMESLOT="timeslot-calendar-id@group.calendar.google.com"
 ```
 
@@ -3794,8 +3794,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.17 by generate_public_manual.py"
-generated: "2026-02-27 07:23"
+source: "Auto-generated from private manual v3.18 by generate_public_manual.py"
+generated: "2026-02-27 09:34"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -4725,7 +4725,7 @@ AZURE_CLIENT_SECRET="your-client-secret"
 # Calendar integration
 GOOGLE_CALENDAR_CREDENTIALS="/path/to/service-account.json"
 GOOGLE_CALENDAR_MAIN="email@domain.com"
-GOOGLE_CALENDAR_BILLS="calendar-id@group.calendar.google.com"
+GOOGLE_CALENDAR_ALERTS="calendar-id@group.calendar.google.com"
 GOOGLE_CALENDAR_TIMESLOT="calendar-id@group.calendar.google.com"
 
 # Sheets (for lead delivery)
@@ -8477,4 +8477,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-27 07:23 (v3.17)*
+*Last updated: 2026-02-27 09:34 (v3.18)*
