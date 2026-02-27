@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-27 09:59 | Source version: 3.19
+> Generated: 2026-02-27 18:33 | Source version: 3.20
 
 # QWU Backoffice User Manual
 
-**Version: 3.18 | Started: 251223 | Updated: 260227**
+**Version: 3.20 | Started: 251223 | Updated: 260227**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -87,7 +87,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 68. [[#QWR Preparation Workbook ⭐ NEW]]
 69. [[#QWF Ecosystem Landing Section ⭐ NEW]]
 70. [[#Auto-Remediation System ⭐ NEW]]
-71. [[#Session Log]]
+71. [[#QTR Quietly Tracking ⭐ NEW]]
+72. [[#Session Log]]
 
 ---
 
@@ -3795,8 +3796,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.19 by generate_public_manual.py"
-generated: "2026-02-27 09:59"
+source: "Auto-generated from private manual v3.20 by generate_public_manual.py"
+generated: "2026-02-27 18:33"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8470,6 +8471,124 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
+## QTR Quietly Tracking ⭐ NEW
+
+**Added: February 27, 2026**
+
+Quietly Tracking (QTR) is a smart link + dynamic landing page + conversion attribution system. Create trackable links that resolve to beautiful, variable-driven landing pages. Track visits, conversions, and attribute results back to content strategies.
+
+### Architecture
+
+```
+Lovable Frontend (quietlytracking.org)
+    → Supabase SDK
+        → Supabase (ipdrexcbaqoazhpohfco, us-west-1)
+            ← Edge Functions (planned: render-landing-page, track-visit, track-conversion)
+                ← n8n workflows (planned)
+```
+
+### Ecosystem Position
+
+QTR is the attribution/conversion arm of the QWF product family:
+- **QWR → QTR:** Articles auto-generate smart links with `content_response` templates for CTAs
+- **QKN → QTR:** Outbound campaigns use QTR smart links for landing pages and conversion tracking
+- **QTR → QSP:** Visit and conversion analytics push to SPOT dashboard
+- **L4G → QTR:** Postcard QR codes resolve to `local_offer` template landing pages
+
+### Smart Link Resolution Flow
+
+```
+User clicks link → quietlytracking.org/[slug]
+  → Edge function: render-landing-page
+    → Lookup slug in qtr_smart_links
+    → Get template from qtr_link_templates
+    → Interpolate: URL params → template variables → fallbacks
+    → Record visit in qtr_page_visits
+    → Return rendered HTML page
+```
+
+### Template Types (MVP — 6 pre-built)
+
+| Type | Use Case |
+|------|----------|
+| `content_response` | Article → "Here's your next step" |
+| `resource_download` | "Download the guide you read about" |
+| `event_registration` | QR at event → registration form |
+| `local_offer` | Postcard QR → business offer |
+| `quote_followup` | Proposal link → accept/schedule |
+| `contact_request` | General inquiry with context |
+
+MVP uses client-side template definitions (`src/data/templates.ts`) rather than DB-seeded rows. Template type stored as `_template_type` in variables JSONB.
+
+### Schema (v1.0.0)
+
+7 tables: 3 QWF standard (`supporter_partners`, `contact_submissions`, `bug_reports`) + 4 QTR core:
+
+| Table | Purpose |
+|-------|---------|
+| `qtr_link_templates` | Reusable page designs with variable placeholders |
+| `qtr_smart_links` | Generated trackable links (template instances, slug-based) |
+| `qtr_page_visits` | Page view analytics (fingerprint, referrer, UTM, geo) |
+| `qtr_conversion_events` | Conversion tracking with attribution back to visits |
+
+RLS: owner-only for templates/links, anonymous INSERT for visits/conversions/contacts.
+
+### Pricing
+
+| Tier | Monthly | Annual |
+|------|---------|--------|
+| Starter | $79/mo | $790/yr |
+| Pro | $149/mo | $1,490/yr |
+| Agency | $249/mo | $2,490/yr |
+
+No free tier. 30-day trial. **QWF ecosystem bundle:** Full Pro access included free with any paying QWF app subscription.
+
+### Current State (February 27, 2026)
+
+| Component | Status |
+|-----------|--------|
+| Supabase project | ACTIVE_HEALTHY — `ipdrexcbaqoazhpohfco` (us-west-1) |
+| Domain | `quietlytracking.org` — registered, DNS via Cloudflare |
+| Lovable project | `a404ee32-52c7-4781-8411-974ed9bdbaf7` |
+| Schema | v1.0.0 — 7 tables, RLS policies, indexes |
+| Auth | Configured — email/password + Google OAuth (shared QWF client) |
+| QWF Passport | Secret set, edge function pending |
+| Lovable Prompts | 7 total (001-002, 006-007 executed; 003-005 written) |
+| Edge functions | Not yet deployed (render-landing-page, track-visit, track-conversion, verify-crossover-token, submit-contact-form) |
+| Landing page | Deployed — 14 sections, alpha gate, heritage, ecosystem, contact form |
+| Accent color | Teal/Cyan (#06B6D4) |
+
+### Lovable Prompts
+
+| # | Name | Status |
+|---|------|--------|
+| 001 | Foundation + Auth + Onboarding | EXECUTED |
+| 002 | Link Creator + Links Management | EXECUTED |
+| 003 | Template Gallery | WRITTEN |
+| 004 | Analytics Deep Dive | WRITTEN |
+| 005 | Settings (Profile/Subscription/Brand) | WRITTEN |
+| 006 | Alpha Stage (badge, bug reporter, landing page, contact form) | EXECUTED |
+| 007 | Favicon + Site Meta | EXECUTED |
+
+### Reference
+
+- **GitHub Repo:** Lovable-managed (via project `a404ee32-52c7-4781-8411-974ed9bdbaf7`)
+- **System Status:** `002 Projects/_Quietly Tracking/QTR-System-Status.md`
+- **Development Plan:** `002 Projects/_Quietly Tracking/QTR-Development-Plan.md`
+- **Lovable Prompts:** `002 Projects/_Quietly Tracking/lovable-prompts/001-007`
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| Smart Link System Design | Database schema, slug resolution, variable interpolation, fallback chains | ⭐⭐⭐ |
+| Template System | JSONB data modeling, dynamic HTML rendering, variable placeholders | ⭐⭐ |
+| Conversion Attribution | Analytics pipeline, event tracking, funnel visualization | ⭐⭐⭐ |
+| QR Code Integration | QR generation, print-to-digital bridge, campaign tracking | ⭐⭐ |
+| Lovable Prompt Engineering | AI-assisted UI, iterative prompt design, component architecture | ⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -8481,4 +8600,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-27 09:59 (v3.19)*
+*Last updated: 2026-02-27 18:33 (v3.20)*
