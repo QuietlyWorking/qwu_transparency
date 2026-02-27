@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-27 02:57 | Source version: 3.16
+> Generated: 2026-02-27 07:23 | Source version: 3.17
 
 # QWU Backoffice User Manual
 
@@ -3794,8 +3794,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.16 by generate_public_manual.py"
-generated: "2026-02-27 02:57"
+source: "Auto-generated from private manual v3.17 by generate_public_manual.py"
+generated: "2026-02-27 07:23"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7528,7 +7528,7 @@ QNT is the BNI chapter management arm of the QWF product family:
 - **Aim High BNI → QNT:** First alpha tenant (27 members), production test environment
 - **Shared Infrastructure:** Enrichment scripts inherited from Aim High backoffice (65+ scripts)
 
-### Key Features (39 Lovable Prompts)
+### Key Features (46 Lovable Prompts)
 
 | Phase | Feature | Prompts |
 |-------|---------|---------|
@@ -7562,6 +7562,9 @@ QNT is the BNI chapter management arm of the QWF product family:
 | Web Archive | Public newsletters, Chapter Impact stats, recognition widget | 035 |
 | Landing Refresh | MissionBanner, Ecosystem, Contact, updated features/pricing | 036 |
 | Botanical Palette | Logo-derived Forest/Fern/Bud color system, migraine-friendly | 037-039 |
+| Sticky Header | Warm cream nav bar, sticky header architecture (QWR pattern) | 040 |
+| Speaker Management | Meeting templates, speaker queue, materials, planning timeline, artifacts | 041-045 |
+| Landing Page Update | Speaker management features reflected in all landing page sections | 046 |
 
 ### Support Tiers
 
@@ -7574,24 +7577,27 @@ QNT is the BNI chapter management arm of the QWF product family:
 ### Backend Brain
 
 The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
-- **Webhook URL:** `qnt.quietlyworking.org` → port 8100 (systemd: `qnt-webhook.service`)
+- **Webhook URL:** `qnt.quietlyworking.org` → port 8100 (systemd: `qnt-webhook.service`, v1.3.0)
 - **Visitor enrichment:** LinkedIn lookup → profile → website → reviews → Claude Opus 4.6 synthesis
 - **Connection reports:** AI-generated per-member reports for each visitor
+- **Meeting pipeline:** `qnt_meeting_pipeline.py` — chat parsing, artifact download, Vision slide analysis, recap generation
+- **Presentation media:** `process_presentation_media.py` — PDF/PPTX/video→images for Vision analysis
 
-### Current State (February 26, 2026)
+### Current State (February 27, 2026)
 
 | Component | Status |
 |-----------|--------|
 | Supabase project | ACTIVE_HEALTHY — `caeiaprjizteokoenzad` |
-| Lovable prompts | 39 of 39 deployed |
-| Backend brain | Deployed — visitor enrichment + roster sync + newsletter pipeline end-to-end |
+| Lovable prompts | 46 of 46 deployed |
+| Backend brain | Deployed — visitor enrichment + roster sync + newsletter + meeting pipeline end-to-end |
 | Stripe | Configured (TEST MODE) — 2 products, 4 prices, webhook |
 | Alpha tenant | Aim High BNI — 27 members (17 active, 2 on leave, 8 alumni), 2,373 historical visitors imported |
 | Timezone fix | Prompt 021 deployed — 8 affected areas fixed |
-| Database | 25 tables, 10 migrations, full RLS |
+| Database | 32 tables, 11 migrations, full RLS |
 | Newsletter system | 3-step composer, 11 section types, template management, send-newsletter edge function |
 | Recognition engine | "You Got Caught" member appreciation with public web archive |
-| Landing page | Botanical color palette (Forest/Fern/Bud), warm cream nav bar, full-color logo, contact form |
+| Speaker management | Meeting templates, speaker queue, materials collection, planning timeline, message sequences, dues tracking |
+| Landing page | Botanical palette, warm cream nav, full-color logo, contact form, 50+ features showcased |
 | Alpha readiness | Alpha badge, bug reporter, landing page alpha gate (Prompt 029) |
 | Branding | Custom logo, fern icon, favicon suite, botanical palette deployed |
 
@@ -7599,8 +7605,8 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 
 - **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-networking` (Lovable-managed; `ARCHITECTURE.md` at root)
 - **System Status:** `002 Projects/_Quietly Networking/QNT-System-Status.md`
-- **Lovable Prompts:** `002 Projects/_Quietly Networking/lovable-prompts/001-039`
-- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py`, `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`
+- **Lovable Prompts:** `002 Projects/_Quietly Networking/lovable-prompts/001-046`
+- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py`, `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`, `qnt_meeting_pipeline.py`, `process_presentation_media.py`
 - **Edge Functions:** `enrich-visitor`, `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`, `send-newsletter`, `submit-contact-form`
 
 ---
@@ -7899,7 +7905,7 @@ Every LLM usage log entry includes `billing_channel` to ensure correct cost attr
 | `bni` | Meeting followups, visitor pipeline, enrichment scripts | Aim High BNI operations |
 | `hq` | Audit, briefing, capture, entity management, summarization | HQ Command Center + backoffice |
 | `qwr` | Content pipeline, press releases, citation tracking | Quietly Writing |
-| `qnt` | Visitor pipeline | Quietly Networking |
+| `qnt` | Visitor pipeline, meeting pipeline, newsletter pipeline | Quietly Networking |
 | `pocket_ez` | Pocket Ez edge functions | Pocket Ez companion app |
 | `qrp` | Property management scripts | Quietly Renting Property |
 | `ops` | Budget alerts, cost collection | Infrastructure operations |
@@ -8342,7 +8348,7 @@ Every QWF app landing page includes a standardized "Part of Something Bigger" se
 | QWR (Quietly Writing) | ✅ Deployed | Prompt 057, deployed Feb 18, 2026 |
 | QSP (Quietly Spotting) | ✅ Deployed | Prompt 011 deployed Feb 23, 2026 |
 | QQT (Quietly Quoting) | ⏳ Pending | Needs landing page first |
-| QNT (Quietly Networking) | ⏳ Pending | Prompt 024 exists, needs ecosystem addition |
+| QNT (Quietly Networking) | ✅ Deployed | Prompt 036 (Landing Refresh) + Prompt 046 (Speaker Management Update) |
 | QKN (Quietly Knocking) | ⏳ Future | No landing page yet |
 
 ### Reference
@@ -8471,4 +8477,4 @@ When ready to switch from diagnose-only to active remediation:
 
 ---
 
-*Last updated: 2026-02-27 02:57 (v3.16)*
+*Last updated: 2026-02-27 07:23 (v3.17)*
