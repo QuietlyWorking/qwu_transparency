@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-28 22:52 | Source version: 3.21
+> Generated: 2026-02-28 23:34 | Source version: 3.22
 
 # QWU Backoffice User Manual
 
-**Version: 3.21 | Started: 251223 | Updated: 260228**
+**Version: 3.22 | Started: 251223 | Updated: 260228**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2672,9 +2672,9 @@ Monitor Azure spending directly from the backoffice for cost awareness. Azure is
 | Metric | Description |
 |--------|-------------|
 | Yesterday's cost | Previous day's total spend |
-| Month-to-date | Cumulative spending this month |
+| Month-to-date | Cumulative spending this month (always queries full month from 1st) |
 | 3-day average | Rolling average for trend analysis |
-| Daily breakdown | Per-day costs over past 7 days |
+| Daily breakdown | Per-day costs over configurable window (default 7 days) |
 
 ### Setup Requirements
 
@@ -3797,8 +3797,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.21 by generate_public_manual.py"
-generated: "2026-02-28 22:52"
+source: "Auto-generated from private manual v3.22 by generate_public_manual.py"
+generated: "2026-02-28 23:34"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7957,7 +7957,7 @@ Report sections: Total Summary, By Purpose (primary), By Tier, Top 10 Scripts, W
 
 The email pipeline is the largest LLM cost driver (~44% of total spend). Optimization strategy:
 
-1. **Suppression pre-check** (v1.5.0): `outlook_pipeline.py` loads `hq_email_suppressions` table BEFORE classification. Suppressed senders/domains get a synthetic `classification: "suppressed"` and skip Opus entirely (~$0.036/email saved).
+1. **Suppression pre-check** (v1.5.0): `outlook_pipeline.py` loads `hq_email_suppressions` table BEFORE classification. Suppressed senders/domains get a synthetic `classification: "suppressed"` and skip Opus entirely (~$0.036/email saved). As of Feb 28, 2026: **202 suppressions** (200 domain-level + 2 email-level), covering virtually all newsletters, marketing, SaaS promos, and transactional noise.
 2. **Newsletter short-circuit**: `email_classify.py` skips Opus for pre-detected newsletters.
 3. **Active unsubscribing**: User progressively reduces inbox volume by unsubscribing from non-essential emails.
 4. **Task creation safety net**: `email_task_create.py` Rule 0 blocks task creation for suppressed emails (defense in depth).
@@ -7970,7 +7970,7 @@ The email pipeline is the largest LLM cost driver (~44% of total spend). Optimiz
 |--------|-------------|---------------|-------------------|---------------|
 | LLM (OpenRouter) | $150 | $112.50 | $135 | $15/day |
 | Apify | $75 | $56.25 | $67.50 | $10/day |
-| Total Variable | $300 | $240 | $285 | — |
+| Total Variable | $400 | $300 | $360 | — |
 
 Features: MTD spend tracking, end-of-month projection, daily anomaly detection, Discord `#system-status` alerts.
 
@@ -7996,9 +7996,9 @@ Cross-validation result: **96% coverage** ($88.62 local vs $92.47 API over 30 da
 | `report_llm_costs.py` | v1.0.0 | Full cost attribution dashboard (purpose/app/tier/trend) |
 | `collect_app_metrics.py` | v1.2.0 | Per-app Supabase + shared infra cost collection |
 | `collect_apify_costs.py` | v1.0.0 | Apify per-actor, per-run cost breakdown |
-| `validate_llm_costs.py` | v1.0.0 | 7-check LLM cost validation suite |
+| `validate_llm_costs.py` | v1.1.0 | 7-check LLM cost validation suite (pricing ranges from cost_constants) |
 | `check_budget_alerts.py` | v1.0.0 | Zero-dep budget threshold monitoring |
-| `azure_costs.py` | v1.1.0 | Azure VM cost collection |
+| `azure_costs.py` | v1.2.0 | Azure VM cost collection (MTD always queries full month) |
 | `summarize_session.py` | — | Integrates Apify costs into daily digest |
 
 ### Key Files
@@ -8007,6 +8007,7 @@ Cross-validation result: **96% coverage** ($88.62 local vs $92.47 API over 30 da
 |------|----------|---------|
 | LLM usage log | `005 Operations/Data/llm_usage.jsonl` | Per-call LLM cost records (moved from `.tmp/`) |
 | Cost tracking directive | `005 Operations/Directives/cost_tracking.md` | Full SOP with edge cases and changelog |
+| Cost constants (SSoT) | `005 Operations/Execution/cost_constants.py` | Single source of truth for all cost figures (v1.1.0) |
 | Budget config | `check_budget_alerts.py` `BUDGETS` dict | Threshold definitions |
 | HQ Observatory schema | `hq_observatory_schema.sql` | Supabase tables for app metrics |
 
@@ -8016,7 +8017,7 @@ As of v2.4, the Digital Twin at `twin.quietlyworking.org` displays a full Operat
 
 **What's displayed publicly:**
 - Monthly burn total with per-source breakdown (LLM, Azure, Supabase, Apify, ESP)
-- Variable budget progress bar ($300/mo target) with day-of-month context and month-end projection
+- Variable budget progress bar ($400/mo target) with day-of-month context and month-end projection
 - LLM Intelligence panel: tier cards (Flagship/Standard/Fast/Image), top scripts by cost
 - Infrastructure panel: Azure MTD, Supabase ($85), ESP ($2.96), Betterstack (Free), Email (Free)
 
@@ -8735,4 +8736,4 @@ ssh bitnami@<WP_SERVER_IP> "sudo cp /tmp/qwf-ecosystem-widget.php /opt/bitnami/w
 
 ---
 
-*Last updated: 2026-02-28 22:52 (v3.21)*
+*Last updated: 2026-02-28 23:34 (v3.22)*
