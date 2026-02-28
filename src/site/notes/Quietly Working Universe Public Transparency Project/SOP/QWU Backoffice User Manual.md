@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-27 18:33 | Source version: 3.20
+> Generated: 2026-02-28 13:04 | Source version: 3.21
 
 # QWU Backoffice User Manual
 
-**Version: 3.20 | Started: 251223 | Updated: 260227**
+**Version: 3.21 | Started: 251223 | Updated: 260228**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -88,7 +88,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 69. [[#QWF Ecosystem Landing Section ⭐ NEW]]
 70. [[#Auto-Remediation System ⭐ NEW]]
 71. [[#QTR Quietly Tracking ⭐ NEW]]
-72. [[#Session Log]]
+72. [[#QWF Ecosystem Widget ⭐ NEW]]
+73. [[#Session Log]]
 
 ---
 
@@ -3796,8 +3797,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.20 by generate_public_manual.py"
-generated: "2026-02-27 18:33"
+source: "Auto-generated from private manual v3.21 by generate_public_manual.py"
+generated: "2026-02-28 13:04"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8589,6 +8590,137 @@ No free tier. 30-day trial. **QWF ecosystem bundle:** Full Pro access included f
 
 ---
 
+## QWF Ecosystem Widget ⭐ NEW
+
+**Added: February 28, 2026**
+
+A living, interactive visualization of the entire Quietly Working Universe — 50 entities across 7 categories, served as an embeddable widget with Shadow DOM isolation. One JavaScript file, 14.3 KB gzip, drops onto any QWF website.
+
+### Architecture
+
+```
+WordPress Site (any of 11 QWF sites)
+  → [qwf_ecosystem] shortcode
+    → widget.js loader (0.48 KB)
+      → widget.bundle.js (14.3 KB, Preact + Shadow DOM)
+        → GET /api/ecosystem (Digital Twin, port 8767)
+          → ecosystem_registry.json (50 entities)
+          → live metrics (Supabase, Betterstack, supervisors)
+```
+
+### Two Display Modes
+
+| Mode | Shortcode | Best For |
+|------|-----------|----------|
+| **Block** (compact) | `[qwf_ecosystem]` | Footers, sidebars, "about us" sections. Shows category rings → click to expand grid → click entity for detail panel. ~180px collapsed. |
+| **Page** (full) | `[qwf_ecosystem mode="page"]` | Dedicated ecosystem page. Full-height with sidebar filters, search, categorized grid, all categories visible. |
+
+### Entity Detail Panel
+
+Expanding panel below clicked entity cards:
+- **Left side:** Summary, highlight bullets, live metrics (uptime, health, success rate), MP Training Ground badge, CTA button
+- **Right side:** Interactive SVG connection graph — radial node-link diagram with center node (current entity) and connected entities radiating outward
+- **Graph interactions:** Hover for tooltip, click node with ↗ to open entity website, click node without ↗ to navigate to that entity's detail panel (cross-category navigation)
+
+### Connection System
+
+- 273 connections across 50 entities (avg 5.5 per entity)
+- 100% resolution rate (every connection name maps to a real entity)
+- Connections stored as name strings in `detail.connections` arrays in `ecosystem_registry.json`
+- Animated pulse particles travel along connection lines
+
+### Color Palette Customization
+
+6 overridable CSS tokens via shortcode attributes:
+
+| Attribute | Controls |
+|-----------|----------|
+| `palette_bg` | Widget outer background |
+| `palette_bg_card` | Cards, rings, panels, graph nodes |
+| `palette_bg_hover` | Hover/selected states |
+| `palette_text` | Primary text |
+| `palette_text_muted` | Secondary text, labels |
+| `palette_border` | Borders, dividers |
+
+Example: `[qwf_ecosystem palette_bg="#0c1629" palette_text="#f0e6d3" accent="#d4a843"]`
+
+Overrides applied as CSS custom properties on Shadow DOM root. Partial overrides fine — unspecified tokens keep theme defaults.
+
+### All Shortcode Attributes
+
+| Attribute | Default | Purpose |
+|-----------|---------|---------|
+| `mode` | `block` | `block` or `page` |
+| `theme` | `dark` | `dark`, `light`, or `auto` (OS preference) |
+| `accent` | `#2dd4bf` | Stat values, CTA buttons, pulse bar |
+| `categories` | all | Comma-separated: `app,program,system,infra,pedagogy,content,site` |
+| `featured` | `false` | Show only featured entities |
+| `refresh` | `60` | API poll interval (seconds) |
+| `page_url` | none | "View All" link URL in block mode |
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Preact 10.x (3 KB React alternative) |
+| Build | Vite 6.x, IIFE output, Terser |
+| Isolation | Shadow DOM (no style leakage) |
+| API | Digital Twin server (Python, port 8767) |
+| Data | Static JSON registry + live metric merge |
+| WordPress | mu-plugin, `[qwf_ecosystem]` shortcode |
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `100 Resources/ecosystem-widget/src/` | Widget source (11 Preact components, styles, types) |
+| `100 Resources/ecosystem-widget/qwf-ecosystem-widget.php` | WordPress mu-plugin |
+| `005 Operations/Data/ecosystem_registry.json` | Entity data (50 entities, single source of truth) |
+| `005 Operations/Execution/digital_twin_server.py` | API server (`/api/ecosystem` endpoint) |
+
+### Entity Registry
+
+Edit `005 Operations/Data/ecosystem_registry.json` to add/remove/modify entities. No code rebuild needed — the API serves whatever is in the registry (60s cache).
+
+7 categories: Apps (10), Programs (7), Systems (10), Infrastructure (5), Teaching (3), Content (4), Sites (11)
+
+6 statuses: production, active, alpha, building, planning, standby
+
+### Build & Deploy
+
+```bash
+# Rebuild widget
+cd "100 Resources/ecosystem-widget" && npm run build:all
+
+# Deploy WordPress plugin update
+scp "100 Resources/ecosystem-widget/qwf-ecosystem-widget.php" bitnami@<WP_SERVER_IP>:/tmp/
+ssh bitnami@<WP_SERVER_IP> "sudo cp /tmp/qwf-ecosystem-widget.php /opt/bitnami/wordpress/wp-content/mu-plugins/"
+
+# Cache bust: increment version in loader.ts + .php, rebuild, redeploy
+```
+
+### Reference
+
+- **Live URL:** `https://twin.quietlyworking.org/ecosystem/widget.js?v=2.1.0`
+- **System Status:** `002 Projects/_QWF Ecosystem Widget/Ecosystem-Widget-System-Status.md`
+- **User Manual:** `002 Projects/_QWF Ecosystem Widget/User-Manual.md`
+- **Directive (landing section):** `005 Operations/Directives/qwf_ecosystem_landing_section.md` (separate — Lovable apps only)
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| Widget Architecture | Preact, Shadow DOM, CSS isolation, IIFE bundles | ⭐⭐⭐ |
+| SVG Data Visualization | SVG coordinate math, radial layouts, animation, interactivity | ⭐⭐⭐ |
+| WordPress Plugin Dev | PHP shortcodes, mu-plugins, data attributes, multisite | ⭐⭐ |
+| JSON Data Modeling | Entity registries, relationship graphs, schema design | ⭐⭐ |
+| API Integration | REST polling, cache management, error resilience | ⭐⭐ |
+| CSS Custom Properties | Theming systems, palette overrides, responsive design | ⭐⭐ |
+
+**Portfolio project candidate:** Build a mini ecosystem widget for a different dataset (e.g., a student's personal project portfolio). Demonstrates frontend engineering, data visualization, and embeddable component design.
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -8600,4 +8732,4 @@ No free tier. 30-day trial. **QWF ecosystem bundle:** Full Pro access included f
 
 ---
 
-*Last updated: 2026-02-27 18:33 (v3.20)*
+*Last updated: 2026-02-28 13:04 (v3.21)*
