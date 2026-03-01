@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-01 00:40 | Source version: 3.23
+> Generated: 2026-03-01 00:43 | Source version: 3.24
 
 # QWU Backoffice User Manual
 
-**Version: 3.23 | Started: 251223 | Updated: 260228**
+**Version: 3.24 | Started: 251223 | Updated: 260228**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -164,6 +164,12 @@ The QWU infrastructure is monitored at three layers, all documented in `005 Oper
 - Pings Betterstack heartbeat (skips if critical → triggers alert). This is intentional: a failed service causes the heartbeat to be withheld, which escalates to BetterStack phone/SMS alerts
 - Thresholds: 80% warning, 90% critical for disk/memory
 - Systemd services monitored: `sms-webhook`, `digital-twin`, `qnt-webhook`, `caddy`
+
+**Application Health Checks**
+- `check_calendar_health.py` runs every 2 hours via cron on claude-dev
+- Validates HQ Command Center's `google-calendar-events` Supabase edge function
+- Auto-redeploys known-good source via Supabase CLI if broken
+- Posts to Discord `#system-status` (healthy/healed/still-broken)
 
 **Database Backups**
 - Nightly at 3 AM UTC: `backup_n8n_postgres.sh` on n8n VM
@@ -1703,6 +1709,32 @@ python "005 Operations/Execution/calendar_events.py" --dry-run  # Validate crede
 python "005 Operations/Execution/calendar_events.py"            # Fetch today's events
 python "005 Operations/Execution/calendar_events.py" --json     # JSON output
 ```
+
+### Google Calendar API Timestamp Gotcha (RFC3339)
+
+The Google Calendar API requires **RFC3339 timestamps with explicit timezone offset** for `timeMin`/`timeMax` parameters — not bare ISO 8601 timestamps. This is a subtle but critical distinction:
+
+| Format | Example | Works? |
+|--------|---------|--------|
+| RFC3339 with offset | `2026-02-28T00:00:00-08:00` | Yes |
+| RFC3339 with Z (UTC) | `2026-02-28T00:00:00Z` | Yes |
+| Bare ISO 8601 | `2026-02-28T00:00:00` | **No — 400 Bad Request** |
+
+When building Supabase Edge Functions (TypeScript/Deno) that call Google Calendar API, always include the timezone offset. For Pacific time, calculate the offset dynamically to handle DST:
+
+```typescript
+// Determine Pacific offset (PST = -08:00, PDT = -07:00)
+const jan = new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
+const jul = new Date(now.getFullYear(), 6, 1).getTimezoneOffset();
+const stdOffset = Math.max(jan, jul);
+const isDST = now.getTimezoneOffset() < stdOffset;
+const tzOffset = isDST ? '-07:00' : '-08:00';
+
+// Build RFC3339 timestamp
+const timeMin = `${year}-${month}-${day}T00:00:00${tzOffset}`;
+```
+
+This was the root cause of the HQ Command Center calendar edge function failure (Feb 2026). AI code generators (including Lovable) tend to produce bare timestamps without offsets.
 
 ---
 
@@ -3798,8 +3830,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.23 by generate_public_manual.py"
-generated: "2026-03-01 00:40"
+source: "Auto-generated from private manual v3.24 by generate_public_manual.py"
+generated: "2026-03-01 00:43"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8814,4 +8846,4 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
-*Last updated: 2026-03-01 00:40 (v3.23)*
+*Last updated: 2026-03-01 00:43 (v3.24)*
