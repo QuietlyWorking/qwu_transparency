@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-01 02:23 | Source version: 3.25
+> Generated: 2026-03-01 04:39 | Source version: 3.26
 
 # QWU Backoffice User Manual
 
@@ -3534,7 +3534,7 @@ The system ensures **zero silent failures** through 4-layer protection. With 2-5
 | `meeting_entity_resolve.py` | Entity matching + SuiteDash CRM | v1.0.0 |
 | `meeting_update_vault.py` | Vault file updates (dedup-aware) | v1.2.0 |
 | `meeting_project_link.py` | Project detection (word-boundary matching) | v1.1.0 |
-| `zoom_reconcile.py` | Reconciliation - discovers and processes missed meetings | v1.1.0 |
+| `zoom_reconcile.py` | Reconciliation - discovers and processes missed meetings (defense-in-depth: content-aware classification, targeted UUID recheck, Discord escalation, HQ task on permanent skip) | v1.5.0 |
 | `zoom_health_check.py` | Health monitoring - detects system issues | v1.0.0 |
 | `zoom_list_recordings.py` | Query Zoom API for recent cloud recordings | v1.0.0 |
 | `meeting_tracker.py` | SQLite tracking with locking | v1.1.0 |
@@ -3580,6 +3580,7 @@ The system ensures **zero silent failures** through 4-layer protection. With 2-5
 | Webhook missed | Discovered at 9 PM, processed, #system-status report |
 | SSH failure | #system-status SSH error alert |
 | Pipeline fails 3+ times | Flagged "needs attention", appears in health check |
+| Transcript not ready (Zoom still processing) | `skipped_transient` with 7 retry attempts. Defense-in-depth chain: content detection (empty meetings skip immediately), targeted UUID recheck on final attempt, Discord escalation + starred HQ task on permanent skip |
 | Extended outage | Sunday 3 AM deep scan recovers up to 30 days back |
 | System unhealthy | Health monitor alerts every 4 hours until resolved |
 
@@ -3830,8 +3831,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.25 by generate_public_manual.py"
-generated: "2026-03-01 02:23"
+source: "Auto-generated from private manual v3.26 by generate_public_manual.py"
+generated: "2026-03-01 04:39"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8848,4 +8849,4 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
-*Last updated: 2026-03-01 02:23 (v3.25)*
+*Last updated: 2026-03-01 04:39 (v3.26)*
