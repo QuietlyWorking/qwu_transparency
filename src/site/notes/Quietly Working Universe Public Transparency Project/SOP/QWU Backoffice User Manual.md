@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-02-28 23:34 | Source version: 3.22
+> Generated: 2026-03-01 00:40 | Source version: 3.23
 
 # QWU Backoffice User Manual
 
-**Version: 3.22 | Started: 251223 | Updated: 260228**
+**Version: 3.23 | Started: 251223 | Updated: 260228**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -89,7 +89,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 70. [[#Auto-Remediation System ⭐ NEW]]
 71. [[#QTR Quietly Tracking ⭐ NEW]]
 72. [[#QWF Ecosystem Widget ⭐ NEW]]
-73. [[#Session Log]]
+73. [[#QWR Team Accounts System ⭐ NEW]]
+74. [[#Session Log]]
 
 ---
 
@@ -3797,8 +3798,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.22 by generate_public_manual.py"
-generated: "2026-02-28 23:34"
+source: "Auto-generated from private manual v3.23 by generate_public_manual.py"
+generated: "2026-03-01 00:40"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8725,6 +8726,83 @@ ssh bitnami@<WP_SERVER_IP> "sudo cp /tmp/qwf-ecosystem-widget.php /opt/bitnami/w
 
 ---
 
+## QWR Team Accounts System ⭐ NEW
+
+**Status:** Deployed (Feb 27-28, 2026)
+**Prompts:** 068-079 (12 Lovable prompts)
+
+### What It Does
+
+Transforms QWR from a single-user platform into a multi-user team collaboration system. Account owners can invite team members, assign them to specific brands, and control what they can do — all while maintaining backward compatibility for solo users.
+
+### Architecture
+
+**Roles (4-tier hierarchy):**
+| Role | Can Do | Can't Do |
+|------|--------|----------|
+| Owner | Everything + billing + team management | — |
+| Admin | Manage team, create/edit content, all brands | Billing, delete account |
+| Editor | Create/edit content for assigned brands only | Team management, settings |
+| Viewer | View content and analytics for assigned brands | Create, edit, or manage anything |
+
+**Seat Allocation per Tier:**
+| Tier | Seats | Monthly |
+|------|-------|---------|
+| Starter | 2 | $99 |
+| Growth | 5 | $299 |
+| Agency | 15 | $799 |
+
+**Backward Compatibility:** Solo users are unaffected. The `get_account_id()` helper function returns `auth.uid()` for users who aren't members of any team — they ARE the account. This means zero migration needed for existing supporters.
+
+### Database Layer
+
+**4 new tables:**
+- `account_members` — Team roster (role, status, invite token, expiry)
+- `member_brand_access` — Which brands each member can access
+- `team_activity_log` — Audit trail of team actions
+- `approval_requests` — Content approval workflow queue
+
+**4 helper functions (STABLE SECURITY DEFINER):**
+- `get_account_id()` — Returns the account a user belongs to (or self for solo users)
+- `get_user_role()` — Returns user's role within their account
+- `user_has_brand_access()` — Checks if user can access a specific brand
+- `get_team_member_count()` — Current member count for seat enforcement
+
+**RLS Migration:** All 37 existing tables migrated from `auth.uid()` to `get_account_id()` + `user_has_brand_access()` pattern. 76 old policies dropped and replaced with team-aware policies.
+
+### Invite Flow
+
+1. Owner/Admin clicks "Invite Member" in Team Settings
+2. Enters email, role, brand assignments
+3. `account_members` row created (status='invited', invite_token generated, 7-day expiry)
+4. n8n webhook `qwr-team-invite` fires → `qwr_team_invite.py` sends invitation email via Graph API (from Ezer Aión)
+5. Recipient clicks invite link → `/invite/:token` page (Lovable)
+6. `accept-team-invite` edge function validates token, links user to account
+7. Team Welcome page shows role, brands, capabilities
+
+### Infrastructure Components
+
+| Component | Type | ID/Path |
+|-----------|------|---------|
+| `accept-team-invite` | Supabase Edge Function | `verify_jwt=false` |
+| `qwr_team_invite.py` | Python script (v1.0.0) | `005 Operations/Execution/` |
+| QWR Team Invite Email Sender | n8n workflow | `kMhNP4iiP9MjS7Q7` |
+| Stripe Webhook Handler v1.3 | n8n workflow | `rZt6WRkGtX7LQgqo` |
+
+**Stripe Integration:** v1.3 of the webhook handler sets `max_team_members` on `supporter_partners` during both new subscriptions (`checkout.session.completed`) and tier changes (`customer.subscription.updated`). This enforces seat limits: Starter→2, Growth→5, Agency→15.
+
+### Training Opportunities
+
+| Skill | What Students Learn | Complexity |
+|-------|-------------------|------------|
+| Row-Level Security | PostgreSQL RLS with helper functions, multi-tenant patterns | ⭐⭐⭐ |
+| Role-Based Access Control | 4-role hierarchy, permission gates, brand-level scoping | ⭐⭐⭐ |
+| Invite Flow Architecture | Token generation, expiry, edge function validation, email delivery | ⭐⭐⭐ |
+| Backward Compatibility | Designing systems that don't break existing users | ⭐⭐ |
+| Webhook Integration | n8n → SSH → Python → Graph API pipeline for email delivery | ⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -8736,4 +8814,4 @@ ssh bitnami@<WP_SERVER_IP> "sudo cp /tmp/qwf-ecosystem-widget.php /opt/bitnami/w
 
 ---
 
-*Last updated: 2026-02-28 23:34 (v3.22)*
+*Last updated: 2026-03-01 00:40 (v3.23)*
