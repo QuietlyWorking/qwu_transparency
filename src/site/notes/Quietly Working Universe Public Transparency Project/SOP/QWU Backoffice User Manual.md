@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-01 04:39 | Source version: 3.26
+> Generated: 2026-03-01 06:27 | Source version: 3.27
 
 # QWU Backoffice User Manual
 
@@ -3428,7 +3428,7 @@ Next Meeting with Same People
 | `meeting_update_vault.py` | Vault file updates |
 | `meeting_project_link.py` | Project detection |
 | `send_meeting_followup.py` | Post-meeting follow-up emails (personalized) | v1.3.0 |
-| `appreciation_followup_db.py` | Deferred appreciation state management | v1.0.0 |
+| `appreciation_followup_db.py` | Deferred appreciation state management + cancel | v1.1.0 |
 | `process_appreciation_queue.py` | SMS reminders + timeout fallback poller | v1.0.0 |
 
 **Pipeline Flowchart:** See `005 Operations/Execution/zoom_pipeline_flowchart.md` for the full 8-stage visual diagram including follow-up emails, BCC monitoring, and error handling.
@@ -3444,7 +3444,7 @@ Next Meeting with Same People
 
 ### Appreciation Followup System (SMS Wait-for-Response)
 
-**v1.0 | Created 2026-02-08**
+**v1.1 | Updated 2026-03-01** (v1.0 created 2026-02-08)
 
 When `send_meeting_followup.py` can't find specific quotes for an attendee, instead of immediately sending a generic fallback, it now **defers the email** and asks TIG for a personal appreciation via SMS. The system waits up to 5 hours for TIG's reply before falling back to the generic message.
 
@@ -3459,12 +3459,19 @@ When `send_meeting_followup.py` can't find specific quotes for an attendee, inst
 | Actor | Role | Trigger |
 |-------|------|---------|
 | `send_meeting_followup.py` v1.3.0 | **Producer** — stages deferred appreciation | Zoom pipeline stage 8 |
-| `twilio_webhook_server.py` v3.4.0 | **Listener** — captures TIG's SMS reply | Incoming SMS (Priority 2.7) |
+| `twilio_webhook_server.py` v3.5.0 | **Listener** — captures TIG's SMS reply or cancel | Incoming SMS (Priority 2.7) |
 | `process_appreciation_queue.py` v1.0.0 | **Timer** — sends reminders, handles timeouts | n8n every 5 min |
 
-**State:** `appreciation_followup.db` (SQLite) with `pending_appreciations` + `appreciation_audit_log` tables. Race safety via `BEGIN IMMEDIATE` transactions.
+**State:** `appreciation_followup_db.py` v1.1.0 with `pending_appreciations` + `appreciation_audit_log` tables. Race safety via `BEGIN IMMEDIATE` transactions.
 
-**Special commands:** TIG can reply "skip", "next", or "pass" to send the generic fallback immediately and move to the next pending attendee.
+**Commands via SMS** (when appreciations are pending):
+- **Free-form text** — used as the personalized appreciation for the next pending attendee
+- **"skip" / "next" / "pass"** — sends the generic fallback immediately
+- **"don't send to John" / "cancel follow-up for Miller"** — cancels the follow-up entirely (no email sent, not even fallback)
+- **"cancel all"** — cancels all pending follow-ups
+- **Multi-recipient:** "don't send to John or Miller" — cancels specific people by name
+
+**LLM-based intent classification (v3.5.0):** When appreciations are pending, all inbound messages (except compliance, health vitals, and video commands) are routed through an LLM classifier (STANDARD tier) that determines: appreciation text, cancel request, skip, or unrelated. Unrelated messages (e.g., "what's on my calendar?") fall through to normal routing. This replaced a keyword-exclusion list that falsely matched words like "meeting" as calendar queries.
 
 **n8n workflow:** `appreciation-queue-poller.json` (ID: `<WORKFLOW_ID>`) — every 5 min, SSH to poller script, logs actions to #agent-log, SSH errors to #system-status.
 
@@ -3831,8 +3838,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.26 by generate_public_manual.py"
-generated: "2026-03-01 04:39"
+source: "Auto-generated from private manual v3.27 by generate_public_manual.py"
+generated: "2026-03-01 06:27"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -3888,7 +3895,7 @@ Potential enhancements:
 - Relationship health alerts ("You haven't met with X in 30 days")
 - AI-suggested meeting prep questions
 - ~~Post-meeting auto-follow-up drafts~~ → ✅ Built (`send_meeting_followup.py` v1.3.0 — personalized action items, deferred appreciation with SMS wait-for-response, preference footer, opt-out check)
-- ~~Appreciation wait-for-response (SMS retry + timeout)~~ → ✅ Built (`appreciation_followup_db.py` v1.0.0 + `process_appreciation_queue.py` v1.0.0 — T+1h/T+2h SMS reminders, T+5h fallback email, Twilio reply handler)
+- ~~Appreciation wait-for-response (SMS retry + timeout + cancel)~~ → ✅ Built (`appreciation_followup_db.py` v1.1.0 + `process_appreciation_queue.py` v1.0.0 — T+1h/T+2h SMS reminders, T+5h fallback email, Twilio reply handler, LLM-based cancel via SMS)
 - ~~Pre-meeting prep emails~~ → ✅ Built (`send_meeting_prep_email.py` — preference footer, opt-out check)
 - Meeting pattern analytics
 - Voice capture for quick context additions
@@ -8849,4 +8856,4 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
-*Last updated: 2026-03-01 04:39 (v3.26)*
+*Last updated: 2026-03-01 06:27 (v3.27)*
