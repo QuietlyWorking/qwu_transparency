@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-01 00:43 | Source version: 3.24
+> Generated: 2026-03-01 02:23 | Source version: 3.25
 
 # QWU Backoffice User Manual
 
-**Version: 3.24 | Started: 251223 | Updated: 260228**
+**Version: 3.25 | Started: 251223 | Updated: 260301**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -161,7 +161,7 @@ The QWU infrastructure is monitored at three layers, all documented in `005 Oper
 - `check_vm_health.py` runs every 6 hours via cron on both VMs
 - Collects: disk, memory, load, Docker containers, n8n workflow failures
 - Posts health embed to Discord `#system-status`
-- Pings Betterstack heartbeat (skips if critical → triggers alert). This is intentional: a failed service causes the heartbeat to be withheld, which escalates to BetterStack phone/SMS alerts
+- Always pings Betterstack heartbeat regardless of health status (v1.1.0). The heartbeat proves "VM is alive and monitoring is running." Service-level issues are reported via Discord alerts separately. A missing heartbeat should only mean "VM is unreachable."
 - Thresholds: 80% warning, 90% critical for disk/memory
 - Systemd services monitored: `sms-webhook`, `digital-twin`, `qnt-webhook`, `caddy`
 
@@ -3830,8 +3830,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.24 by generate_public_manual.py"
-generated: "2026-03-01 00:43"
+source: "Auto-generated from private manual v3.25 by generate_public_manual.py"
+generated: "2026-03-01 02:23"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -4544,7 +4544,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:80
 - BetterStack fires "Missed heartbeat" alert for claude-dev VM
 - `systemctl status <service>` shows `failed (Result: exit-code)`
 - Journal shows `OSError: [Errno 98] Address already in use` repeated 11 times
-- Health check reports `critical` and withholds heartbeat (by design)
+- Health check reports `critical` (v1.0.0 withheld heartbeat; fixed in v1.1.0 — heartbeat now always pings)
 
 **Root Cause:**
 A rogue process started outside systemd (e.g., manual run, previous session) holds the port. When systemd tries to restart its managed service, the new process can't bind and fails. After 11 rapid restart attempts (~5s each), systemd gives up.
@@ -4578,6 +4578,8 @@ systemctl status <service>
 - `digital_twin_server.py` now uses `ReusableHTTPServer` with `SO_REUSEADDR` (added Feb 2026), allowing restarts even if the port is in TIME_WAIT state
 - Avoid running services manually when systemd manages them — use `systemctl restart` instead
 - If you must test manually, stop the systemd service first: `sudo systemctl stop <service>`
+- `<VM_USER>` has passwordless sudo for `systemctl` (added Mar 2026), allowing the agent to self-heal service failures
+- `check_vm_health.py` v1.1.0 always pings heartbeat regardless of status, so this scenario no longer causes false "VM down" P1 alarms
 
 ### Disk Space Warnings
 
@@ -8846,4 +8848,4 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
-*Last updated: 2026-03-01 00:43 (v3.24)*
+*Last updated: 2026-03-01 02:23 (v3.25)*
