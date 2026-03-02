@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-01 06:27 | Source version: 3.27
+> Generated: 2026-03-02 06:47 | Source version: 3.28
 
 # QWU Backoffice User Manual
 
-**Version: 3.25 | Started: 251223 | Updated: 260301**
+**Version: 3.28 | Started: 251223 | Updated: 260301**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3838,8 +3838,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.27 by generate_public_manual.py"
-generated: "2026-03-01 06:27"
+source: "Auto-generated from private manual v3.28 by generate_public_manual.py"
+generated: "2026-03-02 06:47"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8378,7 +8378,7 @@ Every QWF app landing page includes a standardized "Part of Something Bigger" se
 
 ### What It Contains
 
-- **8 app cards:** Quietly Spotting (FREE), Quietly Writing (YOU ARE HERE), Quietly Quoting (COMING SOON), Quietly Tracking (COMING SOON), Quietly Networking, Quietly Knocking (COMING SOON), Quietly Managing (COMING SOON), QWF Passport (ONE ACCOUNT)
+- **8 app cards:** Quietly Spotting (FREE), Quietly Writing (YOU ARE HERE), Quietly Quoting (COMING SOON), Quietly Tracking (COMING SOON), Quietly Networking, Quietly Knocking, Quietly Managing (COMING SOON), QWF Passport (ONE ACCOUNT)
 - **Canonical icons** (match QSP sidebar): Telescope, Feather, Calculator, Link2, Handshake, DoorOpen, Home, Fingerprint
 - **Mission footer:** "Every penny of proceeds from QWF apps supports underserved youth through The Missing Pixel Project."
 - **Current app highlight:** The card for the app you're viewing gets a "You are here" badge and accent ring
@@ -8395,13 +8395,13 @@ Every QWF app landing page includes a standardized "Part of Something Bigger" se
 
 | App | Status | Notes |
 |-----|--------|-------|
-| QWR (Quietly Writing) | ✅ Deployed | Prompt 057 (Feb 18), updated Prompt 084 (Feb 28 — expanded to 8 cards) |
-| QSP (Quietly Spotting) | ✅ Deployed | Prompt 011 (Feb 23) |
-| QQT (Quietly Quoting) | ✅ Deployed | Prompt 011-alpha (Feb 27) |
-| QNT (Quietly Networking) | ✅ Deployed | Prompt 036 + Prompt 046 |
-| QTR (Quietly Tracking) | ✅ Deployed | Prompt 006-alpha (Feb 27) |
-| QKN (Quietly Knocking) | ⏳ Future | No landing page yet — card shows "Coming Soon" |
-| QMP (Quietly Managing) | ✅ Deployed | Prompt 009-alpha (Feb 27) |
+| QWR (Quietly Writing) | ✅ Deployed | Prompt 057 (Feb 18), updated Prompt 084 (Feb 28 — expanded to 8 cards, QKN live) |
+| QSP (Quietly Spotting) | ✅ Deployed | Prompt 011 (Feb 23), cascade prompt 015 (Mar 1) |
+| QQT (Quietly Quoting) | ✅ Deployed | Prompt 011-alpha (Feb 27), cascade prompt 013 (Mar 1) |
+| QNT (Quietly Networking) | ✅ Deployed | Prompt 036 + Prompt 046, cascade prompt 047 (Mar 1) |
+| QTR (Quietly Tracking) | ✅ Deployed | Prompt 006-alpha (Feb 27), cascade prompt 008 (Mar 1) |
+| QKN (Quietly Knocking) | ⏳ Blocked | Live app but GitHub repo deleted — Lovable can't deploy cascade prompt (004). 3 fix paths identified. |
+| QMP (Quietly Managing) | ✅ Deployed | Prompt 009-alpha (Feb 27), cascade prompt 010 (Mar 1) |
 | Pocket Ez | ✅ Deployed | Prompt 008-alpha (Feb 27, bioluminescent variant) |
 
 ### Reference
@@ -8856,4 +8856,4 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
-*Last updated: 2026-03-01 06:27 (v3.27)*
+*Last updated: 2026-03-02 06:47 (v3.28)*
