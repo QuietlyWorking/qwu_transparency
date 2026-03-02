@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-02 06:51 | Source version: 3.29
+> Generated: 2026-03-02 07:06 | Source version: 3.30
 
 # QWU Backoffice User Manual
 
-**Version: 3.29 | Started: 251223 | Updated: 260302**
+**Version: 3.30 | Started: 251223 | Updated: 260302**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3839,8 +3839,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.29 by generate_public_manual.py"
-generated: "2026-03-02 06:51"
+source: "Auto-generated from private manual v3.30 by generate_public_manual.py"
+generated: "2026-03-02 07:06"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -6555,7 +6555,7 @@ Ezer enforces QWF's nonprofit framing:
 |---|------|----------|--------|
 | 1 | Automate QWU Backoffice Operations | 9/10 | ~90% |
 | 2 | Establish L4G Revenue Pipeline | 8/10 | ~30% |
-| 3 | Launch Missing Pixel Tier 2 Curriculum | 6/10 | ~15% |
+| 3 | Launch Missing Pixel Tier 2 Curriculum + Frontier Operations | 7/10 | ~35% |
 | 4 | Complete Transparency Infrastructure | 5/10 | ~40% |
 | 5 | Launch QWU Tool Shed (QTS) | 5/10 | ~5% |
 | 6 | Implement WHELHO Life Framework (App) | 4/10 | ~25% |
@@ -8911,4 +8911,4 @@ Completeness, accuracy, consistency, terminology, pricing, diagrams, cross-refer
 
 ---
 
-*Last updated: 2026-03-02 06:51 (v3.29)*
+*Last updated: 2026-03-02 07:06 (v3.30)*
