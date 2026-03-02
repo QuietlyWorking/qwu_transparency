@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-02 06:47 | Source version: 3.28
+> Generated: 2026-03-02 06:51 | Source version: 3.29
 
 # QWU Backoffice User Manual
 
-**Version: 3.28 | Started: 251223 | Updated: 260301**
+**Version: 3.29 | Started: 251223 | Updated: 260302**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -90,7 +90,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 71. [[#QTR Quietly Tracking ⭐ NEW]]
 72. [[#QWF Ecosystem Widget ⭐ NEW]]
 73. [[#QWR Team Accounts System ⭐ NEW]]
-74. [[#Session Log]]
+74. [[#QWF Documentation Standard ⭐ NEW]]
+75. [[#Session Log]]
 
 ---
 
@@ -3838,8 +3839,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.28 by generate_public_manual.py"
-generated: "2026-03-02 06:47"
+source: "Auto-generated from private manual v3.29 by generate_public_manual.py"
+generated: "2026-03-02 06:51"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8845,6 +8846,60 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
+## QWF Documentation Standard ⭐ NEW
+
+**Added: March 2, 2026**
+
+Defines the structure, quality criteria, and maintenance rules for all user-facing documentation across QWF apps. Every "Quietly ___" app must have a **User Manual** (Markdown, in the vault) and an **In-App Documentation Center** (`/docs`, built in Lovable).
+
+### Two-Layer Documentation Model
+
+| Layer | Format | Location | Authority |
+|-------|--------|----------|-----------|
+| **User Manual** | Markdown | `002 Projects/_[App] Projects/[App]-User-Manual.md` | **Source of truth** |
+| **Documentation Center** | React components | `/docs` route in Lovable app | Derived from manual |
+
+**Source of Truth Rule:** The User Manual is always the master document. The `/docs` center renders manual content with visual elements (cards, diagrams, interactive navigation). When they drift: update the manual first, then create a `/docs` sync prompt. Never update `/docs` independently.
+
+**Sync Cadence:** Create a `/docs` sync prompt after every 5+ Lovable prompts or after any major feature phase, whichever comes first.
+
+### Required Sections (14 total, in order)
+
+Every QWF app User Manual must include: (1) Table of Contents, (2) What Is [App]?, (3) Key Concepts (supporter-partner framing), (4) Getting Started (step-by-step + flow diagram), (5) Core Feature Sections (user journey order), (6) Settings (one subsection per tab), (7) The Landing Page, (8) FAQ (15+ entries, 4+ categories), (9) Troubleshooting (5+ entries), (10) Keyboard Shortcuts, (11) Getting Help (identical across apps), (12) Glossary, (13) Release History, (14) Planned Updates.
+
+### Pricing Comparison Chart (Required)
+
+Every subscription app manual includes a two-part pricing comparison: (1) "Every Tier Includes the Full Platform" — grouped feature list reinforcing full access at every tier, (2) "What Differs by Tier" — compact table showing only volume limits and access features.
+
+### Quality Checklist (12 checks)
+
+Completeness, accuracy, consistency, terminology, pricing, diagrams, cross-references, TOC currency, troubleshooting, release history, `/docs` sync, planned vs. shipped.
+
+### Key Files
+
+- **Directive:** `005 Operations/Directives/qwf_documentation_standard.md`
+- **Model manual:** `002 Projects/_QWR Quietly Writing App/QWR-User-Manual.md` (v4.0.1)
+- **CLAUDE.md:** Added as Foundational Directive (v1.30.0)
+
+### Implementation Status
+
+| App | User Manual | /docs Center | Notes |
+|-----|------------|-------------|-------|
+| QWR (Quietly Writing) | ✅ v4.0.1 | ✅ v4 (Prompt 088) | Model for all future manuals |
+| QQT (Quietly Quoting) | Not started | Not started | Next to document |
+| QNT (Quietly Networking) | Not started | Not started | — |
+| Others | Not started | Not started | — |
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| User Manual Writing | Technical writing, documentation structure, Markdown | ⭐⭐ |
+| Quality Audit | Cross-referencing, accuracy verification, gap analysis | ⭐⭐ |
+| /docs Sync Prompts | Lovable prompt engineering, React component design | ⭐⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -8856,4 +8911,4 @@ Transforms QWR from a single-user platform into a multi-user team collaboration 
 
 ---
 
-*Last updated: 2026-03-02 06:47 (v3.28)*
+*Last updated: 2026-03-02 06:51 (v3.29)*
