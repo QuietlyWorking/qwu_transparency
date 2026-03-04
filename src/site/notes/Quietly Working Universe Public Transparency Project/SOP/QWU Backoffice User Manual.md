@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-04 09:00 | Source version: 3.31
+> Generated: 2026-03-04 09:02 | Source version: 3.32
 
 # QWU Backoffice User Manual
 
-**Version: 3.31 | Started: 251223 | Updated: 260304**
+**Version: 3.32 | Started: 251223 | Updated: 260304**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3840,8 +3840,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.31 by generate_public_manual.py"
-generated: "2026-03-04 09:00"
+source: "Auto-generated from private manual v3.32 by generate_public_manual.py"
+generated: "2026-03-04 09:02"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -4999,10 +4999,43 @@ When visitors register for a BNI meeting, generate personalized **Connection Rep
 | `generate_connection_report.py` | Generate visitor×member connection reports (v2.1.1 - parallel execution) |
 | `bni_visitor_pipeline.py` | End-to-end visitor pipeline with auto-send + housekeeping (v3.1.0) |
 | `validate_bni_email.py` | Quality validation for connection report emails (v1.0.0) |
+| `sync_bni_roster.py` | Roster sync: scrapes BNI website, diffs entity tags (v1.0.0) |
+
+### Roster Sync — Two Sources of Truth
+
+The roster sync system enforces a critical data governance principle:
+
+| Source | Authority |
+|--------|-----------|
+| **BNI chapter website** (socalbni.com) | WHO is an active member |
+| **Entity files** (`003 Entities/People/`) | Member DATA (email, phone, enrichment, notes) |
+
+The stale CSV export (`AimHighBNI-Members-Grid view exported on 20260109.csv`) must NEVER be used for roster lookups.
+
+**Sync script:** `sync_bni_roster.py` scrapes the BNI website (direct HTTP, no Apify), compares against entity file tags, and applies changes:
+- New members → creates entity file with `BNI-Active` tag, `enrichment_status: pending`
+- Departed members → changes tag from `BNI-Active` to `BNI-Former`
+- Changed fields → updates `company_name` or `bni_category` in frontmatter
+- Safety: aborts if < 5 members returned (prevents wipe on broken scrape)
+
+```bash
+# Preview changes (always do this first)
+python sync_bni_roster.py --dry-run --force
+
+# Apply changes
+python sync_bni_roster.py --force
+
+# JSON output (for n8n automation)
+python sync_bni_roster.py --dry-run --json
+```
+
+**QNT Supabase sync:** `qnt_roster_sync.py` runs daily via n8n, keeping the Quietly Networking app's member database in sync with the same BNI website source. Confirmed active and operational (17 members, 0 errors as of March 2026).
+
+**Directive:** `005 Operations/Directives/sync_bni_roster.md`
 
 ### Usage
 
-**Import members from Airtable:**
+**Import members from Airtable (legacy — use sync_bni_roster.py for roster updates):**
 ```bash
 python import_bni_members.py "Data Imports/aim_high_members_2024.csv"
 ```
@@ -8981,4 +9014,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-04 09:00 (v3.31)*
+*Last updated: 2026-03-04 09:02 (v3.32)*
