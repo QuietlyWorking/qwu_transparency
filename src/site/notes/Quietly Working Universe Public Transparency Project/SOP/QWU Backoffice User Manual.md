@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-02 07:06 | Source version: 3.30
+> Generated: 2026-03-04 08:56 | Source version: 3.31
 
 # QWU Backoffice User Manual
 
-**Version: 3.30 | Started: 251223 | Updated: 260302**
+**Version: 3.31 | Started: 251223 | Updated: 260304**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -91,7 +91,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 72. [[#QWF Ecosystem Widget ⭐ NEW]]
 73. [[#QWR Team Accounts System ⭐ NEW]]
 74. [[#QWF Documentation Standard ⭐ NEW]]
-75. [[#Session Log]]
+75. [[#Weavy Creative Production System ⭐ NEW]]
+76. [[#Session Log]]
 
 ---
 
@@ -3839,8 +3840,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.30 by generate_public_manual.py"
-generated: "2026-03-02 07:06"
+source: "Auto-generated from private manual v3.31 by generate_public_manual.py"
+generated: "2026-03-04 08:56"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8900,6 +8901,75 @@ Completeness, accuracy, consistency, terminology, pricing, diagrams, cross-refer
 
 ---
 
+## Weavy Creative Production System ⭐ NEW
+
+**Added: March 4, 2026**
+
+Weavy (weavy.ai) is a node-based AI creative workflow platform used for QWF visual production — product photography, lifestyle shots, character consistency, and video generation. All QWF visual production workflows are built in Weavy and documented in a dedicated user manual.
+
+### Architecture
+
+```
+Weavy Platform (weavy.ai)
+    → Node-based workflows (text, image, LLM, generation nodes)
+        → AI Models (Flux 1.1 Ultra, Nano Banana Pro, GPT Image 1, Gemini 2.5 Flash, etc.)
+            → Post-processing (Bria BG Remove, Magnific Upscale, Relight)
+                → Final assets for print/web/social
+```
+
+### Methodology Source
+
+**Rory Flynn** (Systematiq AI) is the primary methodology source. His newsletter archive and workflow breakdowns provide the prompt patterns, compositing pipelines, and workflow architectures that underpin all QWF visual production. See `003 Entities/Experts/Rory Flynn.md`.
+
+Key principles adopted from Rory's work:
+- JSON structure over prose prompts
+- Material physics over aesthetic descriptions
+- Camera specifications as model filters
+- Negative constraints as fences
+- Three-tier prompt maturity (V1 Curated → V2 Variance → Active Production)
+
+### Active Workflows
+
+| Project | Workflow | Status | Notes |
+|---------|----------|--------|-------|
+| GreenCal Leafie | 3-phase plushie vendor reference | Phase 3 operational | Hero shot, turnaround grid, lifestyle shots |
+| L4G Postcard Ads | Ad creative generation | Planned | Missing Pixel student training component |
+| WOH Product Shots | Product photography pipeline | Planned | War on Hopelessness merchandise |
+
+### Weavy User Manual
+
+A comprehensive 17-chapter + appendices user manual lives at `004 Knowledge/How-To/Weavy-User-Manual.md` (v2.0.0). Covers:
+- 12 prompt patterns (JSON-structured, material physics, camera specs, multi-set generation, etc.)
+- 2 complete case studies (Sandwich Tornado compositing, AI GPT Photoshoot pipeline)
+- Node types, model comparison, credit costs, glossary
+- 4-week learning path with prioritized Systematiq newsletter issues
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `004 Knowledge/How-To/Weavy-User-Manual.md` | Comprehensive Weavy user manual (v2.0.0) |
+| `005 Operations/Directives/weavy_creative_workflows.md` | Creative production directive (v1.5.0) |
+| `003 Entities/Experts/Rory Flynn.md` | Methodology source entity |
+| `002 Projects/_GreenCal Projects/Leafie-Plushie-Weavy-Workflow.md` | GreenCal Leafie 3-phase workflow spec |
+| `002 Projects/_GreenCal Projects/Callie "Leafie" Chlorophyllis XII.md` | Leafie character bible |
+
+### App Mode (Missing Pixel)
+
+Weavy offers an App Mode that provides a simplified interface for students: single-step execution with pre-configured parameters. Training progression: App Mode (beginner) → Workflow Editor (intermediate) → Custom Workflow Builder (advanced).
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| JSON Prompt Engineering | Structured prompting, material physics, camera specs | ⭐⭐ |
+| Node-Based Workflow Design | Visual programming, data flow, input/output wiring | ⭐⭐ |
+| AI Model Selection | Cost/quality tradeoffs, model strengths, credit budgeting | ⭐⭐ |
+| Multi-Phase Production Pipeline | Project planning, phase progression, asset management | ⭐⭐⭐ |
+| Compositing Workflows | Background removal, element layering, lighting unification | ⭐⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -8911,4 +8981,4 @@ Completeness, accuracy, consistency, terminology, pricing, diagrams, cross-refer
 
 ---
 
-*Last updated: 2026-03-02 07:06 (v3.30)*
+*Last updated: 2026-03-04 08:56 (v3.31)*
