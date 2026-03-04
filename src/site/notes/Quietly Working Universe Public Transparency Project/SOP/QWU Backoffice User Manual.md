@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-04 08:56 | Source version: 3.31
+> Generated: 2026-03-04 09:00 | Source version: 3.31
 
 # QWU Backoffice User Manual
 
@@ -3841,7 +3841,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.31 by generate_public_manual.py"
-generated: "2026-03-04 08:56"
+generated: "2026-03-04 09:00"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8981,4 +8981,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-04 08:56 (v3.31)*
+*Last updated: 2026-03-04 09:00 (v3.31)*
