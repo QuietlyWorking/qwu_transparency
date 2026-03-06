@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-04 09:03 | Source version: 3.33
+> Generated: 2026-03-06 23:54 | Source version: 3.34
 
 # QWU Backoffice User Manual
 
-**Version: 3.33 | Started: 251223 | Updated: 260304**
+**Version: 3.34 | Started: 251223 | Updated: 260306**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -1342,28 +1342,72 @@ The QWU Backoffice uses a 3-layer DOE (Directive-Orchestration-Execution) archit
 
 ### Skills System
 
-Skills provide domain-specific knowledge that agents reference:
+Skills provide domain-specific knowledge and capabilities that agents reference. Each skill has a `SKILL.md` with YAML frontmatter (`name` + `description`) that controls when Claude triggers it.
+
+**QWF Program & Voice Skills:**
+
+| Skill | Purpose | Dependencies |
+|-------|---------|-------------|
+| `qwf-brand-voice` | Voice profiles for all QWF communications (TIG, WOH, L4G, etc.) | None |
+| `qwf-programs` | Program context, audience, sensitivities for all QWF programs | None |
+
+**Operations & Audit Skills:**
+
+| Skill | Purpose | Dependencies |
+|-------|---------|-------------|
+| `system-audit` | Comprehensive system architecture audit | None |
+| `session-wrap-up` | End-of-session documentation sync checklist | None |
+| `process-zoom` | Meeting Intelligence Pipeline for Zoom recordings | FFmpeg |
+| `capture-triage` | GTD-style inbox triage for Master Capture | None |
+| `vista-social` | Social media management via Vista Social API | Python |
+| `tool-wisdom` | Query tool-specific wisdom from wisdom.db | None |
+
+**Lead Generation Skills:**
+
+| Skill | Purpose | Dependencies |
+|-------|---------|-------------|
+| `lead-generation` | Multi-source lead generation (LinkedIn, Maps, Apollo, etc.) | Python |
+| `linkedin-scraping` | LinkedIn Sales Navigator scraping | Apify |
+| `gmaps-scraping` | Google Maps business scraping | Apify |
+| `apollo-scraping` | Apollo.io lead scraping | Apify |
+| `lead-enrichment` | Enrich lead lists with emails, reviews, company data | Python |
+| `email-enrichment` | Email lookup via Anymail Finder | API key |
+| `review-enrichment` | Google reviews + AI sentiment analysis | Python |
+| `friendly-name-enrichment` | Clean up formal company names to brand names | LLM |
+
+**Visual & Creative Skills (adapted from Nate Herk / AI Automation Society):**
+
+| Skill | Purpose | Dependencies | Cost |
+|-------|---------|-------------|------|
+| `excalidraw-diagram` | Editable `.excalidraw` JSON diagrams | None | Free |
+| `excalidraw-visuals` | Hand-drawn PNG images via Kie.ai API | `KIE_AI_API_KEY`, Node.js | ~$0.02-0.09/image |
+| `nano-banana-images` | Hyper-realistic photos via Kie.ai Nano Banana 2 | `KIE_AI_API_KEY`, Python | ~$0.04-0.09/image |
+| `frontend-design` | Anti-AI-slop design guidelines for distinctive UIs | None | Free |
+| `video-to-website` | Scroll-driven animated websites from video files | FFmpeg | Free |
 
 ```
 .claude/skills/
-├── qwf-brand-voice/          # Voice profiles
-│   ├── SKILL.md              # Overview + when to use each
-│   ├── tig-standard.md       # Full TIG voice profile
-│   ├── woh-combat.md         # WOH combat voice
-│   └── l4g-b2b.md            # L4G business voice
-│
-├── qwf-programs/             # Program context
-│   ├── SKILL.md
-│   ├── acofh.md              # Mission, audience, sensitivities
-│   ├── mp.md                 # Missing Pixel details
-│   ├── iysr.md
-│   ├── woh.md
-│   ├── qwc.md
-│   └── l4g.md
-│
-└── qwf-print-specs/          # Production specs
-    ├── l4g-postcard.md
-    └── apparel.md
+├── qwf-brand-voice/          # Voice profiles (TIG, WOH, L4G, etc.)
+├── qwf-programs/             # Program context and audience
+├── system-audit/             # System architecture audit
+├── session-wrap-up/          # End-of-session checklist
+├── process-zoom/             # Meeting intelligence pipeline
+├── capture-triage/           # Inbox triage
+├── vista-social/             # Social media management
+├── tool-wisdom/              # Wisdom database queries
+├── lead-generation/          # Multi-source leads
+├── linkedin-scraping/        # LinkedIn Sales Navigator
+├── gmaps-scraping/           # Google Maps businesses
+├── apollo-scraping/          # Apollo.io leads
+├── lead-enrichment/          # Lead data enrichment
+├── email-enrichment/         # Email lookup
+├── review-enrichment/        # Google reviews
+├── friendly-name-enrichment/ # Company name cleanup
+├── excalidraw-diagram/       # Editable diagrams (JSON)
+├── excalidraw-visuals/       # Hand-drawn PNGs (Kie.ai)
+├── nano-banana-images/       # Hyper-realistic photos (Kie.ai)
+├── frontend-design/          # Design guidelines
+└── video-to-website/         # Scroll-driven animated sites
 ```
 
 ### Agent Templates
@@ -3840,8 +3884,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.33 by generate_public_manual.py"
-generated: "2026-03-04 09:03"
+source: "Auto-generated from private manual v3.34 by generate_public_manual.py"
+generated: "2026-03-06 23:54"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9014,4 +9058,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-04 09:03 (v3.33)*
+*Last updated: 2026-03-06 23:54 (v3.34)*
