@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-06 23:54 | Source version: 3.34
+> Generated: 2026-03-08 03:35 | Source version: 3.35
 
 # QWU Backoffice User Manual
 
@@ -1175,6 +1175,37 @@ Claude executes without asking "May I run this command?" each time.
 3. **Be specific** in your requests - Claude works better with clear goals
 4. **Review changes** before approving in Normal Mode
 5. **Use Auto-accept** only for well-tested, repetitive workflows
+
+### Agent Memory Architecture
+
+Claude Code maintains persistent memory across conversations through a layered system:
+
+**Always loaded (every conversation):**
+- `CLAUDE.md` — Operating manual, conventions, infrastructure access (~500 lines)
+- `MEMORY.md` — High-consequence behavioral rules, mission/language standards, topic file index (~104 lines, limit 200)
+
+**On-demand (loaded when domain work starts via Domain Start Protocol):**
+
+| Topic File | Trigger | Purpose |
+|-----------|---------|---------|
+| `memory/l4g.md` | L4G work | Fundraiser behavioral notes, vault pointers |
+| `memory/bni.md` | BNI work | Pre-flight checklist, roster rules |
+| `memory/email_patterns.md` | Email tasks | Outlook draft rule, TIG's style |
+| `memory/content_pipeline.md` | Video/YouTube | Script inventory, output locations |
+| `memory/lovable.md` | App building | Vite gotchas, placeholder key warning |
+| `memory/llm_api.md` | Model config | OpenRouter parameter mapping |
+| `memory/web_design.md` | Visual design | RevSlider, Spline, frontend stack |
+| `memory/wordpress.md` | WPMU/Divi | System Status pointer |
+| `memory/tool_wisdom_libraries.md` | TWL work | Standard overview, coverage stats |
+
+**Key principles:**
+- MEMORY.md contains behavioral rules (what I get wrong). Topic files contain domain-specific notes + vault pointers.
+- Topic files reference vault files (System Status, Entities, Directives) but never copy their content.
+- Line budgets enforced at session wrap-up: MEMORY.md < 180 lines, topic files < 50 lines each.
+- Domain Start Protocol: read System Status file + topic file before beginning domain-scoped work.
+- Multi-session safe: sessions are domain-scoped, topic files are domain-scoped, parallel writes hit different files.
+
+**Context window best practice:** Manually clear conversations at natural breakpoints (task completion, domain switches) rather than waiting for auto-compaction. Use `/session-wrap-up` before clearing. The persistent file system is designed for clean breaks.
 
 ---
 
@@ -3884,8 +3915,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.34 by generate_public_manual.py"
-generated: "2026-03-06 23:54"
+source: "Auto-generated from private manual v3.35 by generate_public_manual.py"
+generated: "2026-03-08 03:35"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9058,4 +9089,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-06 23:54 (v3.34)*
+*Last updated: 2026-03-08 03:35 (v3.35)*
