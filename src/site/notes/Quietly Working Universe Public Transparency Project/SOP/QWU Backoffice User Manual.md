@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-08 03:35 | Source version: 3.35
+> Generated: 2026-03-09 05:11 | Source version: 3.35
 
 # QWU Backoffice User Manual
 
@@ -3916,7 +3916,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.35 by generate_public_manual.py"
-generated: "2026-03-08 03:35"
+generated: "2026-03-09 05:11"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8488,10 +8488,12 @@ Every QWF app landing page includes a standardized "Part of Something Bigger" se
 
 ### What It Contains
 
-- **8 app cards:** Quietly Spotting (FREE), Quietly Writing (YOU ARE HERE), Quietly Quoting (COMING SOON), Quietly Tracking (COMING SOON), Quietly Networking, Quietly Knocking, Quietly Managing (COMING SOON), QWF Passport (ONE ACCOUNT)
-- **Canonical icons** (match QSP sidebar): Telescope, Feather, Calculator, Link2, Handshake, DoorOpen, Home, Fingerprint
+- **v2.0 (March 2026): Interactive SVG Orbit + 9 Cards** — replaced flat card grid with animated hub-and-spoke visualization. QSP always center node. Current app at 12 o'clock. Traveling dots along connection lines. Auto-cycle spotlight (stops on any interaction). Bidirectional hover/click linking between orbit nodes and cards. Mobile fallback: vertical hub-list.
+- **9 items:** Quietly Spotting (FREE), Quietly Writing, Quietly Quoting (IN PRODUCTION), Quietly Tracking (IN PRODUCTION), Quietly Networking, Quietly Knocking, Quietly Managing (IN PRODUCTION), QWF Passport (ONE ACCOUNT), Your Tools (CONNECT, dashed border)
+- **Canonical icons** (match QSP sidebar): Telescope, Feather, Calculator, Link2, Handshake, DoorOpen, Home, Fingerprint, Plug
 - **Mission footer:** "Every penny of proceeds from QWF apps supports underserved youth through The Missing Pixel Project."
-- **Current app highlight:** The card for the app you're viewing gets a "You are here" badge and accent ring
+- **Current app highlight:** "You are here" label above current app's orbit node + badge on card
+- **Cascade generator:** `005 Operations/Execution/generate_ecosystem_cascade.py` v2.1.0 produces per-app prompts (6 apps). QWR and Pocket Ez are manual.
 
 ### Locked Copy (Must Not Change)
 
@@ -8505,14 +8507,14 @@ Every QWF app landing page includes a standardized "Part of Something Bigger" se
 
 | App | Status | Notes |
 |-----|--------|-------|
-| QWR (Quietly Writing) | ✅ Deployed | Prompt 057 (Feb 18), updated Prompt 084 (Feb 28 — expanded to 8 cards, QKN live) |
-| QSP (Quietly Spotting) | ✅ Deployed | Prompt 011 (Feb 23), cascade prompt 015 (Mar 1) |
-| QQT (Quietly Quoting) | ✅ Deployed | Prompt 011-alpha (Feb 27), cascade prompt 013 (Mar 1) |
-| QNT (Quietly Networking) | ✅ Deployed | Prompt 036 + Prompt 046, cascade prompt 047 (Mar 1) |
-| QTR (Quietly Tracking) | ✅ Deployed | Prompt 006-alpha (Feb 27), cascade prompt 008 (Mar 1) |
-| QKN (Quietly Knocking) | ⏳ Blocked | Live app but GitHub repo deleted — Lovable can't deploy cascade prompt (004). 3 fix paths identified. |
-| QMP (Quietly Managing) | ✅ Deployed | Prompt 009-alpha (Feb 27), cascade prompt 010 (Mar 1) |
-| Pocket Ez | ✅ Deployed | Prompt 008-alpha (Feb 27, bioluminescent variant) |
+| QSP (Quietly Spotting) | ✅ Orbit v2 Deployed | Prompts 016-022: orbit + refinements + crosshair favicon + telescope navbar + orbit hero (Mar 8) |
+| QWR (Quietly Writing) | ✅ Orbit v2 Deployed | Prompt 091: manual orbit prompt with ref-based stopCycle (Mar 8) |
+| QQT (Quietly Quoting) | ✅ Orbit v2 Deployed | Prompt 015: cascade orbit (Mar 8) |
+| QNT (Quietly Networking) | ✅ Orbit v2 Deployed | Prompt 049: cascade orbit (Mar 8) |
+| QTR (Quietly Tracking) | ✅ Orbit v2 Deployed | Prompt 009: cascade orbit (Mar 8) |
+| QKN (Quietly Knocking) | ✅ Orbit v2 Deployed | Prompt 005: cascade orbit (Mar 8) |
+| QMP (Quietly Managing) | ✅ Orbit v2 Deployed | Prompt 011: cascade orbit (Mar 8) |
+| Pocket Ez | ✅ Orbit v2 Deployed | Prompts 009-011: bioluminescent variant + navbar fix + alpha pill (Mar 8) |
 
 ### Reference
 
@@ -9089,4 +9091,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-08 03:35 (v3.35)*
+*Last updated: 2026-03-09 05:11 (v3.35)*
