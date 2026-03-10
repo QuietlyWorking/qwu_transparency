@@ -47,7 +47,7 @@ These tools have the broadest audience appeal, strongest stories, and highest QW
 | **Cloudflare** | DNS/Security | 4 | 4 | **4.2** | DNS and security for every QWF domain. Incredible free tier, public company but not PE. |
 | **Claude / Anthropic** | AI | 4 | 4 | **4.0** | Primary AI for all QWF operations. Safety-focused mission, Dario Amodei founder-led. |
 | **Claude Code** | AI/Dev Tools | ? | 4 | **4.0** | The agent that literally runs our backoffice. This page was synced by a script it helped build. |
-| **Lovable** | AI/Frontend | ? | ? | **3.8** | Builds our web apps (HQ Command Center, Quietly Spotting, and more). Founder very active, early stage, great story. |
+| **Lovable** | AI/Frontend | 4 | 5 | **4.2** | Builds our web apps (HQ Command Center, Quietly Spotting, and more). Founder (Anton Osika) deeply involved, early stage, genuine heart — 20% NPO discount, Valentine's Day 50% off credits, and 24 hours of free usage for *everyone* on International Women's Day 2026. |
 
 ---
 
@@ -163,5 +163,5 @@ A few principles we hold ourselves to:
 
 ---
 
-*Last updated: 2026-02-26*
+*Last updated: 2026-03-09*
 *Tool count and scores are living data. See [[Quietly Working Universe Public Transparency Project/Table of Contents\|Home]] for more about this transparency site.*
