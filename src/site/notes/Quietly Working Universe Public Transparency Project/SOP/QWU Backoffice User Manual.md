@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-11 07:03 | Source version: 3.38
+> Generated: 2026-03-11 07:12 | Source version: 3.38
 
 # QWU Backoffice User Manual
 
@@ -153,11 +153,13 @@ The QWU Backoffice is an AI agent workspace running on Microsoft Azure, designed
 The QWU infrastructure is monitored at three layers, all documented in `005 Operations/Directives/infrastructure_monitoring.md`.
 
 **External Monitoring (Betterstack)**
-- HTTP monitor pings `n8n.quietlyworking.org/healthz` every 60 seconds (updated 2026-02-23; root path blocked by n8n for bot user agents)
-- Heartbeat monitors expect a check-in every 6 hours from each VM
+- **Plan:** AppSumo lifetime deal (2 stacked codes) — 200 monitors, 10 status pages, 5 members
+- **17 HTTP monitors** (updated 2026-03-11): 10 WPMU sites, 5 infrastructure services, QWR app, OCN supporter site
+- **4 heartbeat monitors:** claude-dev, n8n, WPMU VM, OCN VM (all every 6 hours)
 - Alerts: phone call + SMS + email + push notification
 - Outgoing webhook (ID 80218) fires on incident events → triggers auto-remediation (see [[#Auto-Remediation System ⭐ NEW]])
-- Status page: [status.quietlyworking.org](https://status.quietlyworking.org) (also embedded in SuiteDash CRM dashboard)
+- **Status page:** [status.quietlyworking.org](https://status.quietlyworking.org) — two sections: "[Supporter Organization]" (supporter, first position) and "QWU Infrastructure" (all QWF sites + apps + infra + heartbeats)
+- WPMU and OCN Lightsail CPU alarms deleted (2026-03-11) — they flapped due to WP-Cron bursts and xmlrpc attacks; Betterstack uptime monitoring is more useful
 
 **Internal Health Checks**
 - `check_vm_health.py` runs every 6 hours via cron on both VMs
@@ -3916,7 +3918,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.38 by generate_public_manual.py"
-generated: "2026-03-11 07:03"
+generated: "2026-03-11 07:12"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8030,7 +8032,7 @@ OUTPUT SURFACES
 | Apify | ~$45 | `collect_apify_costs.py` via REST API | Per-actor, per-run, per-day |
 | ESP VPS | ~$3 | Hardcoded ($35.49/year) | Fixed |
 | Cloudflare Pages | $0 | Free tier (unlimited bandwidth) | Per-project |
-| Betterstack | $0 | Lifetime AppSumo license | N/A |
+| Betterstack | $0 | Lifetime AppSumo (2 stacked codes): 200 monitors, 10 status pages, 5 members | N/A |
 | Email (Graph/SES) | $0 | Included in existing licenses | N/A |
 | **Total** | **~$373/mo** | | |
 
@@ -9098,4 +9100,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-11 07:03 (v3.38)*
+*Last updated: 2026-03-11 07:12 (v3.38)*
