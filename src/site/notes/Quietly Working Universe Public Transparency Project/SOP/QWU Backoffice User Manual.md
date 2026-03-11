@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-09 05:11 | Source version: 3.35
+> Generated: 2026-03-11 00:19 | Source version: 3.37
 
 # QWU Backoffice User Manual
 
-**Version: 3.34 | Started: 251223 | Updated: 260306**
+**Version: 3.37 | Started: 251223 | Updated: 260311**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3915,8 +3915,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.35 by generate_public_manual.py"
-generated: "2026-03-09 05:11"
+source: "Auto-generated from private manual v3.37 by generate_public_manual.py"
+generated: "2026-03-11 00:19"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -4022,6 +4022,10 @@ Outlook (Inbox + Sent Items)
      │  → 000 Inbox/___Tasks/
      │
      ▼
+[Sender Tracking] (v1.6.0)
+     │  → hq_email_senders (Supabase) — PostgREST upsert
+     │
+     ▼
 [Newsletter Audit] (if newsletter detected)
      └── → 000 Inbox/___Review/Newsletter-Audit.md
 ```
@@ -4047,7 +4051,7 @@ VIP contacts get immediate Discord notifications and priority processing:
 
 | File | Purpose |
 |------|---------|
-| `outlook_pipeline.py` | Main orchestrator (v1.5.0 — suppression pre-check before classification) |
+| `outlook_pipeline.py` | Main orchestrator (v1.6.0 — suppression pre-check + sender tracking to `hq_email_senders`) |
 | `outlook_fetch_emails.py` | Microsoft Graph API: OAuth, fetch, pagination |
 | `email_classify.py` | Claude API classification of email intent |
 | `email_entity_resolve.py` | Match sender to People/Organizations, SuiteDash CRM lookup |
@@ -8025,9 +8029,12 @@ OUTPUT SURFACES
 | Supabase | ~$85 | `collect_app_metrics.py` (tier-based) | Per-app, per-tier |
 | Apify | ~$45 | `collect_apify_costs.py` via REST API | Per-actor, per-run, per-day |
 | ESP VPS | ~$3 | Hardcoded ($35.49/year) | Fixed |
+| Cloudflare Pages | $0 | Free tier (unlimited bandwidth) | Per-project |
 | Betterstack | $0 | Lifetime AppSumo license | N/A |
 | Email (Graph/SES) | $0 | Included in existing licenses | N/A |
 | **Total** | **~$373/mo** | | |
+
+**Cost Optimization Note (March 2026):** QWR frontend hosting migrated from Lovable ($320/yr per project on Pro plan) to Cloudflare Pages (free tier, unlimited bandwidth). As additional apps migrate, each saves ~$320/yr in Lovable hosting costs. Lovable remains the build tool (AI-assisted UI development via prompts) but is no longer required for hosting.
 
 ### Supabase Pricing Model
 
@@ -8110,7 +8117,7 @@ Report sections: Total Summary, By Purpose (primary), By Tier, Top 10 Scripts, W
 
 The email pipeline is the largest LLM cost driver (~44% of total spend). Optimization strategy:
 
-1. **Suppression pre-check** (v1.5.0): `outlook_pipeline.py` loads `hq_email_suppressions` table BEFORE classification. Suppressed senders/domains get a synthetic `classification: "suppressed"` and skip Opus entirely (~$0.036/email saved). As of Feb 28, 2026: **202 suppressions** (200 domain-level + 2 email-level), covering virtually all newsletters, marketing, SaaS promos, and transactional noise.
+1. **Suppression pre-check** (v1.5.0→v1.6.0): `outlook_pipeline.py` loads `hq_email_suppressions` table BEFORE classification. Suppressed senders/domains get a synthetic `classification: "suppressed"` and skip Opus entirely (~$0.036/email saved). As of March 2026: **82% suppression rate** (1,153/1,413 emails skipped), reducing email processing costs from $1.17/day (Feb) to $0.22/day (Mar) — **81% reduction**. v1.6.0 also tracks all senders in `hq_email_senders` Supabase table for the HQ Email Sources module.
 2. **Newsletter short-circuit**: `email_classify.py` skips Opus for pre-detected newsletters.
 3. **Active unsubscribing**: User progressively reduces inbox volume by unsubscribing from non-essential emails.
 4. **Task creation safety net**: `email_task_create.py` Rule 0 blocks task creation for suppressed emails (defense in depth).
@@ -9091,4 +9098,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-09 05:11 (v3.35)*
+*Last updated: 2026-03-11 00:19 (v3.37)*
