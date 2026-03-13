@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-13 18:41 | Source version: 3.38
+> Generated: 2026-03-13 19:00 | Source version: 3.40
 
 # QWU Backoffice User Manual
 
@@ -1208,6 +1208,52 @@ Claude Code maintains persistent memory across conversations through a layered s
 - Multi-session safe: sessions are domain-scoped, topic files are domain-scoped, parallel writes hit different files.
 
 **Context window best practice:** Manually clear conversations at natural breakpoints (task completion, domain switches) rather than waiting for auto-compaction. Use `/session-wrap-up` before clearing. The persistent file system is designed for clean breaks.
+
+### QCM — QWU Context Manager
+
+QCM is a homegrown context management system that automatically recovers working state after context compaction. Built as 4 Python hook scripts with zero external dependencies (no npm packages, no MCP servers).
+
+**What it solves:** During long sessions, Claude Code's context window fills and compacts. When this happens, Claude loses track of which files were being edited, what tasks remained, what decisions were made, and what errors were diagnosed. QCM captures all of this automatically and restores it after compaction.
+
+**Architecture:**
+
+| Component | Hook Event | Purpose |
+|-----------|-----------|---------|
+| `qcm_event_logger.py` | PostToolUse, UserPromptSubmit | Logs every tool call and user message to SQLite, classified by priority (P1-P4) |
+| `qcm_snapshot_builder.py` | Stop | Builds a <=2KB priority-budgeted markdown snapshot from events |
+| `qcm_session_restore.py` | SessionStart | Injects the snapshot as additionalContext after compaction |
+| `qcm_output_compressor.py` | PostToolUse (Bash) | Compresses large outputs (>3KB) — saves full output to disk, returns summary to context |
+
+**Priority tiers:**
+
+| Priority | What gets captured | Snapshot budget |
+|----------|-------------------|----------------|
+| P1 (critical) | User requests, project focus, errors | 800 bytes (guaranteed) |
+| P2 (high) | Decisions, script runs, directive reads | 600 bytes |
+| P3 (medium) | File edits | 400 bytes |
+| P4 (low) | File reads, searches | Dropped from snapshot |
+
+**File locations:**
+- Hook scripts: `.claude/hooks/qcm_*.py`
+- Session events DB: `.tmp/context/session_events.db` (SQLite, WAL mode)
+- Snapshots: `.tmp/context/snapshots/snapshot_{session_id}.md`
+- Compressed outputs: `.tmp/context/compressed/{hash}.txt`
+- Hook configuration: `.claude/settings.json` (hooks section)
+- Directive: `005 Operations/Directives/context_management.md`
+
+**Security design:** Zero external dependencies (Python stdlib only), no network access, no credential access, fail-open (never blocks Claude), all data in `.tmp/` (ephemeral). Built in-house after security analysis rejected context-mode (npm supply chain risk with 30+ API keys on the VM).
+
+**Debugging:**
+```bash
+# Check events
+python3 -c "import sqlite3; c=sqlite3.connect('.tmp/context/session_events.db'); [print(f'P{r[0]} [{r[1]}] {r[2]}') for r in c.execute('SELECT priority, category, summary FROM events ORDER BY id DESC LIMIT 10')]"
+
+# Check snapshot
+cat .tmp/context/snapshots/snapshot_*.md
+
+# Nuclear reset (safe)
+rm -rf .tmp/context/
+```
 
 ---
 
@@ -3917,8 +3963,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.38 by generate_public_manual.py"
-generated: "2026-03-13 18:41"
+source: "Auto-generated from private manual v3.40 by generate_public_manual.py"
+generated: "2026-03-13 19:00"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -6964,6 +7010,10 @@ All error outputs route to a Discord Error Alert node.
 
 **v6.0 additions:** When `gap_opportunity_id` is present, fetches the full gap with evidence and injects it as the article's primary angle. Customer language injection from Reddit-derived terms, phrases, and questions. Keyword-matches against active gaps (score >= 40) for standard articles. Content strategy matching: if the article has a `content_strategy_id`, fetches the strategy's platform, expertise level, style guide, and target persona for strategy-aware generation.
 
+**v7.0 additions:** Content Strategy context injection — goal framing, expertise level, style guide, content themes, and avoid list from the strategy record. Strategy overrides the old hardcoded style guide when present.
+
+**v8.0 additions (Quality Targets):** Enforces measurable quality standards — minimum word count, required heading structure (H2/H3), citation density targets, readability scoring. Store Research Results v2.0 extracts citation URLs from Perplexity annotations and inline markdown links into `research_citations` for accurate source counting. Score Article Quality node counts actual `sources_used` instead of regex phrase matching. Generate Article node strengthened with inline source attribution requirements and emoji control.
+
 ### Key Details
 
 | Property | Value |
@@ -8252,7 +8302,8 @@ The power is in the cross-reference: when competitor reviews say "reporting is w
 | `qwr_gap_opportunity_generator.py` v2.0.0 | Python script | Built — cross-references sources → scored gaps + content strategy matching (`suggested_strategy_id`) |
 | `qwr_competitor_intel.py` v2.0.0 | Extended | Added review scraping trigger |
 | `qwr_opportunity_scorer.py` v2.0.0 | Extended | Added gap opportunity scoring |
-| `qwr_update_article_gen_workflow.py` v2.0.0 | Extended | Article gen v5.0 → v6.0 |
+| `qwr_update_article_gen_workflow.py` v3.0.0 | Extended | Article gen v5.0 → v8.0 (content strategy + quality targets) |
+| `qwr_fix_citation_pipeline.py` v1.0.0 | Built | Citation URL extraction, quality scorer fix, inline attribution |
 | n8n: Review Scraping + Analysis | Workflow `q9D0RU8D7eBCmq34` | Deployed — scheduled |
 | n8n: Reddit Scraping + Analysis | Workflow `DSv69vT6GfXzY6IS` | Deployed — scheduled |
 | n8n: Gap Opportunity Generator | Workflow `aEj51qiTeZl9C4tL` | Deployed — scheduled |
@@ -9100,4 +9151,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-13 18:41 (v3.38)*
+*Last updated: 2026-03-13 19:00 (v3.40)*
