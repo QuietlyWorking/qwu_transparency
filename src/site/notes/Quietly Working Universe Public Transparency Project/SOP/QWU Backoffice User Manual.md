@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-15 02:41 | Source version: 3.41
+> Generated: 2026-03-15 07:23 | Source version: 3.42
 
 # QWU Backoffice User Manual
 
-**Version: 3.41 | Started: 251223 | Updated: 260315**
+**Version: 3.42 | Started: 251223 | Updated: 260315**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3667,7 +3667,7 @@ The system ensures **zero silent failures** through 4-layer protection. With 2-5
 | `meeting_entity_resolve.py` | Entity matching + SuiteDash CRM | v1.0.0 |
 | `meeting_update_vault.py` | Vault file updates (dedup-aware) | v1.2.0 |
 | `meeting_project_link.py` | Project detection (word-boundary matching) | v1.1.0 |
-| `zoom_reconcile.py` | Reconciliation - discovers and processes missed meetings (defense-in-depth: content-aware classification, targeted UUID recheck, Discord escalation, HQ task on permanent skip) | v1.5.0 |
+| `zoom_reconcile.py` | Reconciliation - discovers and processes missed meetings (defense-in-depth: content-aware classification, targeted UUID recheck, 3-tier in-progress detection with 4-hour time gate, Discord escalation, HQ task on permanent skip) | v1.6.0 |
 | `zoom_health_check.py` | Health monitoring - detects system issues | v1.0.0 |
 | `zoom_list_recordings.py` | Query Zoom API for recent cloud recordings | v1.0.0 |
 | `meeting_tracker.py` | SQLite tracking with locking | v1.1.0 |
@@ -3697,6 +3697,9 @@ The system ensures **zero silent failures** through 4-layer protection. With 2-5
 
 # Run deep scan (30-day lookback with retry-failed)
 .venv/bin/python "005 Operations/Execution/zoom_reconcile.py" --days 30 --retry-failed --json
+
+# Force-process a specific meeting (bypasses tracker status)
+.venv/bin/python "005 Operations/Execution/zoom_pipeline.py" --meeting-id "UUID==" --force --json
 
 # Check tracker stats
 .venv/bin/python "005 Operations/Execution/meeting_tracker.py" --stats
@@ -3964,8 +3967,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.41 by generate_public_manual.py"
-generated: "2026-03-15 02:41"
+source: "Auto-generated from private manual v3.42 by generate_public_manual.py"
+generated: "2026-03-15 07:23"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9152,4 +9155,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-15 02:41 (v3.41)*
+*Last updated: 2026-03-15 07:23 (v3.42)*
