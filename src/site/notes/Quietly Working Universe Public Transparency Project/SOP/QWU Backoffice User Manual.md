@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-13 19:00 | Source version: 3.40
+> Generated: 2026-03-15 02:41 | Source version: 3.41
 
 # QWU Backoffice User Manual
 
-**Version: 3.37 | Started: 251223 | Updated: 260311**
+**Version: 3.41 | Started: 251223 | Updated: 260315**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -1882,6 +1882,7 @@ Share documents with non-technical collaborators (advisors, board members, partn
 ```
 
 **Key Design Decisions:**
+- **Bidirectional sync** via `revisionId` tracking (v1.1.0) — auto-detects remote edits and pulls them
 - Google Docs wins conflicts (Obsidian backed up before overwriting)
 - YAML frontmatter stripped from Google Docs (readers never see it)
 - Obsidian syntax converted to readable format (wiki-links → plain text)
@@ -3963,8 +3964,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.40 by generate_public_manual.py"
-generated: "2026-03-13 19:00"
+source: "Auto-generated from private manual v3.41 by generate_public_manual.py"
+generated: "2026-03-15 02:41"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9151,4 +9152,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-13 19:00 (v3.40)*
+*Last updated: 2026-03-15 02:41 (v3.41)*
