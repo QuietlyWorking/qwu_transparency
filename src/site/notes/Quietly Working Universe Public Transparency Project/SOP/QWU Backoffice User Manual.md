@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-17 07:06 | Source version: 3.43
+> Generated: 2026-03-17 08:02 | Source version: 3.44
 
 # QWU Backoffice User Manual
 
-**Version: 3.43 | Started: 251223 | Updated: 260317**
+**Version: 3.44 | Started: 251223 | Updated: 260317**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3967,8 +3967,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.43 by generate_public_manual.py"
-generated: "2026-03-17 07:06"
+source: "Auto-generated from private manual v3.44 by generate_public_manual.py"
+generated: "2026-03-17 08:02"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -5560,7 +5560,7 @@ Every email script is classified as **Enhancement** or **Exempt**:
 | `send_optout_confirmation.py` | Transactional (preference confirmation) |
 | `ezer_respond.py` | Conversational reply (human-initiated) |
 | `video_email_sender.py` | TIG-requested action |
-| `qwr_notify_article_ready.py` | Transactional (supporter requested) |
+| `qwr_notify_article_ready.py` v2.1.0 | Transactional (supporter requested) |
 
 **Fail-open vs Fail-closed:** Fail-open scripts send the email even if the preference check fails (suitable for operational emails like meeting follow-ups). Fail-closed scripts block the email if the preference check fails (required for ongoing automated communications like BNI reports and journey touchpoints).
 
@@ -9155,4 +9155,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-17 07:06 (v3.43)*
+*Last updated: 2026-03-17 08:02 (v3.44)*
