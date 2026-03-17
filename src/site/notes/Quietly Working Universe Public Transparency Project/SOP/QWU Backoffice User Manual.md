@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-17 09:08 | Source version: 3.45
+> Generated: 2026-03-17 19:07 | Source version: 3.46
 
 # QWU Backoffice User Manual
 
-**Version: 3.44 | Started: 251223 | Updated: 260317**
+**Version: 3.46 | Started: 251223 | Updated: 260317**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2770,7 +2770,7 @@ All execution scripts have been updated to use qwu_datetime:
 
 The same timezone problem affects all QWF Lovable apps. JavaScript's `new Date().toISOString()` returns UTC. After 4 PM Pacific (midnight UTC), the UTC date flips to the next calendar day. Since Supabase stores dates in Pacific time, all Supabase date-boundary queries silently return wrong results for 8 hours every day. No errors are thrown — dashboards just show empty/stale data.
 
-**Every QWF Lovable project must include `src/utils/timezone.ts`** with 7 helper functions. This file is required in every Prompt 001 (foundation prompt) — see CLAUDE.md Lovable Prompt Conventions.
+**Every QWF Lovable project must include `src/utils/timezone.ts`** with 7 helper functions. This file is required in every Prompt 001 (foundation prompt) — see CLAUDE.md QWF Frontend Development.
 
 **Canonical utility functions:**
 
@@ -2803,7 +2803,7 @@ const weekAgo = getPacificDaysAgo(7);         // 7 days ago in Pacific
 **History:** First identified in HQ Command Center (Feb 2026, calendar edge function showed tomorrow's events after 4 PM). Recurred in QQT (11 affected locations) and QMP (18 affected locations) before the convention was established. Root cause: the original timezone directive called frontend JS "Generally safe" — this assessment was wrong for Supabase date queries and was corrected Feb 13, 2026.
 
 **3-layer defense:**
-1. **Prevention:** Every Prompt 001 must include `timezone.ts` (CLAUDE.md Lovable Prompt Conventions)
+1. **Prevention:** Every Prompt 001 must include `timezone.ts` (CLAUDE.md QWF Frontend Development)
 2. **Enforcement:** Agent instructions require Pacific helpers in all Lovable prompt code examples (never raw `new Date()`)
 3. **Remediation:** `005 Operations/Prompts/timezone-fix-handover.md` for auditing/fixing legacy apps built before the convention
 
@@ -3967,8 +3967,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.45 by generate_public_manual.py"
-generated: "2026-03-17 09:08"
+source: "Auto-generated from private manual v3.46 by generate_public_manual.py"
+generated: "2026-03-17 19:07"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8596,6 +8596,80 @@ Every QWF app landing page includes a standardized "Part of Something Bigger" se
 
 ---
 
+## Unified Supporter Statement System ⭐ NEW
+
+### Purpose
+
+Replaces fragmented per-app Stripe receipts with a single monthly statement from QWF. Covers all apps... subscribed ones show usage and impact, unsubscribed ones serve as mission-aligned discovery opportunities with dual framing (supporter value + student training).
+
+### Architecture (Hybrid)
+
+Per-app Stripe subscriptions stay intact. A unified statement is layered on top via three new HQ tables:
+
+| Table | Purpose |
+|-------|---------|
+| `hq_supporter_profiles` | Cross-app identity keyed by email |
+| `hq_supporter_subscriptions` | Per-app subscription snapshot + usage stats (JSONB) |
+| `hq_supporter_statements` | Statement history with rendered HTML |
+
+### 7-Section Narrative Arc
+
+| Section | Content |
+|---------|---------|
+| 1. Greeting | Seasonal, TIG-voiced, sent from Ezer Aión |
+| 2. Your Impact | Mission-first metrics (students trained, total supporters) |
+| 3. Your Apps | Ecosystem orbit + dual-framed cards (subscribed = usage, unsubscribed = "For You" + "For Students") |
+| 4. Support Summary | Financial breakdown framed as gratitude |
+| 5. Your Journey | Badge system (Explorer → Builder → Champion → Patron) |
+| 6. Did You Know? | Rotating monthly content (student spotlights, tips, ecosystem facts) |
+| 7. Footer | QWF 501(c)(3) + orbit + preference center link |
+
+### Dual-Framing Pattern
+
+Every unsubscribed app card tells two stories:
+- **For You:** What the app does for the supporter
+- **For Students:** What training opportunities the app creates
+
+### FORGE Fuel Line Scaling
+
+The 7-section template adapts per fuel line (same skeleton, different content blocks):
+
+| Fuel Line | Frequency | Section 3 Becomes |
+|-----------|-----------|-------------------|
+| Product (apps) | Monthly | App cards + usage |
+| KINDLE (recurring donors) | Monthly | Program impact cards |
+| ALLOY (corporate) | Monthly | Partnership impact |
+| CRUCIBLE (major donors) | Quarterly | Personal narrative |
+| EMBER (estate) | Annual | Legacy projections |
+
+### Phasing
+
+| Phase | Scope | Status |
+|-------|-------|--------|
+| 1 | QWR supporters only (MVP) | ⏳ Planned |
+| 2 | Multi-app expansion + badges | ⏳ Planned |
+| 3 | QSP supporter portal (web) | ⏳ Planned |
+| 4 | FORGE fuel line integration | ⏳ Planned |
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `005 Operations/Directives/unified_supporter_statement.md` | Full specification |
+| `005 Operations/Execution/collect_supporter_data.py` | Cross-app data aggregation (planned) |
+| `005 Operations/Execution/generate_supporter_statement.py` | Template rendering + email send (planned) |
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Task | Skills | Level |
+|------|--------|-------|
+| Build Jinja2 email template | HTML email, CSS, template engines | Intermediate |
+| Cross-app data aggregation | REST APIs, PostgREST, data modeling | Intermediate |
+| Badge system computation | Python, business logic, gamification design | Beginner |
+| Seasonal content management | Content strategy, JSON config, writing | Beginner |
+
+---
+
 ## Auto-Remediation System ⭐ NEW
 
 ### Overview
@@ -9164,4 +9238,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-17 09:08 (v3.45)*
+*Last updated: 2026-03-17 19:07 (v3.46)*
