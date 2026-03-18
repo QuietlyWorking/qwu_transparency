@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-18 01:58 | Source version: 3.47
+> Generated: 2026-03-18 02:12 | Source version: 3.48
 
 # QWU Backoffice User Manual
 
-**Version: 3.47 | Started: 251223 | Updated: 260318**
+**Version: 3.48 | Started: 251223 | Updated: 260318**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -92,7 +92,10 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 73. [[#QWR Team Accounts System ⭐ NEW]]
 74. [[#QWF Documentation Standard ⭐ NEW]]
 75. [[#Weavy Creative Production System ⭐ NEW]]
-76. [[#Session Log]]
+76. [[#WHL WHELHO App ⭐ NEW]]
+77. [[#Cloudflare & DNS Management ⭐ NEW]]
+78. [[#QWF App Registry ⭐ NEW]]
+79. [[#Session Log]]
 
 ---
 
@@ -3967,8 +3970,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.47 by generate_public_manual.py"
-generated: "2026-03-18 01:58"
+source: "Auto-generated from private manual v3.48 by generate_public_manual.py"
+generated: "2026-03-18 02:12"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9230,6 +9233,259 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
+## WHL WHELHO App ⭐ NEW
+
+**Added: March 18, 2026**
+
+WHELHO is a personal development app built around the planet metaphor — your life as a celestial body with 8 realms, a values-driven core, and elements that orbit between crust (where you are) and core (where you're pulled). It uses Spline 3D for real-time planet visualization and serves as both a FORGE product fuel line and the Missing Pixel pre-student pipeline gatekeeper.
+
+### Architecture
+
+```
+Cloudflare Pages (whelho.org)
+    → Vite + React 18 + React Router 6 + TypeScript
+        → Spline 3D (@splinetool/react-spline)
+            → Supabase SDK
+                → Supabase (nvimpjmhiondaxtrwlny, us-west-1)
+                    ← Edge Functions (submit-contact-form)
+                        ← n8n webhooks (planned)
+```
+
+### Ecosystem Position
+
+WHELHO occupies a unique dual role in QWF:
+- **FORGE Fuel Line:** Premium personal development tool generating fundraising revenue alongside QWR, QQT, L4G
+- **MP Gatekeeper:** The Values Discovery journey qualifies users for Missing Pixel — "accepting 100% responsibility for everything in your life" is demonstrated through the app, not declared on a form
+- **Precious Monster Transformation:** During Values Discovery CHOICE phase, users who genuinely commit to their values become "Precious Monsters" — the bridge to Missing Pixel
+
+### Key Concepts
+
+- **Planet Metaphor:** User's life = a planet with 8 realms. Core values create gravitational pull. Elements orbit between crust (current state) and core (aspirational state).
+- **8 Realms:** Spirit, Mind, Body, Relationships, Money, Recreation, Work, Charity — each a segment on the 3D planet surface
+- **Values Discovery Flow:** Excavation → Illumination → Recognition → Choice → Commitment — AI-assisted pattern detection surfaces values from freeform responses
+- **Two-Track Development:** Track A (React code, done by code students) and Track B (Spline 3D scene design, done by 3D art students) merge at integration
+- **Spline Integration:** Planet designed in Spline's browser editor, embedded via `@splinetool/react-spline`. Events: `onSplineMouseDown` for realm clicks, `emitEvent()` for animations, Variables API for dynamic control
+- **Own Brand:** `whelho.org` (not a "Quietly ___" app), but follows QWF App Family patterns
+
+### Current State (March 18, 2026)
+
+| Component | Status |
+|-----------|--------|
+| Supabase project | ACTIVE_HEALTHY — `nvimpjmhiondaxtrwlny` (us-west-1, free tier) |
+| Domain | `whelho.org` — Live on CF Pages, SSL valid |
+| CF Pages project | `whelho` (deployed via `wrangler pages deploy`) |
+| GitHub repo | `QuietlyWorking/whelho` (private) |
+| Database schema | v1.0.0 — 12 tables with RLS |
+| Auth | Configured — email/password + magic links, email verification required |
+| Phase 0: Foundation | ✅ Complete — infrastructure, schema, scaffold, DNS, deploy pipeline |
+| Phase 1: Planet + Onboarding | In Progress — Track A components built, Track B (Spline scene) not started |
+| Alpha stage | ✅ Deployed — invitation-only gate, access request form, bug reports, alpha badge |
+| Contact form edge function | ✅ Deployed — `submit-contact-form` with honeypot, rate limiting, duplicate detection |
+| Spline scene | Pending — placeholder until Track B produces `.splinecode` URL |
+| GitHub Actions deploy | Pending — `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets not yet set |
+
+### Database Schema (12 Tables)
+
+| Table | Purpose |
+|-------|---------|
+| `profiles` | User profiles, planet name, subscription status |
+| `values` | Core values discovered via Values Discovery |
+| `realms` | 8 realms per user (Spirit, Mind, Body, etc.) |
+| `elements` | Items within realms (crust/core positions) |
+| `element_values` | Element-value connections (magnetic pull) |
+| `discovery_responses` | Values Discovery freeform answers |
+| `checkins` | Conversational reflections on elements |
+| `breadcrumbs` | Purpose Window insights (Work+Charity) |
+| `student_applications` | Student verification for free tier |
+| `planet_snapshots` | Year-over-year planet state |
+| `contact_submissions` | Access requests, contact form (anon insert) |
+| `bug_reports` | Alpha/beta bug reports (auth insert + select own) |
+
+### Phase Roadmap
+
+| Phase | Scope | Status |
+|-------|-------|--------|
+| 0: Foundation | CF Pages + Supabase, auth, deploy pipeline, cosmic theme | ✅ Complete |
+| 1: Planet + Onboarding | Spline 3D planet, formation animation, realm interactions, React-Spline integration | In Progress |
+| 2: Values Discovery | Excavation → Commitment arc, AI-assisted pattern detection, core glow | Not Started |
+| 3: Realms + Elements | Realm zoom, element CRUD, crust/core positions, magnetic pull visualization | Not Started |
+| 4: Living Practice | Conversational check-ins, progress on planet, celebration particles | Not Started |
+| 5: Purpose Window | Work + Charity pattern detection, breadcrumb surfacing | Not Started |
+| 6: Polish + Launch | Mobile optimization, MP bridge, beta, landing page, launch | Not Started |
+
+### Reference
+
+- **GitHub Repo:** `https://github.com/QuietlyWorking/whelho` (private, direct code commits)
+- **System Status:** `002 Projects/WHELHO App/WHL-System-Status.md`
+- **Project Brief:** `002 Projects/WHELHO App/WHELHO-App-Project-Brief.md`
+- **Vision Doc:** `002 Projects/WHELHO App/WHELHO-App-Vision.md`
+- **Development Plan:** `002 Projects/WHELHO App/WHELHO-Development-Plan.md`
+- **Local Code:** `/home/<VM_USER>/whelho/`
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| Spline 3D Planet Design (Track B) | 3D modeling, materials, lighting, particles, camera choreography | ⭐⭐⭐ |
+| React-Spline Integration (Track A) | React lazy loading, Spline events API, state management | ⭐⭐⭐ |
+| Values Discovery UX | Conversational UI, multi-step flows, AI pattern detection | ⭐⭐⭐ |
+| Alpha Stage Components | Auth gating, bug reporting, contact forms, edge functions | ⭐⭐ |
+| CF Pages Deployment | Vite builds, wrangler CLI, GitHub Actions, DNS management | ⭐⭐ |
+| Purpose Window Algorithm | Pattern matching, breadcrumb surfacing, data visualization | ⭐⭐⭐ |
+
+---
+
+## Cloudflare & DNS Management ⭐ NEW
+
+**Added: March 18, 2026**
+
+Cloudflare manages DNS, Pages hosting, and Workers for all QWF domains. This section documents the dual-token pattern, zone management, and common operations.
+
+### Dual API Token Pattern
+
+QWU uses **two** Cloudflare API tokens with different permission scopes:
+
+| Token | Env Var | Permissions | Use For |
+|-------|---------|-------------|---------|
+| **Pages Token** | `CLOUDFLARE_API_TOKEN` | Pages, Workers, Analytics | `wrangler pages deploy`, CF Pages project management, Workers |
+| **DNS Token** | `CLOUDFLARE_API_TOKEN_OLD` | DNS read/write, Zone management | DNS record CRUD on any QWF domain |
+
+**Why two tokens:** Session 119 (2026-03-10) created a new Account API Token for QWR's Lovable-to-CF-Pages migration. The new token has Pages/Workers/Analytics permissions but intentionally excludes DNS scope. The old token was marked "deprecated" but never revoked — it's still active and required for all DNS operations.
+
+**Critical rule:** When doing DNS work on ANY QWF domain, use `CLOUDFLARE_API_TOKEN_OLD`. When deploying to CF Pages or managing Workers, use `CLOUDFLARE_API_TOKEN`.
+
+### Account & Zone Registry
+
+| Domain | Zone ID | Hosting | Notes |
+|--------|---------|---------|-------|
+| `quietlyworking.org` | — | CF Pages | QWR production |
+| `quietlyquoting.org` | — | Lovable | QQT |
+| `quietlyknocking.org` | — | Lovable | QKN |
+| `quietlyspotting.org` | — | Lovable | QSP |
+| `quietlytracking.org` | — | Lovable | QTR |
+| `quietlynetworking.org` | — | Lovable | QNT (planned) |
+| `locals4good.org` | — | Lovable | L4G |
+| `whelho.org` | `4e73ca94aad582ed7157175b5a1f6fca` | CF Pages | WHELHO |
+| `preciousmonster.org` | — | — | Reserved (MP lore) |
+| `preciousmonster.com` | — | — | Reserved (MP lore) |
+
+**Cloudflare Account ID:** see `CLOUDFLARE_ACCOUNT_ID` in `.env`
+
+### DNS Management Script
+
+**Script:** `005 Operations/Execution/cloudflare_api.py` (v1.0.0)
+
+Full CRUD for DNS records using the DNS token (`CLOUDFLARE_API_TOKEN_OLD`). Supports:
+- List all records for a zone
+- Create A, AAAA, CNAME, TXT, MX records
+- Update existing records
+- Delete records
+- Toggle proxied/DNS-only status
+
+### CF Pages Deployment
+
+Apps on CF Pages deploy via `wrangler pages deploy`:
+
+```bash
+# Deploy from local build
+cd /home/<VM_USER>/whelho && npm run build
+npx wrangler pages deploy dist --project-name=whelho
+
+# QWR deploys via GitHub Actions (auto on push to main)
+# WHELHO deploys via direct wrangler (GH Actions secrets pending)
+```
+
+### Common Operations
+
+**Check DNS records:**
+```bash
+TOKEN=$(grep "^CLOUDFLARE_API_TOKEN_OLD=" .env | cut -d'=' -f2- | tr -d '\r\n ')
+ZONE_ID="4e73ca94aad582ed7157175b5a1f6fca"
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" | python3 -m json.tool
+```
+
+**Create/update DNS record:**
+```bash
+curl -s -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"type":"CNAME","name":"www","content":"whelho.pages.dev","proxied":true}' \
+  "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
+```
+
+### Known Issues
+
+- The `CLOUDFLARE_API_TOKEN` (Pages token) can read zone info but **cannot** list or modify DNS records — use `CLOUDFLARE_API_TOKEN_OLD` for DNS
+- GitHub fine-grained PATs with `admin: True` do NOT include Actions Secrets management — a separate "Secrets" permission is needed to set repo secrets via API
+- WHELHO's GitHub Actions deploy workflow exists but fails until `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets are set in the repo
+
+---
+
+## QWF App Registry ⭐ NEW
+
+**Added: March 18, 2026**
+
+Centralized registry of all QWF apps with hosting, database, domain, and development workflow information. This is the single reference for understanding the full app ecosystem.
+
+### App Table
+
+| App | Program | Hosting | GitHub Repo | Domain | Supabase Project | Stage |
+|-----|---------|---------|-------------|--------|------------------|-------|
+| **QWR** | Quietly Writing | CF Pages | `quietly-writing` | `quietlywriting.org` | `<SUPABASE_PROJECT_ID>` | Production |
+| **QQT** | Quietly Quoting | Lovable | — | `quietlyquoting.org` | `wrumuuxjnyplzykibwsj` | Beta |
+| **QNT** | Quietly Networking | Lovable | `quietly-networking` | — | `caeiaprjizteokoenzad` | Alpha |
+| **QKN** | Quietly Knocking | Lovable | — | `quietlyknocking.org` | `mepdsaqmsooxmjsmlcut` | Alpha |
+| **QSP** | Quietly Spotting | Lovable | — | `quietlyspotting.org` | `lsfplhkgpiakhvtvsfic` | Production |
+| **QTR** | Quietly Tracking | Lovable | — | `quietlytracking.org` | `ipdrexcbaqoazhpohfco` | Foundation |
+| **L4G** | Locals 4 Good | Lovable | — | `locals4good.org` | `<SUPABASE_PROJECT_ID_L4G>` | Beta |
+| **HQ** | Command Center | Lovable | — | `hq.quietlyworking.org` | `<SUPABASE_PROJECT_ID>` (shared with QWR) | Production |
+| **WHL** | WHELHO | CF Pages | `whelho` | `whelho.org` | `nvimpjmhiondaxtrwlny` | Alpha |
+| **PEZ** | Pocket Ez | Lovable | — | — | `<SUPABASE_PROJECT_POCKET>` | Planned |
+| **QMP** | Missing Pixel | Lovable | — | — | `tmljwjrpujmnrybofxht` | Planned |
+
+### Frontend Development Workflow
+
+| Hosting | How to Make Changes | Deploy Process |
+|---------|-------------------|----------------|
+| **CF Pages** (QWR, WHL) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
+| **Lovable** (all others) | Write numbered Lovable prompt files | Paste prompt into Lovable editor → preview → deploy |
+
+**Migration path:** Apps on Lovable migrate to CF Pages before onboarding external supporters. QWR completed this migration on 2026-03-10. New Track A apps (like WHELHO) skip Lovable entirely.
+
+### Supabase Service Role Key Env Vars
+
+| App | Env Var |
+|-----|---------|
+| QWR | `SUPABASE_SERVICE_ROLE_KEY` |
+| QSP | `QSP_SUPABASE_SERVICE_ROLE_KEY` |
+| QNT | `QNT_SUPABASE_SERVICE_ROLE_KEY` |
+| QKN | `QKN_SUPABASE_SERVICE_ROLE_KEY` |
+| QQT | `QQT_SUPABASE_SERVICE_ROLE_KEY` |
+| QMP | `QRP_SUPABASE_SERVICE_ROLE_KEY` (naming inconsistency — QRP, not QMP) |
+| PEZ | `POCKET_EZ_SUPABASE_SERVICE_ROLE_KEY` |
+| L4G | `L4G_SUPABASE_SERVICE_ROLE_KEY` |
+| WHL | `WHL_SUPABASE_SERVICE_ROLE_KEY` |
+
+### Shared Infrastructure
+
+All QWF apps share:
+- **Supabase Management API:** `QWU_BACKOFFICE_SUPABASE_TOKEN` (note the `QWU_BACKOFFICE_` prefix — `grep "^SUPABASE"` misses it)
+- **Contact Form Pipeline:** `submit-contact-form` edge function → `contact_submissions` table → n8n webhook → Ezer auto-reply → Discord alert → HQ Contact Center
+- **QWF Passport (SSO):** `generate-crossover-token` + `verify-crossover-token` edge functions for one-click cross-app auth
+- **Theme System:** CSS custom properties on `:root` (dark) and `[data-theme="light"]` — dark mode default across all apps
+- **Pacific Timezone:** `src/utils/timezone.ts` in every Lovable app — never use raw `new Date()` for Supabase date queries
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| App Registry Maintenance | Documentation, cross-system awareness, infrastructure mapping | ⭐ |
+| CF Pages Migration | Vite, GitHub Actions, Cloudflare, DNS, build pipelines | ⭐⭐⭐ |
+| Multi-App SSO (QWF Passport) | Edge functions, JWT tokens, cross-origin auth, Supabase Auth | ⭐⭐⭐ |
+| Contact Form Pipeline | Edge functions, webhooks, n8n workflows, anti-spam (honeypot) | ⭐⭐ |
+| Theme System Implementation | CSS custom properties, accessibility, dark mode patterns | ⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -9241,4 +9497,4 @@ Weavy offers an App Mode that provides a simplified interface for students: sing
 
 ---
 
-*Last updated: 2026-03-18 01:58 (v3.47)*
+*Last updated: 2026-03-18 02:12 (v3.48)*
