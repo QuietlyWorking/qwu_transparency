@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-18 02:12 | Source version: 3.48
+> Generated: 2026-03-18 02:22 | Source version: 3.49
 
 # QWU Backoffice User Manual
 
-**Version: 3.48 | Started: 251223 | Updated: 260318**
+**Version: 3.49 | Started: 251223 | Updated: 260318**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3970,8 +3970,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.48 by generate_public_manual.py"
-generated: "2026-03-18 02:12"
+source: "Auto-generated from private manual v3.49 by generate_public_manual.py"
+generated: "2026-03-18 02:22"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7689,25 +7689,26 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | Companies | 1 | 1 | 4 |
 | Third-party integrations | No | 2 | Unlimited |
 
-### Current State (March 17, 2026)
+### Current State (March 18, 2026)
 
 | Component | Status |
 |-----------|--------|
 | Supabase project | ACTIVE_HEALTHY — `lsfplhkgpiakhvtvsfic` (us-west-1) |
 | Domain | `quietlyspotting.org` — Live, SSL valid |
 | Lovable project | `8f2c23f8-bbe6-438c-800e-0f8bb7c42252` |
-| Schema | v2.0.0 — 16 tables (11 core + contact_submissions + 4 Phase 2), RLS, triggers, indexes |
+| Schema | v3.0.0 — 16 tables + schema_v3 (onboarding columns, slug function, tenant INSERT RLS) |
 | Auth | Working — sign-in, sign-up, redirect to /dashboard |
-| Lovable Prompts | 27 total (001-008, 010-011 deployed; 023-027 deployed for Phase 2) |
+| Lovable Prompts | 31 total (001-008, 010-011 deployed; 023-027 deployed for Phase 2; 028-031 written for Phase 3a) |
 | Storage buckets | `avatars` (2MB) + `logos` (5MB) — public read, auth upload |
 | QQT sync | Active — 12 submissions synced per tenant |
-| QWR sync | Active — connects, awaiting articles |
+| QWR sync | Active — 5 articles synced for GreenCal (v1.1.0: `ready`→`approved` mapping, nested score extraction) |
 | Email Infra sync | Active — 18 sending accounts + 12 DMARC domains synced |
 | Campaigns sync | Active — 1 campaign synced |
 | n8n workflows | 4 active — `oGh13wWYWPA0y85d` (QQT 1h), `WQeIAXHsIjN0jBH8` (QWR 1h), `XRhgCh8pRfuyNDWo` (Email Infra 2h), `I2NTN2r6rEtre39c` (Campaigns 4h) |
 | QWF test tenant | `b28692ad` — growth plan, 4 modules |
 | GreenCal tenant | `6db7928c` — growth plan, 4 companies, 6 modules, 6 sending accounts, 6 DMARC domains, 3 campaigns |
 | GCC migration | Executed 2026-03-17 — 6 accounts, 6 domains, 3 campaigns ported from GCC to QSP |
+| Phase 3 | Planning complete. Billing DEFERRED (free). AccuLynx as CRM. Schema v3 deployed. Prompts 028-031 written. |
 | QWF Passport | Deployed — `generate-crossover-token` (QSP, targets: QWR + QQT) + `verify-crossover-token` (QWR, QQT) |
 | Contact Form | Deployed — `submit-contact-form` edge function + centralized pipeline |
 | Landing Page | Deployed — Prompt 011 with heritage, ecosystem, contact sections |
@@ -7731,7 +7732,7 @@ All scripts support `--dry-run` and `--tenant-id` flags. The `migrate_gcc_to_qsp
 - **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-spotting` (Lovable-managed; `ARCHITECTURE.md` at root)
 - **System Status:** `002 Projects/_Quietly Spotting/QSP-System-Status.md`
 - **Product Directive:** `005 Operations/Directives/quietly_spotting.md`
-- **Lovable Prompts:** `002 Projects/_Quietly Spotting/lovable-prompts/001-027`
+- **Lovable Prompts:** `002 Projects/_Quietly Spotting/lovable-prompts/001-031`
 - **Sync Scripts:** `005 Operations/Execution/sync_qqt_submissions.py`, `sync_qwr_articles.py`, `sync_qsp_sending_accounts.py`, `sync_qsp_dmarc_domains.py`, `sync_qsp_campaigns.py`
 - **Migration Script:** `005 Operations/Execution/migrate_gcc_to_qsp.py` (one-time, executed 2026-03-17)
 - **Edge Functions:** `generate-crossover-token` (QWF Passport), `submit-contact-form` (contact pipeline)
@@ -9497,4 +9498,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-18 02:12 (v3.48)*
+*Last updated: 2026-03-18 02:22 (v3.49)*
