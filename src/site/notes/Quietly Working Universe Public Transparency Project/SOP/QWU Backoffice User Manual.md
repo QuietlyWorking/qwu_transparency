@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-18 02:22 | Source version: 3.49
+> Generated: 2026-03-18 16:39 | Source version: 3.50
 
 # QWU Backoffice User Manual
 
@@ -3970,8 +3970,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.49 by generate_public_manual.py"
-generated: "2026-03-18 02:22"
+source: "Auto-generated from private manual v3.50 by generate_public_manual.py"
+generated: "2026-03-18 16:39"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8653,7 +8653,7 @@ The 7-section template adapts per fuel line (same skeleton, different content bl
 
 | Phase | Scope | Status |
 |-------|-------|--------|
-| 1 | QWR supporters only (MVP) | ⏳ Planned |
+| 1 | QWR supporters only (MVP) | ✅ Built — HQ tables deployed, data collection + statement generation working, test email sent |
 | 2 | Multi-app expansion + badges | ⏳ Planned |
 | 3 | QSP supporter portal (web) | ⏳ Planned |
 | 4 | FORGE fuel line integration | ⏳ Planned |
@@ -8663,8 +8663,10 @@ The 7-section template adapts per fuel line (same skeleton, different content bl
 | File | Purpose |
 |------|---------|
 | `005 Operations/Directives/unified_supporter_statement.md` | Full specification |
-| `005 Operations/Execution/collect_supporter_data.py` | Cross-app data aggregation (planned) |
-| `005 Operations/Execution/generate_supporter_statement.py` | Template rendering + email send (planned) |
+| `005 Operations/Execution/collect_supporter_data.py` | Cross-app data aggregation — queries Stripe + per-app Supabase, upserts to HQ |
+| `005 Operations/Execution/generate_supporter_statement.py` | Jinja2 template rendering + Graph API email send |
+| `005 Operations/Execution/hq_supporter_statement_migration.sql` | HQ Supabase schema (3 tables + RLS + indexes) |
+| `005 Operations/Templates/statements/` | Jinja2 HTML templates (base, sections, fuel lines) |
 
 ### 🎓 Missing Pixel Training Opportunities
 
@@ -9498,4 +9500,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-18 02:22 (v3.49)*
+*Last updated: 2026-03-18 16:39 (v3.50)*
