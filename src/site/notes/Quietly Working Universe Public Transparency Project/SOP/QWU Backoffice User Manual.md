@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-18 16:39 | Source version: 3.50
+> Generated: 2026-03-18 20:50 | Source version: 3.51
 
 # QWU Backoffice User Manual
 
@@ -3970,8 +3970,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.50 by generate_public_manual.py"
-generated: "2026-03-18 16:39"
+source: "Auto-generated from private manual v3.51 by generate_public_manual.py"
+generated: "2026-03-18 20:50"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -6726,7 +6726,7 @@ Ezer enforces QWF's nonprofit framing:
 | 3 | Launch Missing Pixel Tier 2 Curriculum + Frontier Operations | 7/10 | ~35% |
 | 4 | Complete Transparency Infrastructure | 5/10 | ~40% |
 | 5 | Launch QWU Tool Shed (QTS) | 5/10 | ~5% |
-| 6 | Implement WHELHO Life Framework (App) | 5/10 | ~35% |
+| 6 | Implement WHELHO Life Framework (App) | 5/10 | ~40% |
 | 7 | Build Client Project Hierarchy | 6/10 | ~25% |
 | 8 | Integrate YouTube Content Library | 3/10 | ~10% |
 
@@ -6745,6 +6745,7 @@ Ezer enforces QWF's nonprofit framing:
 - `002 Projects/WHELHO App/WHL-System-Status.md` - System Status (infrastructure, deployment, schema)
 - `002 Projects/WHELHO App/WHELHO-App-Vision.md` - Technical vision document
 - `002 Projects/WHELHO App/WHELHO-Development-Plan.md` - Phase-by-phase development plan
+- `002 Projects/WHELHO App/WHELHO-Spline-Scene-Brief.md` - Spline 3D scene design spec (object names, variables, events, creative direction)
 
 ### Client Project Hierarchy
 
@@ -9284,7 +9285,7 @@ WHELHO occupies a unique dual role in QWF:
 | Phase 1: Planet + Onboarding | In Progress — Track A components built, Track B (Spline scene) not started |
 | Alpha stage | ✅ Deployed — invitation-only gate, access request form, bug reports, alpha badge |
 | Contact form edge function | ✅ Deployed — `submit-contact-form` with honeypot, rate limiting, duplicate detection |
-| Spline scene | Pending — placeholder until Track B produces `.splinecode` URL |
+| Spline scene | Design brief complete (pie slices, simple stylized, wooden signs). Scene build pending in Spline editor. |
 | GitHub Actions deploy | Pending — `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets not yet set |
 
 ### Database Schema (12 Tables)
@@ -9323,6 +9324,7 @@ WHELHO occupies a unique dual role in QWF:
 - **Project Brief:** `002 Projects/WHELHO App/WHELHO-App-Project-Brief.md`
 - **Vision Doc:** `002 Projects/WHELHO App/WHELHO-App-Vision.md`
 - **Development Plan:** `002 Projects/WHELHO App/WHELHO-Development-Plan.md`
+- **Spline Scene Brief:** `002 Projects/WHELHO App/WHELHO-Spline-Scene-Brief.md`
 - **Local Code:** `/home/<VM_USER>/whelho/`
 
 ### 🎓 Missing Pixel Training Opportunities
@@ -9500,4 +9502,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-18 16:39 (v3.50)*
+*Last updated: 2026-03-18 20:50 (v3.51)*
