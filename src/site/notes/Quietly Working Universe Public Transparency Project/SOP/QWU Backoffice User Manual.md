@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-19 03:10 | Source version: 3.53
+> Generated: 2026-03-19 07:16 | Source version: 3.53
 
 # QWU Backoffice User Manual
 
-**Version: 3.53 | Started: 251223 | Updated: 260319**
+**Version: 3.54 | Started: 251223 | Updated: 260319**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3517,7 +3517,15 @@ cat /var/log/firewall-init.log
 
 ### Overview
 
-The Meeting Intelligence System transforms Zoom meetings from isolated events into relationship intelligence nodes. Every meeting captures context, every briefing surfaces that context, and over time the system builds a comprehensive map of your professional relationships.
+The Meeting Intelligence System (now formally the **Meeting Experience System**) transforms Zoom meetings from isolated events into relationship intelligence nodes. Every meeting captures context, every briefing surfaces that context, and over time the system builds a comprehensive map of your professional relationships.
+
+**Evergreen Project Folder:** `002 Projects/_Meeting Experience System/` — contains full system documentation, infrastructure inventory, and architecture diagram.
+
+| File | Purpose |
+|------|---------|
+| `_Overview.md` | System documentation (67 components across 41 scripts, 6 directives, 10 n8n workflows), 3 experiential dimensions, 5 system phases, roadmap |
+| `MES-System-Status.md` | Infrastructure inventory: all scripts, workflows, databases, external services, known issues |
+| `meeting-experience-system.excalidraw` | Architecture diagram |
 
 **Components:**
 1. **Post-Meeting Processing** - Automatically processes Zoom recordings when ready
@@ -3992,7 +4000,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.53 by generate_public_manual.py"
-generated: "2026-03-19 03:10"
+generated: "2026-03-19 07:16"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9523,4 +9531,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-19 03:10 (v3.53)*
+*Last updated: 2026-03-19 07:16 (v3.53)*
