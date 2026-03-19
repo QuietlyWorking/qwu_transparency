@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-19 03:07 | Source version: 3.52
+> Generated: 2026-03-19 03:10 | Source version: 3.53
 
 # QWU Backoffice User Manual
 
-**Version: 3.49 | Started: 251223 | Updated: 260318**
+**Version: 3.53 | Started: 251223 | Updated: 260319**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2898,6 +2898,26 @@ The L4G system includes:
 - **Automation:** n8n workflows for payment processing, hold expiry, HQ sync
 - **HQ Visibility:** L4G Operations module in HQ Command Center — Kanban pipeline, production calendar, deadline alerts via `sync_hq_l4g.py` (every 15 min)
 - **Migration:** Data migrated from Google Sheets → Supabase via `migrate_l4g_sheets_to_supabase.py` (Feb 27, 2026)
+- **Post-Checkout Fork:** `artwork_track` ('self'|'create') on `l4g_bookings` routes donors to artwork upload or Brand Clarity Wizard
+- **Brand Clarity Wizard:** 3-step guided intake at `/portal/brand` — saves to 9 brand fields on `l4g_donor_partners`
+- **Journey Milestones:** `check_l4g_milestones.py` (15-min n8n poll) → `send_l4g_journey_email.py` (6 TIG-voice templates) with dedup via `l4g_journey_events`
+- **AI Ad Pipeline:** `enrich_donor_company.py` → `generate_brand_identity.py` → `generate_ad_briefs.py` (Claude FLAGSHIP, 3 approaches: Trust Builder/Value Driver/Story Teller)
+- **Print Management:** `populate_l4g_postcard_config.py` (36 rows, 3 areas × 12 months) + `update_l4g_print_status.py` (7-state forward-only machine)
+
+**L4G Backend Scripts:**
+
+| Script | Purpose | Version |
+|--------|---------|---------|
+| `send_l4g_welcome_email.py` | Post-payment welcome email (Exempt, MS Graph) | v1.0.0 |
+| `send_l4g_queue_notification.py` | Queue notification when slot opens | v1.0.0 |
+| `send_l4g_journey_email.py` | 6 milestone email templates (Enhancement, MS Graph) | v1.0.0 |
+| `check_l4g_milestones.py` | Polls for state changes, triggers journey emails | v1.0.0 |
+| `enrich_donor_company.py` | Website scraper for brand signals | v1.0.0 |
+| `generate_brand_identity.py` | AI brand guide from intake data (Claude FLAGSHIP) | v1.0.0 |
+| `generate_ad_briefs.py` | AI brief generation — 3 concept approaches | v1.0.0 |
+| `populate_l4g_postcard_config.py` | Seeds postcard config rows for N months | v1.0.0 |
+| `update_l4g_print_status.py` | Advances print status through 7 stages | v1.0.0 |
+| `sync_hq_l4g.py` | HQ Operations module sync (every 15 min) | v1.1.0 |
 
 **Lead Generation Webhook:** `https://n8n.quietlyworking.org/webhook/lead-request`
 
@@ -3971,8 +3991,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.52 by generate_public_manual.py"
-generated: "2026-03-19 03:07"
+source: "Auto-generated from private manual v3.53 by generate_public_manual.py"
+generated: "2026-03-19 03:10"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9503,4 +9523,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-19 03:07 (v3.52)*
+*Last updated: 2026-03-19 03:10 (v3.53)*
