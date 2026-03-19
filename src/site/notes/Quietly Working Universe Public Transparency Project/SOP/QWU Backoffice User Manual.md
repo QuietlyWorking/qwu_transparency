@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-18 20:50 | Source version: 3.51
+> Generated: 2026-03-19 03:07 | Source version: 3.52
 
 # QWU Backoffice User Manual
 
@@ -2891,11 +2891,12 @@ The backoffice includes a comprehensive lead generation and enrichment system su
 **Full L4G Technical Documentation:** `003 Entities/Organizations/Locals 4 Good.md`
 
 The L4G system includes:
-- **Website:** locals4good.org (Lovable app, published Feb 27, 2026)
+- **Website:** locals4good.org (Cloudflare Pages, migrated from Lovable Mar 19, 2026)
 - **Data Layer:** Supabase (`<SUPABASE_PROJECT_ID_L4G>`) — 14 tables, migrated from Google Sheets
-- **APIs:** 3 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability)
-- **Payments:** Stripe Checkout via `create-checkout-session` edge function + n8n `L4G Stripe Payment Handler` webhook
-- **Automation:** n8n workflows for payment processing, contact pipeline
+- **APIs:** 4 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability, expire-stale-holds)
+- **Payments:** Stripe Checkout via `create-checkout-session` edge function + n8n `L4G Stripe Payment Handler v1.3` webhook (E2E verified Mar 18, 2026)
+- **Automation:** n8n workflows for payment processing, hold expiry, HQ sync
+- **HQ Visibility:** L4G Operations module in HQ Command Center — Kanban pipeline, production calendar, deadline alerts via `sync_hq_l4g.py` (every 15 min)
 - **Migration:** Data migrated from Google Sheets → Supabase via `migrate_l4g_sheets_to_supabase.py` (Feb 27, 2026)
 
 **Lead Generation Webhook:** `https://n8n.quietlyworking.org/webhook/lead-request`
@@ -3970,8 +3971,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.51 by generate_public_manual.py"
-generated: "2026-03-18 20:50"
+source: "Auto-generated from private manual v3.52 by generate_public_manual.py"
+generated: "2026-03-19 03:07"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9502,4 +9503,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-18 20:50 (v3.51)*
+*Last updated: 2026-03-19 03:07 (v3.52)*
