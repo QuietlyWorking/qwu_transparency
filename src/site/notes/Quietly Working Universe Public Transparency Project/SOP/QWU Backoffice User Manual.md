@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-20 18:00 | Source version: 3.53
+> Generated: 2026-03-20 21:02 | Source version: 3.55
 
 # QWU Backoffice User Manual
 
@@ -3999,8 +3999,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.53 by generate_public_manual.py"
-generated: "2026-03-20 18:00"
+source: "Auto-generated from private manual v3.55 by generate_public_manual.py"
+generated: "2026-03-20 21:02"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7742,7 +7742,7 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | GreenCal tenant | `6db7928c` — growth plan, 4 companies, 6 modules, 113 reviews, 2 team accounts |
 | GCC migration | Executed 2026-03-17 — 6 accounts, 6 domains, 3 campaigns ported |
 | Phase 3e | Executive Pulse DEPLOYED. Schema v4 (8 tables). Role system upgraded (Owner>Admin>Manager>Viewer). Prompts 032-033 deployed. |
-| QWF Passport | Deployed — `generate-crossover-token` (QSP) + `verify-crossover-token` (QWR, QQT) |
+| QWF Passport | Deployed — `generate-crossover-token` (QSP) + `verify-crossover-token` (QWR, QQT, QNT) |
 | Contact Form | Deployed — `submit-contact-form` edge function + centralized pipeline |
 | Landing Page | Deployed — Prompt 011 with heritage, ecosystem, contact sections |
 
@@ -7779,15 +7779,15 @@ All scripts support `--dry-run` and `--tenant-id` flags. The `migrate_gcc_to_qsp
 
 **Added: February 13, 2026**
 
-Quietly Networking (QNT) is a multi-tenant AI-powered chapter management platform for BNI networking groups. It provides visitor enrichment, connection reports, meeting intelligence, relationship health scoring, inviting engine, growth analytics, Stripe billing, community events, and AI-generated recaps — all built as a Lovable frontend backed by Supabase and a claude-dev AI processing engine.
+Quietly Networking (QNT) is a multi-tenant AI-powered chapter management platform for BNI networking groups. It provides visitor enrichment, connection reports, meeting intelligence, relationship health scoring, inviting engine, growth analytics, Stripe billing, community events, and AI-generated recaps — built on a CF Pages + Supabase + claude-dev AI processing engine stack.
 
 ### Architecture
 
 ```
-Lovable Frontend (React, Dark Mode)
+CF Pages Frontend (React, Dark Mode) — quietlynetworking.org
     → Supabase SDK
         → Supabase (caeiaprjizteokoenzad, us-west-1)
-            ← Edge Functions (enrich-visitor, Stripe webhooks)
+            ← Edge Functions (enrich-visitor, verify-crossover-token, Stripe webhooks)
                 ← FastAPI Webhook Receiver (qnt.quietlyworking.org:8100)
                     ← Python AI Pipeline (Apify + Claude Opus 4.6)
 ```
@@ -7848,19 +7848,23 @@ QNT is the BNI chapter management arm of the QWF product family:
 ### Backend Brain
 
 The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
-- **Webhook URL:** `qnt.quietlyworking.org` → port 8100 (systemd: `qnt-webhook.service`, v1.3.0)
-- **Visitor enrichment:** LinkedIn lookup → profile → website → reviews → Claude Opus 4.6 synthesis
+- **Webhook URL:** `qnt.quietlyworking.org` → port 8100 (systemd: `qnt-webhook.service`, v1.4.0)
+- **Visitor enrichment:** LinkedIn lookup → profile → website → reviews → Claude Opus 4.6 synthesis. Idempotency guard: `/enrich-visitor` and `/enrich-member` skip enrichment if `enrichment_status == 'complete'` (pass `force=true` to override).
 - **Connection reports:** AI-generated per-member reports for each visitor
 - **Meeting pipeline:** `qnt_meeting_pipeline.py` — chat parsing, artifact download, Vision slide analysis, recap generation
 - **Presentation media:** `process_presentation_media.py` — PDF/PPTX/video→images for Vision analysis
 
-### Current State (February 27, 2026)
+### Current State (March 20, 2026)
 
 | Component | Status |
 |-----------|--------|
 | Supabase project | ACTIVE_HEALTHY — `caeiaprjizteokoenzad` |
-| Lovable prompts | 46 of 46 deployed |
+| Hosting | CF Pages — `quietlynetworking.org` (migrated from Lovable 2026-03-20) |
+| Deploy pipeline | Push to `main` → GitHub Actions → CF Pages auto-deploy |
+| Supabase auth site_url | Updated to `https://quietlynetworking.org` |
 | Backend brain | Deployed — visitor enrichment + roster sync + newsletter + meeting pipeline end-to-end |
+| Webhook receiver | v1.4.0 — idempotency guard on `/enrich-visitor` and `/enrich-member` (skips if `enrichment_status == 'complete'`) |
+| QWF Passport | Deployed — `verify-crossover-token` on QNT Supabase; QNT added as crossover target in QSP's `generate-crossover-token` |
 | Stripe | Configured (TEST MODE) — 2 products, 4 prices, webhook |
 | Alpha tenant | Aim High BNI — 27 members (17 active, 2 on leave, 8 alumni), 2,373 historical visitors imported |
 | Timezone fix | Prompt 021 deployed — 8 affected areas fixed |
@@ -7874,11 +7878,11 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 
 ### Reference
 
-- **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-networking` (Lovable-managed; `ARCHITECTURE.md` at root)
+- **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-networking` (CF Pages source; push to `main` → GitHub Actions → auto-deploy)
+- **Production URL:** `https://quietlynetworking.org`
 - **System Status:** `002 Projects/_Quietly Networking/QNT-System-Status.md`
-- **Lovable Prompts:** `002 Projects/_Quietly Networking/lovable-prompts/001-046`
-- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py`, `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`, `qnt_meeting_pipeline.py`, `process_presentation_media.py`
-- **Edge Functions:** `enrich-visitor`, `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`, `send-newsletter`, `submit-contact-form`
+- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py` (v1.4.0), `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`, `qnt_meeting_pipeline.py`, `process_presentation_media.py`
+- **Edge Functions:** `enrich-visitor`, `verify-crossover-token` (QWF Passport), `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`, `send-newsletter`, `submit-contact-form`
 
 ---
 
@@ -9403,8 +9407,8 @@ QWU uses **two** Cloudflare API tokens with different permission scopes:
 | `quietlyknocking.org` | — | Lovable | QKN |
 | `quietlyspotting.org` | — | Lovable | QSP |
 | `quietlytracking.org` | — | Lovable | QTR |
-| `quietlynetworking.org` | — | Lovable | QNT (planned) |
-| `locals4good.org` | — | Lovable | L4G |
+| `quietlynetworking.org` | — | CF Pages | QNT (migrated 2026-03-20) |
+| `locals4good.org` | — | CF Pages | L4G (migrated 2026-03-19) |
 | `whelho.org` | `4e73ca94aad582ed7157175b5a1f6fca` | CF Pages | WHELHO |
 | `preciousmonster.org` | — | — | Reserved (MP lore) |
 | `preciousmonster.com` | — | — | Reserved (MP lore) |
@@ -9427,11 +9431,11 @@ Full CRUD for DNS records using the DNS token (`CLOUDFLARE_API_TOKEN_OLD`). Supp
 Apps on CF Pages deploy via `wrangler pages deploy`:
 
 ```bash
-# Deploy from local build
+# Deploy from local build (WHELHO only — pending GH Actions secrets)
 cd /home/<VM_USER>/whelho && npm run build
 npx wrangler pages deploy dist --project-name=whelho
 
-# QWR deploys via GitHub Actions (auto on push to main)
+# QWR, L4G, QNT deploy via GitHub Actions (auto on push to main)
 # WHELHO deploys via direct wrangler (GH Actions secrets pending)
 ```
 
@@ -9537,4 +9541,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-20 18:00 (v3.53)*
+*Last updated: 2026-03-20 21:02 (v3.55)*
