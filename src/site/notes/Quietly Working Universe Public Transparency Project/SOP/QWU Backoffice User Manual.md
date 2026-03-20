@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-20 22:18 | Source version: 3.56
+> Generated: 2026-03-20 23:04 | Source version: 3.57
 
 # QWU Backoffice User Manual
 
@@ -3999,8 +3999,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.56 by generate_public_manual.py"
-generated: "2026-03-20 22:18"
+source: "Auto-generated from private manual v3.57 by generate_public_manual.py"
+generated: "2026-03-20 23:04"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9518,6 +9518,32 @@ All QWF apps share:
 - **Theme System:** CSS custom properties on `:root` (dark) and `[data-theme="light"]` — dark mode default across all apps
 - **Pacific Timezone:** `src/utils/timezone.ts` in every Lovable app — never use raw `new Date()` for Supabase date queries
 
+### Animation Architecture (4-Tier System)
+
+**Added: March 20, 2026** | **Reference:** `005 Operations/Directives/qwf_animation_standard.md`
+
+All QWF apps follow a 4-tier animation architecture that prevents over-engineering (loading 584KB of WebGL for a text fade) and under-delivering (faking 3D with parallax when Spline exists).
+
+| Tier | Tool | Bundle Impact | Domain | Status |
+|------|------|---------------|--------|--------|
+| 1 | CSS Transitions + Intersection Observer | 0 KB | In-app micro-interactions (hovers, toasts, modals) | Active everywhere |
+| 2 | GSAP + ScrollTrigger | ~40 KB | Scroll-driven landing page animation (text reveals, parallax, pins) | Implement when needed |
+| 3 | Spline 3D | ~584 KB + scene | Interactive 3D experiences | WHELHO coded, scene pending |
+| 4 | Hana (by Spline) | Unknown (CDN) | Interactive 2D widgets | Monitor (v1.0.x, too immature) |
+
+**Key rules:**
+- Tiers 2-4 are lazy-loaded on landing page routes only — zero impact on authenticated app routes
+- GSAP is free for 501(c)(3) nonprofits under standard license
+- Slider Revolution stays on WordPress as a WYSIWYG design tool — design params extracted and rebuilt as GSAP code in React
+- All Tier 2 animations must respect `prefers-reduced-motion: reduce`
+- Tier 3 scenes must provide static image fallback when WebGL is unavailable
+- Hana (Tier 4) has no npm package, no React component, no scroll animation, no self-hosting — evaluate when it matures
+
+**Design tools:**
+- **Slider Revolution:** `003 Entities/Tools/Slider Revolution.md` — GSAP extraction workflow documented
+- **Spline 3D:** `003 Entities/Tools/Spline 3D.md` — React integration, Hana evaluation, pricing
+- **App Family Standard:** `005 Operations/Directives/qwf_app_family_standard.md` Section 10
+
 ### 🎓 Missing Pixel Training Opportunities
 
 | Component | Skills Developed | Difficulty |
@@ -9527,6 +9553,8 @@ All QWF apps share:
 | Multi-App SSO (QWF Passport) | Edge functions, JWT tokens, cross-origin auth, Supabase Auth | ⭐⭐⭐ |
 | Contact Form Pipeline | Edge functions, webhooks, n8n workflows, anti-spam (honeypot) | ⭐⭐ |
 | Theme System Implementation | CSS custom properties, accessibility, dark mode patterns | ⭐⭐ |
+| GSAP Scroll Animation (Tier 2) | GSAP timeline API, ScrollTrigger, React hooks, accessibility (reduced motion) | ⭐⭐⭐ |
+| Spline 3D Integration (Tier 3) | WebGL, 3D design, React-Spline events API, lazy loading, performance optimization | ⭐⭐⭐ |
 
 ---
 
@@ -9541,4 +9569,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-20 22:18 (v3.56)*
+*Last updated: 2026-03-20 23:04 (v3.57)*
