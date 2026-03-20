@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-20 21:02 | Source version: 3.55
+> Generated: 2026-03-20 22:18 | Source version: 3.56
 
 # QWU Backoffice User Manual
 
-**Version: 3.54 | Started: 251223 | Updated: 260319**
+**Version: 3.56 | Started: 251223 | Updated: 260320**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -3999,8 +3999,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.55 by generate_public_manual.py"
-generated: "2026-03-20 21:02"
+source: "Auto-generated from private manual v3.56 by generate_public_manual.py"
+generated: "2026-03-20 22:18"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9476,11 +9476,11 @@ Centralized registry of all QWF apps with hosting, database, domain, and develop
 |-----|---------|---------|-------------|--------|------------------|-------|
 | **QWR** | Quietly Writing | CF Pages | `quietly-writing` | `quietlywriting.org` | `<SUPABASE_PROJECT_ID>` | Production |
 | **QQT** | Quietly Quoting | Lovable | — | `quietlyquoting.org` | `wrumuuxjnyplzykibwsj` | Beta |
-| **QNT** | Quietly Networking | Lovable | `quietly-networking` | — | `caeiaprjizteokoenzad` | Alpha |
+| **QNT** | Quietly Networking | CF Pages | `quietly-networking` | `quietlynetworking.org` | `caeiaprjizteokoenzad` | Alpha |
 | **QKN** | Quietly Knocking | Lovable | — | `quietlyknocking.org` | `mepdsaqmsooxmjsmlcut` | Alpha |
 | **QSP** | Quietly Spotting | Lovable | — | `quietlyspotting.org` | `lsfplhkgpiakhvtvsfic` | Production |
 | **QTR** | Quietly Tracking | Lovable | — | `quietlytracking.org` | `ipdrexcbaqoazhpohfco` | Foundation |
-| **L4G** | Locals 4 Good | Lovable | — | `locals4good.org` | `<SUPABASE_PROJECT_ID_L4G>` | Beta |
+| **L4G** | Locals 4 Good | CF Pages | `locals4good` | `locals4good.org` | `<SUPABASE_PROJECT_ID_L4G>` | Beta |
 | **HQ** | Command Center | Lovable | — | `hq.quietlyworking.org` | `<SUPABASE_PROJECT_ID>` (shared with QWR) | Production |
 | **WHL** | WHELHO | CF Pages | `whelho` | `whelho.org` | `nvimpjmhiondaxtrwlny` | Alpha |
 | **PEZ** | Pocket Ez | Lovable | — | — | `<SUPABASE_PROJECT_POCKET>` | Planned |
@@ -9490,10 +9490,10 @@ Centralized registry of all QWF apps with hosting, database, domain, and develop
 
 | Hosting | How to Make Changes | Deploy Process |
 |---------|-------------------|----------------|
-| **CF Pages** (QWR, WHL) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
+| **CF Pages** (QWR, L4G, QNT, WHL) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
 | **Lovable** (all others) | Write numbered Lovable prompt files | Paste prompt into Lovable editor → preview → deploy |
 
-**Migration path:** Apps on Lovable migrate to CF Pages before onboarding external supporters. QWR completed this migration on 2026-03-10. New Track A apps (like WHELHO) skip Lovable entirely.
+**Migration path:** Apps on Lovable migrate to CF Pages before onboarding external supporters. QWR completed this migration on 2026-03-10. L4G completed on 2026-03-19. QNT completed on 2026-03-20. New Track A apps (like WHELHO) skip Lovable entirely.
 
 ### Supabase Service Role Key Env Vars
 
@@ -9541,4 +9541,4 @@ All QWF apps share:
 
 ---
 
-*Last updated: 2026-03-20 21:02 (v3.55)*
+*Last updated: 2026-03-20 22:18 (v3.56)*
