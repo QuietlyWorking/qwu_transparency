@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-20 23:04 | Source version: 3.57
+> Generated: 2026-03-21 07:12 | Source version: 3.58
 
 # QWU Backoffice User Manual
 
@@ -2540,20 +2540,33 @@ Aggregate insights from multiple thought leaders across **YouTube, Twitter, Link
 ### Data Flow
 
 1. **Capture:** Content from YouTube (transcripts), Twitter (tweets), Newsletters (email body)
-2. **Index:** `wisdom_indexer.py` extracts insights, classifies by vertical/topic/concern
+2. **Index:** `wisdom_indexer.py` (v1.9.0) extracts insights with per-quote speaker attribution and authority levels, classifies by vertical/topic/concern
 3. **Query:** `wisdom_query.py` retrieves wisdom by audience + topic + expert
 4. **Synthesize:** `wisdom_synthesizer.py` generates attributed content with voice profile
 
 ### Indexing Wisdom
 
 ```bash
-# Index wisdom from processed video content
+# Index wisdom from processed video content (speaker attribution auto-parsed from quotes.md)
 .venv/bin/python "005 Operations/Execution/wisdom_indexer.py" \
-  "000 Inbox/___Content/20260111-020429" --expert "Pragmatic Architect"
+  "000 Inbox/___Content/20260111-020429"
 
 # View database statistics
 .venv/bin/python "005 Operations/Execution/wisdom_indexer.py" --stats
+
+# Dry-run to preview without writing to DB
+.venv/bin/python "005 Operations/Execution/wisdom_indexer.py" \
+  "000 Inbox/___Content/20260320-222439" --dry-run
 ```
+
+#### Multi-Speaker Attribution (v1.9.0)
+
+For videos with multiple experts (interviews, panels), the pipeline now tracks per-quote speakers:
+
+- **`quotes.md`** uses `> — *Speaker Name*` lines after each quote for attribution
+- **`wisdom_indexer.py`** parses these into per-quote `speaker` field, falls back to `youtube_channel` from `_metadata.json`
+- **`generate_wisdom_capture.py`** (v1.2.0) adds `featured_experts` to frontmatter and shows per-quote speaker labels
+- **Authority levels** are inferred automatically: named guest → `expert`, channel host → `media`, audience/unattributed → `community`
 
 ### Querying Wisdom
 
@@ -2634,7 +2647,7 @@ Social snippets remain link-free for platform export.
 
 - **Directive:** `005 Operations/Directives/wisdom_synthesis.md`
 - **Scripts:** `wisdom_indexer.py`, `wisdom_query.py`, `wisdom_synthesizer.py`
-- **Database:** `.tmp/wisdom.db` (SQLite)
+- **Database:** `005 Operations/Data/wisdom.db` (SQLite)
 - **Taxonomies:** `003 Entities/Taxonomies/`
 
 ---
@@ -3999,8 +4012,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.57 by generate_public_manual.py"
-generated: "2026-03-20 23:04"
+source: "Auto-generated from private manual v3.58 by generate_public_manual.py"
+generated: "2026-03-21 07:12"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9569,4 +9582,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-20 23:04 (v3.57)*
+*Last updated: 2026-03-21 07:12 (v3.58)*
