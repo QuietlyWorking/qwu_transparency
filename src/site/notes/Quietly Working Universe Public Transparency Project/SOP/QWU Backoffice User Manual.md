@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-21 07:12 | Source version: 3.58
+> Generated: 2026-03-22 09:38 | Source version: 3.59
 
 # QWU Backoffice User Manual
 
@@ -2916,6 +2916,9 @@ The L4G system includes:
 - **Journey Milestones:** `check_l4g_milestones.py` (15-min n8n poll) → `send_l4g_journey_email.py` (6 TIG-voice templates) with dedup via `l4g_journey_events`
 - **AI Ad Pipeline:** `enrich_donor_company.py` → `generate_brand_identity.py` → `generate_ad_briefs.py` (Claude FLAGSHIP, 3 approaches: Trust Builder/Value Driver/Story Teller)
 - **Print Management:** `populate_l4g_postcard_config.py` (36 rows, 3 areas × 12 months) + `update_l4g_print_status.py` (7-state forward-only machine)
+- **Live Postcard Display:** Multi-size packing algorithm (XS/SM/MD/LG/XL/Massive), booking data join, dynamic grid layout. Only booked slots shown; CTA only when entire half-section is empty.
+- **Postcard Capacity Validation:** 3-level check (AdSizeSelector UX, client-side guard, server-side edge function) ensures total slots_used ≤ 16 columns. Prevents postcard overflow for multi-size ad bookings.
+- **Postcard Config Admin:** `/admin/postcard-config` — upload background/spine images per area/month to Supabase Storage `l4g-assets`
 
 **L4G Backend Scripts:**
 
@@ -4012,8 +4015,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.58 by generate_public_manual.py"
-generated: "2026-03-21 07:12"
+source: "Auto-generated from private manual v3.59 by generate_public_manual.py"
+generated: "2026-03-22 09:38"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9582,4 +9585,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-21 07:12 (v3.58)*
+*Last updated: 2026-03-22 09:38 (v3.59)*
