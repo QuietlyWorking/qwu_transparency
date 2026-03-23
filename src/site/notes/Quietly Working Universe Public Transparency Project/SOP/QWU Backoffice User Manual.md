@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-22 09:38 | Source version: 3.59
+> Generated: 2026-03-23 05:09 | Source version: 3.60
 
 # QWU Backoffice User Manual
 
@@ -2049,11 +2049,14 @@ URL → Gemini 2.5 Transcribe → Claude Analyze → Voice Profile → Discord R
 # Skip Discord review (just generate drafts)
 .venv/bin/python "005 Operations/Execution/process_video_content.py" "https://youtube.com/watch?v=xxx" --skip-discord
 
+# Force frame extraction (override auto-detection)
+.venv/bin/python "005 Operations/Execution/process_video_content.py" "https://youtube.com/watch?v=xxx" --frames
+
+# Force skip frames (override auto-detection)
+.venv/bin/python "005 Operations/Execution/process_video_content.py" "https://youtube.com/watch?v=xxx" --no-frames
+
 # Dry run (preview without saving)
 .venv/bin/python "005 Operations/Execution/process_video_content.py" "https://youtube.com/watch?v=xxx" --dry-run
-
-# Different voice profile
-.venv/bin/python "005 Operations/Execution/process_video_content.py" "https://youtube.com/watch?v=xxx" --voice "Chaplain TIG"
 ```
 
 ### Output Structure
@@ -2062,12 +2065,32 @@ All generated content is saved to `000 Inbox/___Content/{uid}/`:
 
 | File | Contents |
 |------|----------|
-| `_metadata.json` | Source info, status, timestamps |
+| `_metadata.json` | Source info, status, timestamps, visual_richness assessment |
 | `article.md` | Full article draft with voice profile applied |
 | `social.md` | Platform-specific social snippets (Twitter, LinkedIn, Instagram) |
 | `quotes.md` | Key quotes extracted from video |
 | `intel.md` | Internal intelligence summary (for knowledge base) |
 | `transcript.md` | Raw Gemini transcription with visual context |
+| `frames/` | Extracted key moment frames (auto or `--frames`) |
+
+### Frame Extraction (v2.2.0)
+
+The pipeline auto-detects whether a video has visual value worth capturing as frames. Claude assesses `visual_richness` from Gemini's transcript visual descriptions:
+
+| Level | When | Auto-Action |
+|-------|------|-------------|
+| `high` | Visuals ARE the content (nature docs, demos, animations) | Contact sheet + key moment frames |
+| `low` | Some visual value (code on screen, slides) | Key moment frames only |
+| `none` | Static setup (talking head, interview, panel) | YouTube thumbnails only |
+
+**Requirements:** `yt-dlp` + `ffmpeg` (installed in `.venv`), YouTube cookies at `.tmp/youtube_cookies.txt` for authenticated downloads. Falls back to YouTube auto-generated thumbnails if download fails.
+
+**CLI overrides:** `--frames` forces extraction, `--no-frames` forces skip. No flag = auto-decide.
+
+**Standalone frame extraction:**
+```bash
+.venv/bin/python "005 Operations/Execution/extract_video_frames.py" "https://youtube.com/watch?v=xxx" --timestamps "0:01 2:15 4:42"
+```
 
 ### Discord Review Commands
 
@@ -2134,7 +2157,7 @@ Monitor usage at [Google AI Studio → Activity](https://aistudio.google.com/act
 ### Related Files
 
 - **Directive:** `005 Operations/Directives/process_video_content.md`
-- **Scripts:** `005 Operations/Execution/process_video_content.py`, `process_content_review.py`
+- **Scripts:** `005 Operations/Execution/process_video_content.py` (v2.2.0), `extract_video_frames.py` (v1.1.0), `process_content_review.py`
 - **Workflow:** `005 Operations/Workflows/content-review-workflow.json`
 
 ---
@@ -4015,8 +4038,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.59 by generate_public_manual.py"
-generated: "2026-03-22 09:38"
+source: "Auto-generated from private manual v3.60 by generate_public_manual.py"
+generated: "2026-03-23 05:09"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9585,4 +9608,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-22 09:38 (v3.59)*
+*Last updated: 2026-03-23 05:09 (v3.60)*
