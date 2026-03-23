@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-23 21:25 | Source version: 3.65
+> Generated: 2026-03-23 22:11 | Source version: 3.66
 
 # QWU Backoffice User Manual
 
@@ -2955,6 +2955,7 @@ The L4G system includes:
 - **Area Demographics:** `demographics` JSONB column on `l4g_areas` — full geodemographic profiles (household count, median income, education, housing, family structure, market summary). Rich card UI in `AreaDemographics.tsx` with hero stats, progress bars, and market summary footer. "EDDM Routes" renamed to "Postal Routes" with custom USPS postal truck icon. L4G heart logo (`logo_L4G_Heart_1k.png`) deployed in header, mobile menu, and footer. Footer includes phone (773-234-KIDS), mission copy, split copyright bar. Brand rule: logo must never be CSS-inverted.
 - **Postcard Capacity Validation:** 3-level check (AdSizeSelector UX, client-side guard, server-side edge function) ensures total slots_used ≤ 16 columns. Prevents postcard overflow for multi-size ad bookings.
 - **Postcard Config Admin:** `/admin/postcard-config` — upload background/spine images per area/month to Supabase Storage `l4g-assets`
+- **Postal Route Explorer:** Two-panel interactive section on area detail page (between Demographics and Benefits). Left: scrollable route card list with animated reach counter, sort toggles, demographic chips. Right: Mapbox GL map with ZIP boundaries (Census TIGER GeoJSON, 10 ZIPs), custom route markers with stagger animation, fly-to on click, styled popup cards. Lazy-loaded (separate chunk, ~472KB gz). Graceful empty state when no route data. Import via `import_l4g_postal_routes.py` (CSV → Supabase). Mapbox token: `VITE_MAPBOX_TOKEN` (URL-restricted to locals4good.org). `l4g_postal_routes` table stores per-route demographics, lat/lng centroids.
 
 **L4G Backend Scripts:**
 
@@ -2972,6 +2973,8 @@ The L4G system includes:
 | `sync_hq_l4g.py` | HQ Operations module sync (every 15 min) | v1.1.0 |
 | `dispatch_l4g_category_notification.py` | Multi-channel admin notification (Discord + SMS) | v1.0.0 |
 | `send_l4g_concierge_response.py` | Auto-response email after category request resolution (Exempt, MS Graph) | v1.0.0 |
+| `import_l4g_postal_routes.py` | Import EDDM route CSV to l4g_postal_routes (--dry-run, --geocode) | v1.0.0 |
+| `extract_l4g_zip_boundaries.py` | Extract ZIP boundary GeoJSON from Census TIGER API | v1.0.0 |
 
 **Lead Generation Webhook:** `https://n8n.quietlyworking.org/webhook/lead-request`
 
@@ -4053,8 +4056,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.65 by generate_public_manual.py"
-generated: "2026-03-23 21:25"
+source: "Auto-generated from private manual v3.66 by generate_public_manual.py"
+generated: "2026-03-23 22:11"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9623,4 +9626,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-23 21:25 (v3.65)*
+*Last updated: 2026-03-23 22:11 (v3.66)*
