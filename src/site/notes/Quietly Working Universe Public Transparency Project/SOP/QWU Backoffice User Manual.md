@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-23 05:09 | Source version: 3.60
+> Generated: 2026-03-23 05:16 | Source version: 3.61
 
 # QWU Backoffice User Manual
 
@@ -2928,10 +2928,11 @@ The backoffice includes a comprehensive lead generation and enrichment system su
 
 The L4G system includes:
 - **Website:** locals4good.org (Cloudflare Pages, migrated from Lovable Mar 19, 2026)
-- **Data Layer:** Supabase (`<SUPABASE_PROJECT_ID_L4G>`) — 14 tables, migrated from Google Sheets
-- **APIs:** 4 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability, expire-stale-holds)
+- **Data Layer:** Supabase (`<SUPABASE_PROJECT_ID_L4G>`) — 20 tables, migrated from Google Sheets
+- **APIs:** 6 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability, expire-stale-holds, submit-category-request, subscribe-to-push)
 - **Payments:** Stripe Checkout via `create-checkout-session` edge function + n8n `L4G Stripe Payment Handler v1.3` webhook (E2E verified Mar 18, 2026)
-- **Automation:** n8n workflows for payment processing, hold expiry, HQ sync
+- **Automation:** n8n workflows for payment processing, hold expiry, HQ sync, category request notifications, concierge response emails
+- **Category Concierge:** Public category request form → admin queue at `/admin/category-requests` → approve/map/decline actions → auto-inventory population (18 months × all areas) → automated response emails via `send_l4g_concierge_response.py`. Multi-channel admin notifications (Discord + SMS via Twilio) via `dispatch_l4g_category_notification.py`
 - **HQ Visibility:** L4G Operations module in HQ Command Center — Kanban pipeline, production calendar, deadline alerts via `sync_hq_l4g.py` (every 15 min)
 - **Migration:** Data migrated from Google Sheets → Supabase via `migrate_l4g_sheets_to_supabase.py` (Feb 27, 2026)
 - **Post-Checkout Fork:** `artwork_track` ('self'|'create') on `l4g_bookings` routes donors to artwork upload or Brand Clarity Wizard
@@ -2957,6 +2958,8 @@ The L4G system includes:
 | `populate_l4g_postcard_config.py` | Seeds postcard config rows for N months | v1.0.0 |
 | `update_l4g_print_status.py` | Advances print status through 7 stages | v1.0.0 |
 | `sync_hq_l4g.py` | HQ Operations module sync (every 15 min) | v1.1.0 |
+| `dispatch_l4g_category_notification.py` | Multi-channel admin notification (Discord + SMS) | v1.0.0 |
+| `send_l4g_concierge_response.py` | Auto-response email after category request resolution (Exempt, MS Graph) | v1.0.0 |
 
 **Lead Generation Webhook:** `https://n8n.quietlyworking.org/webhook/lead-request`
 
@@ -4038,8 +4041,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.60 by generate_public_manual.py"
-generated: "2026-03-23 05:09"
+source: "Auto-generated from private manual v3.61 by generate_public_manual.py"
+generated: "2026-03-23 05:16"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9608,4 +9611,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-23 05:09 (v3.60)*
+*Last updated: 2026-03-23 05:16 (v3.61)*
