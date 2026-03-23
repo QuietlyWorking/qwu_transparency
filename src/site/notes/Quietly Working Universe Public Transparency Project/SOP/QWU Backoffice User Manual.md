@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-23 05:16 | Source version: 3.61
+> Generated: 2026-03-23 05:37 | Source version: 3.62
 
 # QWU Backoffice User Manual
 
@@ -1214,7 +1214,7 @@ Claude Code maintains persistent memory across conversations through a layered s
 
 ### QCM — QWU Context Manager
 
-QCM is a homegrown context management system that automatically recovers working state after context compaction. Built as 4 Python hook scripts with zero external dependencies (no npm packages, no MCP servers).
+QCM is a homegrown context management system (v2.0.0) that automatically recovers working state after context compaction. Built as 4 Python hook scripts with zero external dependencies (no npm packages, no MCP servers).
 
 **What it solves:** During long sessions, Claude Code's context window fills and compacts. When this happens, Claude loses track of which files were being edited, what tasks remained, what decisions were made, and what errors were diagnosed. QCM captures all of this automatically and restores it after compaction.
 
@@ -1222,8 +1222,8 @@ QCM is a homegrown context management system that automatically recovers working
 
 | Component | Hook Event | Purpose |
 |-----------|-----------|---------|
-| `qcm_event_logger.py` | PostToolUse, UserPromptSubmit | Logs every tool call and user message to SQLite, classified by priority (P1-P4) |
-| `qcm_snapshot_builder.py` | Stop | Builds a <=2KB priority-budgeted markdown snapshot from events |
+| `qcm_event_logger.py` | PostToolUse, UserPromptSubmit | Logs every tool call and user message to SQLite, classified by priority (P1-P4). Tracks Agent launches + Skill invocations as P2 |
+| `qcm_snapshot_builder.py` | Stop | Builds a <=3KB priority-budgeted markdown snapshot with Session Goal pinning, file dedup, and git status |
 | `qcm_session_restore.py` | SessionStart | Injects the snapshot as additionalContext after compaction |
 | `qcm_output_compressor.py` | PostToolUse (Bash) | Compresses large outputs (>3KB) — saves full output to disk, returns summary to context |
 
@@ -1231,10 +1231,18 @@ QCM is a homegrown context management system that automatically recovers working
 
 | Priority | What gets captured | Snapshot budget |
 |----------|-------------------|----------------|
-| P1 (critical) | User requests, project focus, errors | 800 bytes (guaranteed) |
-| P2 (high) | Decisions, script runs, directive reads | 600 bytes |
-| P3 (medium) | File edits | 400 bytes |
+| Session Goal | First user intent (pinned, never ages out) | 200 bytes (guaranteed) |
+| P1 (critical) | User requests, project focus, errors | 800 bytes |
+| P2 (high) | Decisions, script runs, directive reads, agent launches | 600 bytes |
+| P3 (medium) | File edits (deduplicated — same file edited 5x = 1 entry) | 400 bytes |
+| Git status | Uncommitted changes ("in-flight" work) | 500 bytes |
 | P4 (low) | File reads, searches | Dropped from snapshot |
+
+**User guidance for long sessions:**
+- Commit at natural breakpoints (strongest recovery signal)
+- State intent when pivoting topics ("now let's work on X")
+- Prefer shorter focused sessions over marathons (5+ compactions degrades quality)
+- After compaction, re-state your goal if Claude seems lost
 
 **File locations:**
 - Hook scripts: `.claude/hooks/qcm_*.py`
@@ -4041,8 +4049,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.61 by generate_public_manual.py"
-generated: "2026-03-23 05:16"
+source: "Auto-generated from private manual v3.62 by generate_public_manual.py"
+generated: "2026-03-23 05:37"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9611,4 +9619,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-23 05:16 (v3.61)*
+*Last updated: 2026-03-23 05:37 (v3.62)*
