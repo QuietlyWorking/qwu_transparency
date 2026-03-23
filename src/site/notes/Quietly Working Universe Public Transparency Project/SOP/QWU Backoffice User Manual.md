@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-23 19:21 | Source version: 3.63
+> Generated: 2026-03-23 20:48 | Source version: 3.64
 
 # QWU Backoffice User Manual
 
@@ -1238,11 +1238,14 @@ QCM is a homegrown context management system (v2.0.0) that automatically recover
 | Git status | Uncommitted changes ("in-flight" work) | 500 bytes |
 | P4 (low) | File reads, searches | Dropped from snapshot |
 
-**User guidance for long sessions:**
-- Commit at natural breakpoints (strongest recovery signal)
-- State intent when pivoting topics ("now let's work on X")
-- Prefer shorter focused sessions over marathons (5+ compactions degrades quality)
-- After compaction, re-state your goal if Claude seems lost
+**Recommended all-day workflow — task-boundary segments:**
+- Work in focused segments (45-90 min, 0-1 compactions each), segmented by **concern boundary** (frontend / edge functions / scripts), not by time
+- Run `/session-wrap-up` at each boundary to persist state, then start a new chat
+- Git commits are the handoff between sessions — more reliable than any 3KB snapshot
+- At each new chat, state the goal clearly: "We finished X, now I need Y, relevant files are Z"
+- QCM is a **safety net** for mid-task compaction, not a strategy for marathon sessions
+- Exception: deep cross-stack debugging that requires the full mental model — stay in one chat for diagnosis, then segment the implementation
+- **Why segments beat marathons:** Compaction preserves "what" (files, scripts, commits) but destroys "why" (reasoning chains, tradeoff analysis, discovered constraints). After 3+ compactions, Claude operates on summaries of summaries with false confidence. Fresh sessions at 100% capacity outperform degraded sessions every time.
 
 **File locations:**
 - Hook scripts: `.claude/hooks/qcm_*.py`
@@ -4050,8 +4053,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.63 by generate_public_manual.py"
-generated: "2026-03-23 19:21"
+source: "Auto-generated from private manual v3.64 by generate_public_manual.py"
+generated: "2026-03-23 20:48"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9620,4 +9623,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-23 19:21 (v3.63)*
+*Last updated: 2026-03-23 20:48 (v3.64)*
