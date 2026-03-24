@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-24 17:06 | Source version: 3.71
+> Generated: 2026-03-24 18:04 | Source version: 3.72
 
 # QWU Backoffice User Manual
 
@@ -177,6 +177,14 @@ The QWU infrastructure is monitored at three layers, all documented in `005 Oper
 - Validates HQ Command Center's `google-calendar-events` Supabase edge function
 - Auto-redeploys known-good source via Supabase CLI if broken
 - Posts to Discord `#system-status` (healthy/healed/still-broken)
+
+**Agent Memory Health Checks**
+- `audit_memory_health.py` runs daily at 5 AM PT via cron on claude-dev
+- Checks: line budget violations (50-line cap per topic file, 180-line MEMORY.md), orphaned/missing index entries, frontmatter integrity, broken vault file references, version claim mismatches, stale date sections (>30 days)
+- Dream Score: 0-100 composite across 5 categories (integrity, budget, paths, freshness, index). Healthy >= 80, Warning >= 50, Critical < 50
+- Posts to Discord `#system-status` only on warning/critical (no noise on healthy days)
+- Safe auto-fix mode (`--fix`): adds missing frontmatter, removes trailing whitespace, syncs index. Never deletes content.
+- Deep analysis: invoke `/dream` skill for Claude-powered intelligent review (contextual staleness, semantic duplication, refactoring recommendations)
 
 **Database Backups**
 - Nightly at 3 AM UTC: `backup_n8n_postgres.sh` on n8n VM
@@ -1206,7 +1214,8 @@ Claude Code maintains persistent memory across conversations through a layered s
 **Key principles:**
 - MEMORY.md contains behavioral rules (what I get wrong). Topic files contain domain-specific notes + vault pointers.
 - Topic files reference vault files (System Status, Entities, Directives) but never copy their content.
-- Line budgets enforced at session wrap-up: MEMORY.md < 180 lines, topic files < 50 lines each.
+- Line budgets enforced at session wrap-up: MEMORY.md < 180 lines, topic files < 50 lines each. Also audited daily by `audit_memory_health.py` (5 AM PT cron, Dream Score 0-100).
+- `/dream` skill runs mechanical audit + Claude-powered intelligent analysis (contextual staleness, semantic duplication, coverage gaps). Invoke manually between session wrap-ups.
 - Domain Start Protocol: read System Status file + topic file before beginning domain-scoped work.
 - Multi-session safe: sessions are domain-scoped, topic files are domain-scoped, parallel writes hit different files.
 
@@ -4064,8 +4073,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.71 by generate_public_manual.py"
-generated: "2026-03-24 17:06"
+source: "Auto-generated from private manual v3.72 by generate_public_manual.py"
+generated: "2026-03-24 18:04"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9634,4 +9643,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-24 17:06 (v3.71)*
+*Last updated: 2026-03-24 18:04 (v3.72)*
