@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-24 19:40 | Source version: 3.73
+> Generated: 2026-03-24 20:29 | Source version: 3.74
 
 # QWU Backoffice User Manual
 
@@ -2971,6 +2971,7 @@ The L4G system includes:
 - **Postcard Config Admin:** `/admin/postcard-config` — upload background/spine images per area/month to Supabase Storage `l4g-assets`
 - **Ezer Chat Guide:** Conversational AI widget on all public pages. `ezer-chat` edge function streams responses via Anthropic Messages API (Claude Opus 4.6, SSE, max_tokens 500). 5-part system prompt: Ezer identity/voice rules, L4G knowledge base (areas, pricing, volume discounts), dynamic area demographics (from `l4g_areas.demographics` JSONB when on area pages), navigation rules with `[NAV:/path]` token pattern for ask-then-navigate, guardrails. 8 React components in `src/components/ezer/`: Widget orchestrator, FAB (custom octopus, Deep Forest gradient, pulsing glow), Panel (desktop 380x520 fixed + mobile vaul Drawer 85vh), MessageList (auto-scroll, streaming cursor, three-dot thinking animation), Message (markdown-lite rendering, internal link detection, "Take me there" navigation button), Input (textarea, 500-char limit, Enter to send), Greeting (contextual quick-start chips by page type), ezer-utils (nav token extraction, link parsing). `EzerChatContext` (React Context + useReducer) wraps PublicLayout — state survives React Router navigation. Trust Tier 0: anonymous, ephemeral, session-scoped (crypto.randomUUID). Rate limit: 20 msgs/10min/IP. Conversation cap: 60 messages. Activity logged to HQ `hq_ezer_activity`. Secrets: `ANTHROPIC_API_KEY`, `HQ_SUPABASE_URL`, `HQ_SUPABASE_SERVICE_KEY` on L4G Supabase.
 - **Postal Route Explorer:** Two-panel interactive section on area detail page (between Demographics and Benefits). Left: scrollable route card list with animated reach counter, sort toggles, demographic chips. Right: Mapbox GL map with golden delivery area boundary (#C49A3C 3-layer glow), ZIP boundaries (Census TIGER GeoJSON, 10 ZIPs), custom route markers with stagger animation, fly-to on click, styled popup cards. Lazy-loaded (separate chunk, ~472KB gz). Graceful empty state when no route data. RPV West: 23 real EDDM routes (10,786 homes across 90274 + 90275, replacing 5 placeholder routes). Admin page at `/admin/postal-routes` (CRUD + bulk CSV import). Mapbox token: `VITE_MAPBOX_TOKEN` (GitHub secret set, URL-restricted to locals4good.org). `l4g_postal_routes` table with RLS (public SELECT + authenticated INSERT/UPDATE/DELETE). Unique constraint: `(area_id, zip_code, route_code)` — fixed from `(area_id, route_code)` to support same route codes across different ZIP codes.
+- **Visual Flow Specification (v1.0.1):** Design spec at `L4G-Visual-Flow-Specification-v1.0.md` — companion to Mailbox Walk Palette defining HOW to compose sections. Four systems: (1) Section Rhythm — 4 background lanes (Rest/Engage/Focus/Act) with rule: never same lane back-to-back, max 2 Focus per page, Act bookends only. (2) Card Hierarchy — 3 weights (Primary=dominant oversized, Standard=grid with sage border, Supporting=compact). (3) CTA Repetition — 4 touchpoints with escalating commitment, unique framing each. (4) Page Blueprints — 13-section landing page restructured around visitor psychology (questions answered in order visitors ask them), 9-section area detail page. Gradient Direction Rule: all L4G gradients must be 135deg dark-to-light. Implementation CSS utility classes included.
 - **Partner Tribute Page:** Dedicated story page at `/partners/printing4supercheap` (`PartnerPage.tsx`) honoring Printing4SuperCheap (P4SC) as L4G's ultimate partner. Includes: origin story (they offered Elite pricing before L4G had a name), blockquote from Chaplain TIG, "Journey of Every Postcard" 4-step visual, Jake Lorraine bio (Structure Marketing Inc., High Response Marketing ecosystem), CTA buttons to P4SC site + High Response Marketing + L4G areas. `PartnerSpotlight.tsx` card on landing page (heart icon, "Made Possible By", both P4SC name instances link to partner page). Entity file: `003 Entities/Organizations/Printing4SuperCheap.md`. P4SC does full-service EDDM: print, bundle, prep, ship to USPS. Will support nonprofit indicia once QWF obtains it.
 
 **L4G Backend Scripts:**
@@ -4073,8 +4074,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.73 by generate_public_manual.py"
-generated: "2026-03-24 19:40"
+source: "Auto-generated from private manual v3.74 by generate_public_manual.py"
+generated: "2026-03-24 20:29"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9643,4 +9644,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-24 19:40 (v3.73)*
+*Last updated: 2026-03-24 20:29 (v3.74)*
