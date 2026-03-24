@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-24 07:17 | Source version: 3.69
+> Generated: 2026-03-24 17:04 | Source version: 3.70
 
 # QWU Backoffice User Manual
 
@@ -2953,6 +2953,7 @@ The L4G system includes:
 - **Print Management:** `populate_l4g_postcard_config.py` (36 rows, 3 areas × 12 months) + `update_l4g_print_status.py` (7-state forward-only machine)
 - **Live Postcard Display:** Multi-size packing algorithm (XS/SM/MD/LG/XL/Massive), booking data join, dynamic grid layout. Only booked slots shown; CTA only when entire half-section is empty.
 - **Area Demographics:** `demographics` JSONB column on `l4g_areas` — full geodemographic profiles (household count, median income, education, housing, family structure, market summary). Rich card UI in `AreaDemographics.tsx` with hero stats, progress bars, and market summary footer. "EDDM Routes" renamed to "Postal Routes" with custom USPS postal truck icon. L4G heart logo (`logo_L4G_Heart_1k.png`) deployed in header, mobile menu, and footer. Footer includes phone (773-234-KIDS), mission copy, split copyright bar. Brand rule: logo must never be CSS-inverted.
+- **Admin Demographics Editor:** `/admin/demographics` — edit demographic data for any area. Area selector dropdown, 7 card sections (Hero Stats, Area Info, Household Profile, Education & Employment, Housing Profile, Family & Lifestyle, Market Summary). Saves both direct `l4g_areas` columns and `demographics` JSONB in one mutation. Components: `AreaDemographicsEditor.tsx`, `useUpdateArea.ts` hook.
 - **Census ACS Enrichment:** `enrich_l4g_demographics.py` pulls Census ACS 5-Year data (free, no API key required) for each area's ZIP codes. Computes: income distribution (7 brackets), median home values, education attainment, occupation breakdown, housing age, vehicles per household. Derives: Home Services Score (0–10 composite), Best For categories (e.g., "Home Remodeling", "HVAC & Heating"), market intelligence summary paragraph. Flags: `--slug` (single area), `--all` (all areas), `--dry-run`. RPV West enriched: median income $181K, 83% homeowners, 72% bachelor's+, 84% pre-1980 homes, score 8.5/10.
 - **Market Intelligence Dashboard:** `AreaMarketIntelligence.tsx` — Census-powered dashboard on area detail pages. Hero stat cards, narrative market summary, Home Services Score radial gauge, Best For category tags, income distribution bar chart, housing age bar chart, Census attribution footer.
 - **Enhanced Route Cards:** `RouteList.tsx` route cards show spending power ("$118M in household income"), homeowner %, and housing era chips derived from Census data.
@@ -4062,8 +4063,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.69 by generate_public_manual.py"
-generated: "2026-03-24 07:17"
+source: "Auto-generated from private manual v3.70 by generate_public_manual.py"
+generated: "2026-03-24 17:04"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9632,4 +9633,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-24 07:17 (v3.69)*
+*Last updated: 2026-03-24 17:04 (v3.70)*
