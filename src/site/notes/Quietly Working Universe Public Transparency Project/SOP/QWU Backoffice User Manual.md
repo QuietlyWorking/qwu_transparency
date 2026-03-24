@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-24 05:41 | Source version: 3.68
+> Generated: 2026-03-24 07:17 | Source version: 3.69
 
 # QWU Backoffice User Manual
 
@@ -2940,7 +2940,7 @@ The backoffice includes a comprehensive lead generation and enrichment system su
 The L4G system includes:
 - **Website:** locals4good.org (Cloudflare Pages, migrated from Lovable Mar 19, 2026)
 - **Data Layer:** Supabase (`<SUPABASE_PROJECT_ID_L4G>`) — 20 tables, migrated from Google Sheets
-- **APIs:** 6 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability, expire-stale-holds, submit-category-request, subscribe-to-push)
+- **APIs:** 8 Supabase Edge Functions (submit-contact-form, create-checkout-session, check-availability, expire-stale-holds, submit-category-request, subscribe-to-push, send-push-notification, ezer-chat)
 - **Payments:** Stripe Checkout via `create-checkout-session` edge function + n8n `L4G Stripe Payment Handler v1.3` webhook (E2E verified Mar 18, 2026)
 - **Automation:** n8n workflows for payment processing, hold expiry, HQ sync, category request notifications, concierge response emails
 - **Category Concierge:** Public category request form → admin queue at `/admin/category-requests` → approve/map/decline actions → auto-inventory population (18 months × all areas) → automated response emails via `send_l4g_concierge_response.py`. Multi-channel admin notifications (Discord + SMS via Twilio) via `dispatch_l4g_category_notification.py`
@@ -2959,6 +2959,7 @@ The L4G system includes:
 - **Mobile Admin Navigation:** Admin bottom nav upgraded from 5 hardcoded items to a "More" bottom sheet exposing all 12 admin pages. Eliminates dead-end navigation on mobile.
 - **Postcard Capacity Validation:** 3-level check (AdSizeSelector UX, client-side guard, server-side edge function) ensures total slots_used ≤ 16 columns. Prevents postcard overflow for multi-size ad bookings.
 - **Postcard Config Admin:** `/admin/postcard-config` — upload background/spine images per area/month to Supabase Storage `l4g-assets`
+- **Ezer Chat Guide:** Conversational AI widget on all public pages. `ezer-chat` edge function streams responses via Anthropic Messages API (Claude Opus 4.6, SSE, max_tokens 500). 5-part system prompt: Ezer identity/voice rules, L4G knowledge base (areas, pricing, volume discounts), dynamic area demographics (from `l4g_areas.demographics` JSONB when on area pages), navigation rules with `[NAV:/path]` token pattern for ask-then-navigate, guardrails. 8 React components in `src/components/ezer/`: Widget orchestrator, FAB (custom octopus, Deep Forest gradient, pulsing glow), Panel (desktop 380x520 fixed + mobile vaul Drawer 85vh), MessageList (auto-scroll, streaming cursor, three-dot thinking animation), Message (markdown-lite rendering, internal link detection, "Take me there" navigation button), Input (textarea, 500-char limit, Enter to send), Greeting (contextual quick-start chips by page type), ezer-utils (nav token extraction, link parsing). `EzerChatContext` (React Context + useReducer) wraps PublicLayout — state survives React Router navigation. Trust Tier 0: anonymous, ephemeral, session-scoped (crypto.randomUUID). Rate limit: 20 msgs/10min/IP. Conversation cap: 60 messages. Activity logged to HQ `hq_ezer_activity`. Secrets: `ANTHROPIC_API_KEY`, `HQ_SUPABASE_URL`, `HQ_SUPABASE_SERVICE_KEY` on L4G Supabase.
 - **Postal Route Explorer:** Two-panel interactive section on area detail page (between Demographics and Benefits). Left: scrollable route card list with animated reach counter, sort toggles, demographic chips. Right: Mapbox GL map with golden delivery area boundary (#C49A3C 3-layer glow), ZIP boundaries (Census TIGER GeoJSON, 10 ZIPs), custom route markers with stagger animation, fly-to on click, styled popup cards. Lazy-loaded (separate chunk, ~472KB gz). Graceful empty state when no route data. RPV West: 23 real EDDM routes (10,786 homes across 90274 + 90275, replacing 5 placeholder routes). Admin page at `/admin/postal-routes` (CRUD + bulk CSV import). Mapbox token: `VITE_MAPBOX_TOKEN` (GitHub secret set, URL-restricted to locals4good.org). `l4g_postal_routes` table with RLS (public SELECT + authenticated INSERT/UPDATE/DELETE). Unique constraint: `(area_id, zip_code, route_code)` — fixed from `(area_id, route_code)` to support same route codes across different ZIP codes.
 
 **L4G Backend Scripts:**
@@ -4061,8 +4062,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.68 by generate_public_manual.py"
-generated: "2026-03-24 05:41"
+source: "Auto-generated from private manual v3.69 by generate_public_manual.py"
+generated: "2026-03-24 07:17"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9631,4 +9632,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-24 05:41 (v3.68)*
+*Last updated: 2026-03-24 07:17 (v3.69)*
