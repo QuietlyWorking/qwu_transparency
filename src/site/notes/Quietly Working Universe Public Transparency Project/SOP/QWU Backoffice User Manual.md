@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-25 20:37 | Source version: 3.77
+> Generated: 2026-03-25 20:45 | Source version: 3.78
 
 # QWU Backoffice User Manual
 
@@ -1223,7 +1223,7 @@ Claude Code maintains persistent memory across conversations through a layered s
 
 ### QCM — QWU Context Manager
 
-QCM is a homegrown context management system (v2.0.0) that automatically recovers working state after context compaction. Built as 4 Python hook scripts with zero external dependencies (no npm packages, no MCP servers).
+QCM is a homegrown context management system (v2.1.0) that automatically recovers working state after context compaction and measures agent efficiency. Built as 5 Python hook scripts with zero external dependencies (no npm packages, no MCP servers).
 
 **What it solves:** During long sessions, Claude Code's context window fills and compacts. When this happens, Claude loses track of which files were being edited, what tasks remained, what decisions were made, and what errors were diagnosed. QCM captures all of this automatically and restores it after compaction.
 
@@ -1235,6 +1235,7 @@ QCM is a homegrown context management system (v2.0.0) that automatically recover
 | `qcm_snapshot_builder.py` | Stop | Builds a <=3KB priority-budgeted markdown snapshot with Session Goal pinning, file dedup, and git status |
 | `qcm_session_restore.py` | SessionStart | Injects the snapshot as additionalContext after compaction |
 | `qcm_output_compressor.py` | PostToolUse (Bash) | Compresses large outputs (>3KB) — saves full output to disk, returns summary to context |
+| `qcm_redundancy_detector.py` | Stop (after snapshot) | Detects repeated file reads and searches within a session, tracks per-session and cross-session metrics |
 
 **Priority tiers:**
 
@@ -1261,8 +1262,12 @@ QCM is a homegrown context management system (v2.0.0) that automatically recover
 - Session events DB: `.tmp/context/session_events.db` (SQLite, WAL mode)
 - Snapshots: `.tmp/context/snapshots/snapshot_{session_id}.md`
 - Compressed outputs: `.tmp/context/compressed/{hash}.txt`
+- Redundancy reports: `.tmp/context/redundancy/redundancy_{session_id}.md` (per-session) and `cross_session_patterns.md` (cross-session "engram candidates")
+- Redundancy metrics: `redundancy_metrics` table in `session_events.db`
 - Hook configuration: `.claude/settings.json` (hooks section)
 - Directive: `005 Operations/Directives/context_management.md`
+
+**Redundancy detection (v2.1.0):** Inspired by DeepSeek's Engram paper ("Conditional Memory via Scalable Lookup"), the redundancy detector measures how often the agent re-reads the same file or re-runs the same search within a session — wasted "compute" that could be served from cache. Baseline (52 sessions): 29.2% average redundancy ratio, ~9,471 wasted tokens/session. Files read in 5+ distinct sessions are flagged as "engram candidates" for potential persistent caching. Metrics sync daily to HQ Supabase via `sync_hq_agent_efficiency.py` and display on the HQ Command Center dashboard.
 
 **Security design:** Zero external dependencies (Python stdlib only), no network access, no credential access, fail-open (never blocks Claude), all data in `.tmp/` (ephemeral). Built in-house after security analysis rejected context-mode (npm supply chain risk with 30+ API keys on the VM).
 
@@ -4074,8 +4079,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.77 by generate_public_manual.py"
-generated: "2026-03-25 20:37"
+source: "Auto-generated from private manual v3.78 by generate_public_manual.py"
+generated: "2026-03-25 20:45"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9644,4 +9649,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-25 20:37 (v3.77)*
+*Last updated: 2026-03-25 20:45 (v3.78)*
