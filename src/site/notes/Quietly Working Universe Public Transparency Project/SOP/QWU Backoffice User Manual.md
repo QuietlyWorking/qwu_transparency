@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-25 20:45 | Source version: 3.78
+> Generated: 2026-03-25 21:03 | Source version: 3.79
 
 # QWU Backoffice User Manual
 
@@ -4079,8 +4079,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.78 by generate_public_manual.py"
-generated: "2026-03-25 20:45"
+source: "Auto-generated from private manual v3.79 by generate_public_manual.py"
+generated: "2026-03-25 21:03"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9029,7 +9029,7 @@ No free tier. 30-day trial. **QWF ecosystem bundle:** Full Pro access included f
 
 **Added: February 28, 2026**
 
-A living, interactive visualization of the entire Quietly Working Universe — 50 entities across 7 categories, served as an embeddable widget with Shadow DOM isolation. One JavaScript file, 14.3 KB gzip, drops onto any QWF website.
+A living, interactive visualization of the entire Quietly Working Universe — 50 entities across 7 categories, served as an embeddable widget with Shadow DOM isolation. One JavaScript file, 17 KB gzip, drops onto any QWF website. Includes per-entity Media Kit sections (logo downloads, social links, boilerplate copy) since v2.3.0.
 
 ### Architecture
 
@@ -9037,7 +9037,7 @@ A living, interactive visualization of the entire Quietly Working Universe — 5
 WordPress Site (any of 11 QWF sites)
   → [qwf_ecosystem] shortcode
     → widget.js loader (0.48 KB)
-      → widget.bundle.js (14.3 KB, Preact + Shadow DOM)
+      → widget.bundle.js (17 KB, Preact + Shadow DOM)
         → GET /api/ecosystem (Digital Twin, port 8767)
           → ecosystem_registry.json (50 entities)
           → live metrics (Supabase, Betterstack, supervisors)
@@ -9053,9 +9053,18 @@ WordPress Site (any of 11 QWF sites)
 ### Entity Detail Panel
 
 Expanding panel below clicked entity cards:
-- **Left side:** Summary, highlight bullets, live metrics (uptime, health, success rate), MP Training Ground badge, CTA button
+- **Left side:** Summary, highlight bullets, live metrics (uptime, health, success rate), MP Training Ground badge, Media Kit section, CTA button
 - **Right side:** Interactive SVG connection graph — radial node-link diagram with center node (current entity) and connected entities radiating outward
 - **Graph interactions:** Hover for tooltip, click node with ↗ to open entity website, click node without ↗ to navigate to that entity's detail panel (cross-category navigation)
+
+### Media Kit (v2.3.0)
+
+Each entity detail panel can include a "Media Kit" section with:
+- **Logos:** Thumbnail previews with download buttons (filename preserved, not "true.png"). Supports PNG, SVG.
+- **Social:** Platform icons (Instagram, Facebook, X, LinkedIn, YouTube, TikTok) with inline SVG and direct profile links.
+- **Boilerplate:** Pre-written description with one-click "Copy" button for collaborators.
+
+Media data is stored in `detail.media` in `ecosystem_registry.json`. 12 entities have media kits (all programs + apps). To add media to an entity, add a `media` object with `logos`, `social`, and/or `boilerplate` fields — no code rebuild needed.
 
 ### Connection System
 
@@ -9136,7 +9145,7 @@ ssh bitnami@<WP_SERVER_IP> "sudo cp /tmp/qwf-ecosystem-widget.php /opt/bitnami/w
 
 ### Reference
 
-- **Live URL:** `https://twin.quietlyworking.org/ecosystem/widget.js?v=2.1.0`
+- **Live URL:** `https://twin.quietlyworking.org/ecosystem/widget.js?v=2.3.0`
 - **System Status:** `002 Projects/_QWF Ecosystem Widget/Ecosystem-Widget-System-Status.md`
 - **User Manual:** `002 Projects/_QWF Ecosystem Widget/User-Manual.md`
 - **Directive (landing section):** `005 Operations/Directives/qwf_ecosystem_landing_section.md` (separate — Lovable apps only)
@@ -9649,4 +9658,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-25 20:45 (v3.78)*
+*Last updated: 2026-03-25 21:03 (v3.79)*
