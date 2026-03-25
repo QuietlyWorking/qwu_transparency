@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-25 21:03 | Source version: 3.79
+> Generated: 2026-03-25 23:15 | Source version: 3.80
 
 # QWU Backoffice User Manual
 
@@ -1468,6 +1468,10 @@ Skills provide domain-specific knowledge and capabilities that agents reference.
 | `capture-triage` | GTD-style inbox triage for Master Capture | None |
 | `vista-social` | Social media management via Vista Social API | Python |
 | `tool-wisdom` | Query tool-specific wisdom from wisdom.db | None |
+| `dream` | Memory health audit (staleness, broken refs, line budgets) | Python |
+| `qa` | Browser-based QA testing for CF Pages apps via Playwright | Playwright |
+| `canary` | Post-deploy canary monitoring via Betterstack + HTTP probes | Python |
+| `freeze` | Restrict edit scope to specific files/directories during focused work | None |
 
 **Lead Generation Skills:**
 
@@ -1514,7 +1518,11 @@ Skills provide domain-specific knowledge and capabilities that agents reference.
 ├── excalidraw-visuals/       # Hand-drawn PNGs (Kie.ai)
 ├── nano-banana-images/       # Hyper-realistic photos (Kie.ai)
 ├── frontend-design/          # Design guidelines
-└── video-to-website/         # Scroll-driven animated sites
+├── video-to-website/         # Scroll-driven animated sites
+├── dream/                    # Memory health audit
+├── qa/                       # Browser QA (Playwright)
+├── canary/                   # Post-deploy monitoring
+└── freeze/                   # Edit scope restriction
 ```
 
 ### Agent Templates
@@ -4079,8 +4087,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.79 by generate_public_manual.py"
-generated: "2026-03-25 21:03"
+source: "Auto-generated from private manual v3.80 by generate_public_manual.py"
+generated: "2026-03-25 23:15"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9658,4 +9666,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-25 21:03 (v3.79)*
+*Last updated: 2026-03-25 23:15 (v3.80)*
