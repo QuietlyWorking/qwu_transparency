@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-25 03:53 | Source version: 3.76
+> Generated: 2026-03-25 18:15 | Source version: 3.77
 
 # QWU Backoffice User Manual
 
-**Version: 3.68 | Started: 251223 | Updated: 260324**
+**Version: 3.77 | Started: 251223 | Updated: 260325**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2660,7 +2660,7 @@ Located in `003 Entities/Taxonomies/`:
 | File | Contents |
 |------|----------|
 | `verticals.yaml` | 12 industry/audience categories (nonprofit, surveying, healthcare...) |
-| `topics.yaml` | 20 subject matter categories (ai_adoption, trust, quality...) |
+| `topics.yaml` | 31 subject matter categories (ai_adoption, trust, quality, open_source, homebrew, maker_culture...) |
 | `concerns.yaml` | 15 pain points (accuracy, cost, job_displacement...) |
 
 ### Output Location
@@ -4074,8 +4074,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.76 by generate_public_manual.py"
-generated: "2026-03-25 03:53"
+source: "Auto-generated from private manual v3.77 by generate_public_manual.py"
+generated: "2026-03-25 18:15"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9644,4 +9644,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-25 03:53 (v3.76)*
+*Last updated: 2026-03-25 18:15 (v3.77)*
