@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-26 05:43 | Source version: 3.82
+> Generated: 2026-03-26 20:56 | Source version: 3.83
 
 # QWU Backoffice User Manual
 
-**Version: 3.82 | Started: 251223 | Updated: 260326**
+**Version: 3.83 | Started: 251223 | Updated: 260326**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -975,6 +975,22 @@ __pycache__/
 .DS_Store
 Thumbs.db
 ```
+
+### Obsidian CLI (v1.12+, Feb 2026)
+
+Obsidian released an official CLI in v1.12. It's a **remote control for the running GUI app** — Obsidian must be running (or it auto-launches on first command). Currently Early Access ($25 Catalyst License, will go free).
+
+**Key commands:** `obsidian read`, `create`, `append`, `rename`, `search`, `search:context`, `daily`, `daily:append`, `files`, `unresolved`, `plugin:reload`, `dev:screenshot`.
+
+**Impact on QWU:**
+- **Does NOT help server-side (claude-dev VM):** Headless Linux, no GUI = CLI won't work
+- **Useful on TIG's Windows workstation** for quick captures and daily note appends from PowerShell
+- **`obsidian rename`** is the strongest use case — handles backlink updates across the vault (our Python `os.rename()` doesn't update `[[wikilinks]]`)
+- **`obsidian unresolved`** beats our regex-based `extract_unresolved_links.py` for accuracy (understands aliases, embeds, block refs)
+
+**Full details:** See TWL at `005 Operations/Directives/obsidian_tool_wisdom.md`
+
+**Future watch:** If Obsidian ships a headless/daemon mode, this changes everything for server automation.
 
 ---
 
@@ -4095,8 +4111,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.82 by generate_public_manual.py"
-generated: "2026-03-26 05:43"
+source: "Auto-generated from private manual v3.83 by generate_public_manual.py"
+generated: "2026-03-26 20:56"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9674,4 +9690,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-26 05:43 (v3.82)*
+*Last updated: 2026-03-26 20:56 (v3.83)*
