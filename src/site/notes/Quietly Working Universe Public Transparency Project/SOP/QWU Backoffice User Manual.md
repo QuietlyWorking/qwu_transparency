@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-25 23:15 | Source version: 3.80
+> Generated: 2026-03-26 04:47 | Source version: 3.81
 
 # QWU Backoffice User Manual
 
@@ -2223,11 +2223,19 @@ Each voice profile folder contains:
 
 ### Available Profiles
 
-| Profile | Path | Use Case |
-|---------|------|----------|
-| Chaplain TIG | `003 Entities/Voice Profiles/Chaplain TIG/` | Personal content, QWU, Missing Pixel |
-| Ezer Aión | `003 Entities/Voice Profiles/Ezer Aión/` | QWU Backoffice assistant, automated outreach, verification |
-| GreenCal Construction | `003 Entities/Voice Profiles/GreenCal Construction/` | Client: roofing/construction company |
+| Profile | Path | Vault Version | QWR Supabase Version | Use Case |
+|---------|------|---------------|---------------------|----------|
+| Chaplain TIG | `003 Entities/Voice Profiles/Chaplain TIG/` | v2.1 (260326) | v3 (260326) | Personal content, QWU, Missing Pixel |
+| Ezer Aión | `003 Entities/Voice Profiles/Ezer Aión/` | — | — | QWU Backoffice assistant, automated outreach, verification |
+| GreenCal Construction | `003 Entities/Voice Profiles/GreenCal Construction/` | — | — | Client: roofing/construction company |
+
+### QWR Supabase Voice Profiles
+
+The Chaplain TIG voice profile is stored in QWR's Supabase `brands.voice_profile` JSON column (brand ID in Supabase). Version history is tracked in the `voice_profile_versions` table. Updates can be made via:
+1. **Direct Supabase PATCH** (preferred for precise, deterministic changes)
+2. **Voice Coach webhook** (`n8n.quietlyworking.org/webhook/voice-coach`) — AI-mediated merge, less predictable
+
+**v3 additions (260326):** Gratitude email arc, evidence-based writing principles ("Show the receipts", "Honest over dramatic"), sentence structure patterns (single-sentence emphasis, stretched words, onomatopoeia), full 17-emoji palette, 23 preferred phrases, 7 anti-patterns. Derived from TIG's actual Nick Saraev thank-you letter.
 
 ### Listing Available Profiles
 
@@ -4087,8 +4095,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.80 by generate_public_manual.py"
-generated: "2026-03-25 23:15"
+source: "Auto-generated from private manual v3.81 by generate_public_manual.py"
+generated: "2026-03-26 04:47"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9666,4 +9674,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-25 23:15 (v3.80)*
+*Last updated: 2026-03-26 04:47 (v3.81)*
