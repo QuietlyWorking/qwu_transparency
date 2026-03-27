@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-27 18:58 | Source version: 3.92
+> Generated: 2026-03-27 18:59 | Source version: 3.92
 
 # QWU Backoffice User Manual
 
@@ -4128,7 +4128,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.92 by generate_public_manual.py"
-generated: "2026-03-27 18:58"
+generated: "2026-03-27 18:59"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7872,6 +7872,7 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | GCC migration | Executed 2026-03-17 — 6 accounts, 6 domains, 3 campaigns ported |
 | Phase 3e | Executive Pulse DEPLOYED. Schema v4 (8 tables). Role system upgraded (Owner>Admin>Manager>Viewer). Prompts 032-033 deployed. |
 | Phase 3f | Place ID Verification. Schema v5 deployed (confidence tracking). `lookup-place-id` edge function deployed. Prompt 034 ready. Backend confidence gate active. |
+| AccuLynx sync | Active — 3,384 jobs synced for GreenCal. Safety gate + audit logging + soft-delete pattern. `sync_audit_log` table deployed (immutable, RLS-protected). |
 | QWF Passport | Deployed — `generate-crossover-token` (QSP) + `verify-crossover-token` (QWR, QQT, QNT) |
 | Contact Form | Deployed — `submit-contact-form` edge function + centralized pipeline |
 | Landing Page | Deployed — Prompt 011 with heritage, ecosystem, contact sections |
@@ -7890,8 +7891,10 @@ Each tenant stores QQT/QWR API keys in the `integrations` table. Python sync scr
 | `sync_qsp_reviews.py` | Google Maps via Apify | `reviews` | Every 6h (pending n8n) |
 | `compute_kpi_snapshots.py` | All QSP source tables | `kpi_snapshots` | Nightly (pending n8n) |
 | `check_qsp_alerts.py` | `alert_rules` → `alert_history` | SMS, Discord, in-app | Post-sync (pending n8n) |
+| `sync_acculynx_data.py` | AccuLynx CRM API v2 | `acculynx_jobs`, `acculynx_appointments` | Manual (v1.1.0, safety gate integrated) |
+| `sync_safety_gate.py` | Pre/post-sync validation module | `sync_audit_log` | Called by sync scripts |
 
-All scripts support `--dry-run` and `--tenant-id` flags. The `migrate_gcc_to_qsp.py` script was a one-time migration from GCC to QSP GreenCal tenant (executed 2026-03-17).
+All scripts support `--dry-run` and `--tenant-id` flags. AccuLynx sync includes `--force` flag to bypass the safety gate (row-count sanity check blocks syncs where incoming rows < 50% of existing). The `migrate_gcc_to_qsp.py` script was a one-time migration from GCC to QSP GreenCal tenant (executed 2026-03-17).
 
 ### Reference
 
@@ -7902,6 +7905,8 @@ All scripts support `--dry-run` and `--tenant-id` flags. The `migrate_gcc_to_qsp
 - **Lovable Prompts (archived):** `002 Projects/_Quietly Spotting/lovable-prompts/001-034`
 - **Sync Scripts:** `005 Operations/Execution/sync_qqt_submissions.py`, `sync_qwr_articles.py`, `sync_qsp_sending_accounts.py`, `sync_qsp_dmarc_domains.py`, `sync_qsp_campaigns.py`, `sync_qsp_reviews.py`, `compute_kpi_snapshots.py`, `check_qsp_alerts.py`
 - **Migration Script:** `005 Operations/Execution/migrate_gcc_to_qsp.py` (one-time, executed 2026-03-17)
+- **Safety Module:** `005 Operations/Execution/sync_safety_gate.py` (pre/post-sync validation, batch checking, audit logging)
+- **Data Safety Directive:** `005 Operations/Directives/supporter_data_safety.md` (foundational — live supporter data handling)
 - **Edge Functions:** `generate-crossover-token` (QWF Passport), `submit-contact-form` (contact pipeline), `lookup-place-id` (Google Place ID search with confidence scoring)
 
 ---
@@ -9709,4 +9714,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-27 18:58 (v3.92)*
+*Last updated: 2026-03-27 18:59 (v3.92)*
