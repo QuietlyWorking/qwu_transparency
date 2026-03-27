@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-26 22:59 | Source version: 3.83
+> Generated: 2026-03-27 01:14 | Source version: 3.85
 
 # QWU Backoffice User Manual
 
-**Version: 3.83 | Started: 251223 | Updated: 260326**
+**Version: 3.85 | Started: 251223 | Updated: 260327**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -4111,8 +4111,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.83 by generate_public_manual.py"
-generated: "2026-03-26 22:59"
+source: "Auto-generated from private manual v3.85 by generate_public_manual.py"
+generated: "2026-03-27 01:14"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7838,15 +7838,15 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | Supabase project | ACTIVE_HEALTHY — `lsfplhkgpiakhvtvsfic` (us-west-1) |
 | Domain | `quietlyspotting.org` — Live, SSL valid |
 | Lovable project | `8f2c23f8-bbe6-438c-800e-0f8bb7c42252` |
-| Schema | v4.0.0 — 25 tables (11 core + bug_reports + 4 Phase 2 + 1 v3 func + 8 Phase 3e), RLS, triggers |
+| Schema | v5.0.0 — 25 tables + confidence tracking on companies (11 core + bug_reports + 4 Phase 2 + 1 v3 func + 8 Phase 3e), RLS, triggers |
 | Auth | Working — sign-in, sign-up, redirect to /dashboard |
-| Lovable Prompts | 33 total (001-008, 010-011, 023-027, 032-033 deployed; 028-031 ready for Phase 3a) |
+| Lovable Prompts | 34 total (001-008, 010-011, 023-027, 028-033 deployed; 034 ready — Place ID Verification) |
 | Storage buckets | `avatars` (2MB) + `logos` (5MB) — public read, auth upload |
 | QQT sync | Active — 12 submissions synced per tenant |
 | QWR sync | Active — 5 articles synced for GreenCal (v1.1.0) |
 | Email Infra sync | Active — 18 sending accounts + 12 DMARC domains synced |
 | Campaigns sync | Active — 1 campaign synced |
-| Reviews sync | Tested — 113 Google reviews synced for GreenCal, 8 flagged |
+| Reviews sync | Tested — 113 Google reviews synced for GreenCal, 8 flagged. v1.1.0: confidence gate (skips low-confidence auto-matches) |
 | KPI snapshots | Tested — nightly aggregation across 6 categories |
 | Alert engine | Tested — rule eval + SMS/Discord/in-app dispatch |
 | n8n workflows | 4 active — QQT 1h, QWR 1h, Email Infra 2h, Campaigns 4h |
@@ -7854,6 +7854,7 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | GreenCal tenant | `6db7928c` — growth plan, 4 companies, 6 modules, 113 reviews, 2 team accounts |
 | GCC migration | Executed 2026-03-17 — 6 accounts, 6 domains, 3 campaigns ported |
 | Phase 3e | Executive Pulse DEPLOYED. Schema v4 (8 tables). Role system upgraded (Owner>Admin>Manager>Viewer). Prompts 032-033 deployed. |
+| Phase 3f | Place ID Verification. Schema v5 deployed (confidence tracking). `lookup-place-id` edge function deployed. Prompt 034 ready. Backend confidence gate active. |
 | QWF Passport | Deployed — `generate-crossover-token` (QSP) + `verify-crossover-token` (QWR, QQT, QNT) |
 | Contact Form | Deployed — `submit-contact-form` edge function + centralized pipeline |
 | Landing Page | Deployed — Prompt 011 with heritage, ecosystem, contact sections |
@@ -7880,10 +7881,10 @@ All scripts support `--dry-run` and `--tenant-id` flags. The `migrate_gcc_to_qsp
 - **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-spotting` (Lovable-managed; `ARCHITECTURE.md` at root)
 - **System Status:** `002 Projects/_Quietly Spotting/QSP-System-Status.md`
 - **Product Directive:** `005 Operations/Directives/quietly_spotting.md`
-- **Lovable Prompts:** `002 Projects/_Quietly Spotting/lovable-prompts/001-033`
+- **Lovable Prompts:** `002 Projects/_Quietly Spotting/lovable-prompts/001-034`
 - **Sync Scripts:** `005 Operations/Execution/sync_qqt_submissions.py`, `sync_qwr_articles.py`, `sync_qsp_sending_accounts.py`, `sync_qsp_dmarc_domains.py`, `sync_qsp_campaigns.py`, `sync_qsp_reviews.py`, `compute_kpi_snapshots.py`, `check_qsp_alerts.py`
 - **Migration Script:** `005 Operations/Execution/migrate_gcc_to_qsp.py` (one-time, executed 2026-03-17)
-- **Edge Functions:** `generate-crossover-token` (QWF Passport), `submit-contact-form` (contact pipeline)
+- **Edge Functions:** `generate-crossover-token` (QWF Passport), `submit-contact-form` (contact pipeline), `lookup-place-id` (Google Place ID search with confidence scoring)
 
 ---
 
@@ -9690,4 +9691,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-26 22:59 (v3.83)*
+*Last updated: 2026-03-27 01:14 (v3.85)*
