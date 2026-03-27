@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-27 06:10 | Source version: 3.86
+> Generated: 2026-03-27 06:40 | Source version: 3.87
 
 # QWU Backoffice User Manual
 
-**Version: 3.86 | Started: 251223 | Updated: 260327**
+**Version: 3.87 | Started: 251223 | Updated: 260326**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2203,6 +2203,22 @@ The video content pipeline uses Google's Gemini API for video transcription. Und
 **Cost Tracking:**
 Monitor usage at [Google AI Studio → Activity](https://aistudio.google.com/activity).
 
+### Transcript Fallback: Apify Actor
+
+When the primary Gemini transcription path fails (frame limit exceeded on long videos, or `yt-dlp`/`youtube-transcript-api` blocked by YouTube on Azure IPs), use the Apify `karamelo/youtube-transcripts` actor as a fallback:
+
+```bash
+# Via Apify MCP (when MCP enabled)
+# Actor: karamelo/youtube-transcripts
+# Input: { "urls": ["https://www.youtube.com/watch?v=VIDEO_ID"] }
+```
+
+**When to use:** Gemini 2.5 Flash has a frame limit (~30 min of video at default sampling). For longer videos or when direct YouTube access is blocked from the Azure VM IP, Apify's transcript actor retrieves the YouTube auto-generated or manual captions without needing direct video download.
+
+**Limitations:** Returns text-only transcript (no visual context that Gemini multimodal provides). Best for talk-heavy content (lectures, interviews) where visual richness is low.
+
+**Discovered:** Session 159 (260326). Azure VM IP is blocked by YouTube for `yt-dlp` and `youtube-transcript-api`. Apify actors run on Apify infrastructure, bypassing the block.
+
 ### Related Files
 
 - **Directive:** `005 Operations/Directives/process_video_content.md`
@@ -4111,8 +4127,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.86 by generate_public_manual.py"
-generated: "2026-03-27 06:10"
+source: "Auto-generated from private manual v3.87 by generate_public_manual.py"
+generated: "2026-03-27 06:40"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9691,4 +9707,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-27 06:10 (v3.86)*
+*Last updated: 2026-03-27 06:40 (v3.87)*
