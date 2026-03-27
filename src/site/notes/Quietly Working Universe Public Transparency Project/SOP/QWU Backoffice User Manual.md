@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-27 07:05 | Source version: 3.89
+> Generated: 2026-03-27 07:11 | Source version: 3.90
 
 # QWU Backoffice User Manual
 
@@ -4127,8 +4127,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.89 by generate_public_manual.py"
-generated: "2026-03-27 07:05"
+source: "Auto-generated from private manual v3.90 by generate_public_manual.py"
+generated: "2026-03-27 07:11"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7801,7 +7801,7 @@ Quietly Spotting (QSP) is a multi-tenant command center for small businesses. Yo
 ### Architecture
 
 ```
-Lovable Frontend (quietlyspotting.org)
+CF Pages Frontend (quietlyspotting.org → quietly-spotting.pages.dev)
     → Supabase SDK
         → Supabase (lsfplhkgpiakhvtvsfic, us-west-1)
             ← n8n workflows (hourly sync)
@@ -7847,16 +7847,17 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | Companies | 1 | 1 | 4 |
 | Third-party integrations | No | 2 | Unlimited |
 
-### Current State (March 20, 2026)
+### Current State (March 27, 2026)
 
 | Component | Status |
 |-----------|--------|
 | Supabase project | ACTIVE_HEALTHY — `lsfplhkgpiakhvtvsfic` (us-west-1) |
-| Domain | `quietlyspotting.org` — Live, SSL valid |
-| Lovable project | `8f2c23f8-bbe6-438c-800e-0f8bb7c42252` |
+| Domain | `quietlyspotting.org` — CNAME → `quietly-spotting.pages.dev` (Cloudflare proxied) |
+| Hosting | **Cloudflare Pages** — `quietly-spotting` project, GitHub Actions CI/CD (migrated from Lovable 2026-03-27) |
+| GitHub repo | `QuietlyWorking/quietly-spotting` — direct code commits, push-to-deploy |
 | Schema | v5.0.0 — 25 tables + confidence tracking on companies (11 core + bug_reports + 4 Phase 2 + 1 v3 func + 8 Phase 3e), RLS, triggers |
 | Auth | Working — sign-in, sign-up, redirect to /dashboard |
-| Lovable Prompts | 34 total (001-008, 010-011, 023-027, 028-033 deployed; 034 ready — Place ID Verification) |
+| Lovable Prompts | 34 total (001-034) — ARCHIVED. All future changes are direct code commits. |
 | Storage buckets | `avatars` (2MB) + `logos` (5MB) — public read, auth upload |
 | QQT sync | Active — 12 submissions synced per tenant |
 | QWR sync | Active — 5 articles synced for GreenCal (v1.1.0) |
@@ -7894,10 +7895,11 @@ All scripts support `--dry-run` and `--tenant-id` flags. The `migrate_gcc_to_qsp
 
 ### Reference
 
-- **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-spotting` (Lovable-managed; `ARCHITECTURE.md` at root)
+- **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-spotting` (CF Pages, direct code commits; `ARCHITECTURE.md` at root)
+- **CF Pages Project:** `quietly-spotting` → `quietly-spotting.pages.dev`
 - **System Status:** `002 Projects/_Quietly Spotting/QSP-System-Status.md`
 - **Product Directive:** `005 Operations/Directives/quietly_spotting.md`
-- **Lovable Prompts:** `002 Projects/_Quietly Spotting/lovable-prompts/001-034`
+- **Lovable Prompts (archived):** `002 Projects/_Quietly Spotting/lovable-prompts/001-034`
 - **Sync Scripts:** `005 Operations/Execution/sync_qqt_submissions.py`, `sync_qwr_articles.py`, `sync_qsp_sending_accounts.py`, `sync_qsp_dmarc_domains.py`, `sync_qsp_campaigns.py`, `sync_qsp_reviews.py`, `compute_kpi_snapshots.py`, `check_qsp_alerts.py`
 - **Migration Script:** `005 Operations/Execution/migrate_gcc_to_qsp.py` (one-time, executed 2026-03-17)
 - **Edge Functions:** `generate-crossover-token` (QWF Passport), `submit-contact-form` (contact pipeline), `lookup-place-id` (Google Place ID search with confidence scoring)
@@ -9707,4 +9709,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-27 07:05 (v3.89)*
+*Last updated: 2026-03-27 07:11 (v3.90)*
