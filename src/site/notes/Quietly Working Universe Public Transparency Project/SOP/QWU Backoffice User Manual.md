@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-28 05:30 | Source version: 3.92
+> Generated: 2026-03-28 05:59 | Source version: 3.93
 
 # QWU Backoffice User Manual
 
-**Version: 3.92 | Started: 251223 | Updated: 260327**
+**Version: 3.93 | Started: 251223 | Updated: 260328**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2132,7 +2132,7 @@ The pipeline auto-detects whether a video has visual value worth capturing as fr
 | `low` | Some visual value (code on screen, slides) | Key moment frames only |
 | `none` | Static setup (talking head, interview, panel) | YouTube thumbnails only |
 
-**Requirements:** `yt-dlp` + `ffmpeg` (installed in `.venv`), YouTube cookies at `.tmp/youtube_cookies.txt` for authenticated downloads. Falls back to YouTube auto-generated thumbnails if download fails.
+**Requirements:** `yt-dlp` + `ffmpeg` (installed in `.venv`). Cloudflare WARP Docker container (`warp-socks` on port 1080) masks Azure IP as residential — auto-detected by `extract_video_frames.py`. Falls back to YouTube auto-generated thumbnails if download fails.
 
 **CLI overrides:** `--frames` forces extraction, `--no-frames` forces skip. No flag = auto-decide.
 
@@ -2222,8 +2222,44 @@ When the primary Gemini transcription path fails (frame limit exceeded on long v
 ### Related Files
 
 - **Directive:** `005 Operations/Directives/process_video_content.md`
-- **Scripts:** `005 Operations/Execution/process_video_content.py` (v2.2.0), `extract_video_frames.py` (v1.1.0), `process_content_review.py`
+- **Scripts:** `005 Operations/Execution/process_video_content.py` (v2.4.0), `extract_video_frames.py` (v1.2.0), `process_content_review.py`
 - **Workflow:** `005 Operations/Workflows/content-review-workflow.json`
+
+### chaplaintig.com Video-to-Article Pipeline (Session 160+)
+
+Automated pipeline that transforms YouTube playlist videos into full Divi-formatted blog articles on chaplaintig.com. Every video becomes a draft article with video embed, chapters, inline frames, and attribution.
+
+**Architecture:**
+```
+Daily Cron → detect new playlist videos
+  → process_video_content.py (Gemini transcribe + Claude article)
+  → tig_article_builder.py (Divi template + inline frames + attribution)
+  → WordPress draft (PHP eval-file via SSH)
+  → HQ approval queue → publish + social
+```
+
+**Key Scripts:**
+
+| Script | Version | Purpose |
+|--------|---------|---------|
+| `tig_video_pipeline_orchestrator.py` | v1.0.0 | Daily entry point: detect → process → build → draft |
+| `tig_article_builder.py` | v1.1.0 | Divi article with Watch/Read toggle, chapters, inline frames, attribution |
+| `tig_publish_article.py` | v1.0.0 | Publish approved drafts + queue Vista Social |
+
+**Frame Verification (Two-Phase):**
+1. **Phase 1 (Gemini watching video):** Identifies 5-8 key visual moments with descriptions
+2. **Phase 2 (Gemini Vision per frame):** Verifies each frame, receiving Phase 1's context to prevent false rejections
+
+**Article Template Sections:** (1) Video Hero with Watch/Read toggle, (2) Key Takeaways, (3) Article body with sticky chapter nav + inline frames at matching sections, (4) Related articles, (5) Connection footer. Dark theme (#0a0a1a), PT Sans/PT Serif, #33e8d8 accent.
+
+**Attribution:** "Original video by [Channel Name](channel URL) -- Watch on YouTube" with both linked.
+
+**Data Files:**
+- Playlist mapping: `003 Entities/Taxonomies/chaplaintig_playlist_categories.yaml`
+- Processed tracker: `.tmp/tig_processed_videos.json`
+- Frame rules: `005 Operations/Directives/video_frame_extraction.md`
+
+**Test Results (Session 160+):** Photography (post 29578), WHELHO Relationships: WIRED body language (29579), NatGeo ping pong (29580), ABC4 dad/son (29581).
 
 ---
 
@@ -4127,8 +4163,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.92 by generate_public_manual.py"
-generated: "2026-03-28 05:30"
+source: "Auto-generated from private manual v3.93 by generate_public_manual.py"
+generated: "2026-03-28 05:59"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9714,4 +9750,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-28 05:30 (v3.92)*
+*Last updated: 2026-03-28 05:59 (v3.93)*
