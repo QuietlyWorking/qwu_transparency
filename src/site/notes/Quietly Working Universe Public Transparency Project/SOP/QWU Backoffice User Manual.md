@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-28 07:33 | Source version: 3.94
+> Generated: 2026-03-28 08:52 | Source version: 3.94
 
 # QWU Backoffice User Manual
 
@@ -2235,7 +2235,10 @@ Daily Cron → detect new playlist videos
   → process_video_content.py (Gemini transcribe + Claude article)
   → tig_article_builder.py (Divi template + inline frames + attribution)
   → WordPress draft (PHP eval-file via SSH)
-  → HQ approval queue → publish + social
+  → hq_action_queue row (type: video_article, status: pending)
+  → HQ Dashboard Action Queue panel (Publish / Edit Draft / Reject)
+  → hq_action_log → write_back_dirty_items.py
+  → tig_publish_article.py (publish) or mark dismissed (reject)
 ```
 
 **Key Scripts:**
@@ -2244,7 +2247,7 @@ Daily Cron → detect new playlist videos
 |--------|---------|---------|
 | `tig_video_pipeline_orchestrator.py` | v1.0.0 | Daily entry point: detect → process → build → draft |
 | `tig_article_builder.py` | v1.1.0 | Divi article with Watch/Read toggle, chapters, inline frames, attribution |
-| `tig_publish_article.py` | v1.0.0 | Publish approved drafts + queue Vista Social |
+| `tig_publish_article.py` | v1.0.1 | Publish approved drafts + queue Vista Social (chmod 644 fix for NamedTemporaryFile → SCP) |
 
 **Frame Verification (Two-Phase):**
 1. **Phase 1 (Gemini watching video):** Identifies 5-8 key visual moments with descriptions
@@ -2259,7 +2262,7 @@ Daily Cron → detect new playlist videos
 - Processed tracker: `.tmp/tig_processed_videos.json`
 - Frame rules: `005 Operations/Directives/video_frame_extraction.md`
 
-**Test Results (Session 160+):** Photography (post 29578), WHELHO Relationships: WIRED body language (29579), NatGeo ping pong (29580), ABC4 dad/son (29581).
+**Test Results (Session 160+):** Photography (post 29578), WHELHO Relationships: WIRED body language (29579), NatGeo ping pong (29580), ABC4 dad/son (29581). Session 162: 4 articles published live via HQ Action Queue (first end-to-end pipeline test).
 
 ---
 
@@ -4164,7 +4167,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.94 by generate_public_manual.py"
-generated: "2026-03-28 07:33"
+generated: "2026-03-28 08:52"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9750,4 +9753,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-28 07:33 (v3.94)*
+*Last updated: 2026-03-28 08:52 (v3.94)*
