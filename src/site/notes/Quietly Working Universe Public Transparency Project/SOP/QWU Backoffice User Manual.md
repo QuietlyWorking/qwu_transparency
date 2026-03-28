@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-28 05:59 | Source version: 3.93
+> Generated: 2026-03-28 07:33 | Source version: 3.94
 
 # QWU Backoffice User Manual
 
-**Version: 3.93 | Started: 251223 | Updated: 260328**
+**Version: 3.94 | Started: 251223 | Updated: 260328**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -4163,8 +4163,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.93 by generate_public_manual.py"
-generated: "2026-03-28 05:59"
+source: "Auto-generated from private manual v3.94 by generate_public_manual.py"
+generated: "2026-03-28 07:33"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9750,4 +9750,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-28 05:59 (v3.93)*
+*Last updated: 2026-03-28 07:33 (v3.94)*
