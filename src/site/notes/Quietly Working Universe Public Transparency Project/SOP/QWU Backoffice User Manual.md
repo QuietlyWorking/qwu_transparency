@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-28 08:52 | Source version: 3.94
+> Generated: 2026-03-28 08:53 | Source version: 3.95
 
 # QWU Backoffice User Manual
 
-**Version: 3.94 | Started: 251223 | Updated: 260328**
+**Version: 3.95 | Started: 251223 | Updated: 260328**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2170,6 +2170,25 @@ The n8n workflow `content-review-workflow.json` polls every 5 minutes:
 000 Inbox/___Approved/{uid}/    → Approved (ready for distribution)
 ```
 
+### Article Connection Engine (v1.0.0)
+
+The connection engine builds a knowledge graph across chaplaintig.com articles, enabling interactive concept maps and cross-article discovery.
+
+**Script:** `tig_connection_engine.py` — extracts semantic tags from each article, computes article-to-article edges based on shared concepts, generates per-article constellation JSON and "Echoes" quote threads.
+
+**Database:** `005 Operations/Data/tig_graph.db` — stores article nodes, concept tags, and weighted edges.
+
+**Integration with Article Builder:** `tig_article_builder.py` v1.2.0 embeds an interactive D3.js concept map ("Ideas Connected" section) in each article. Nodes are clickable, linking to related articles. Hover shows article titles. Central hub shows the current article's primary concept.
+
+**New article builder features (v1.2.0):**
+- Watch/Read toggle (video embed vs. article text)
+- Timestamped chapter navigation
+- Key takeaways section
+- TIG Izm pull-quotes
+- Ideas Connected constellation (D3.js interactive graph)
+- Echoes quote threads (related quotes from other articles)
+- SEO VideoObject JSON-LD
+
 ### Environment Variables
 
 ```bash
@@ -4166,8 +4185,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.94 by generate_public_manual.py"
-generated: "2026-03-28 08:52"
+source: "Auto-generated from private manual v3.95 by generate_public_manual.py"
+generated: "2026-03-28 08:53"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9753,4 +9772,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-28 08:52 (v3.94)*
+*Last updated: 2026-03-28 08:53 (v3.95)*
