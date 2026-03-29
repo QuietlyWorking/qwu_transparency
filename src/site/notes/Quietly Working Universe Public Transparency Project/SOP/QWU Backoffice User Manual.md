@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-28 08:54 | Source version: 3.95
+> Generated: 2026-03-29 00:49 | Source version: 3.95
 
 # QWU Backoffice User Manual
 
@@ -2170,24 +2170,87 @@ The n8n workflow `content-review-workflow.json` polls every 5 minutes:
 000 Inbox/___Approved/{uid}/    → Approved (ready for distribution)
 ```
 
-### Article Connection Engine (v1.0.0)
+### Article Connection Engine (v1.0.0) — Interconnected Article Universe
 
-The connection engine builds a knowledge graph across chaplaintig.com articles, enabling interactive concept maps and cross-article discovery.
+The connection engine builds a semantic knowledge graph across all chaplaintig.com articles, enabling interactive concept maps and cross-article discovery. Every article becomes a node in a living constellation that readers can explore visually.
 
-**Script:** `tig_connection_engine.py` — extracts semantic tags from each article, computes article-to-article edges based on shared concepts, generates per-article constellation JSON and "Echoes" quote threads.
+**Script:** `005 Operations/Execution/tig_connection_engine.py` v1.0.0
 
-**Database:** `005 Operations/Data/tig_graph.db` — stores article nodes, concept tags, and weighted edges.
+Four capabilities in one script:
+1. **Semantic tag extraction** — Claude analyzes each article and extracts 5-8 abstract concept tags (e.g., "resilience", "identity", "trust-building"). These are *concepts*, not topics — enabling cross-domain connections (a photography article and a relationships article can both touch "presence").
+2. **Article edge computation** — Computes pairwise similarity scores between all articles using shared semantic tags. Weighted by tag specificity (rare shared tags score higher than common ones). Produces directed edges stored in `article_edges` table.
+3. **Constellation graph generation** — Per-article subgraph of the 5-7 most-connected neighbors, pre-rendered as a baked inline SVG with zero runtime cost. No D3.js or CDN dependency on article pages — the constellation is a static image that only looks dynamic.
+4. **Quote threading ("Echoes")** — Pulls thematically related quotes from other articles based on semantic overlap. Displayed in the article's Section 5 as a "Voices from the Vault" thread.
 
-**Integration with Article Builder:** `tig_article_builder.py` v1.2.0 embeds an interactive D3.js concept map ("Ideas Connected" section) in each article. Nodes are clickable, linking to related articles. Hover shows article titles. Central hub shows the current article's primary concept.
+**Database:** `005 Operations/Data/tig_graph.db`
 
-**New article builder features (v1.2.0):**
-- Watch/Read toggle (video embed vs. article text)
-- Timestamped chapter navigation
-- Key takeaways section
-- TIG Izm pull-quotes
-- Ideas Connected constellation (D3.js interactive graph)
-- Echoes quote threads (related quotes from other articles)
-- SEO VideoObject JSON-LD
+| Table | Contents |
+|-------|----------|
+| `article_nodes` | Post ID, title, URL, semantic tag list, processed timestamp |
+| `semantic_tags` | Tag vocabulary with frequency counts |
+| `article_edges` | Source post ID, target post ID, similarity weight, shared tag list |
+| `concepts` | Concept definitions and cross-domain linkage metadata |
+
+**Semantic tags are abstract concepts, not topics.** This is the key design decision. A topic tag ("photography") only connects photography articles. A concept tag ("presence") connects photography, relationships, parenting, and mindfulness articles — creating the cross-domain discovery that makes the constellation feel surprising and alive.
+
+**Integration with Article Builder (v1.2.0):**
+
+`tig_article_builder.py` v1.2.0 reads `tig_graph.db` to embed the constellation and Echoes in every new article:
+
+| Section | Content | Implementation |
+|---------|---------|----------------|
+| Section 2 (2-column) | Left col: Key Takeaways / Right col: Constellation preview | Pre-baked inline SVG, no runtime cost |
+| Section 5 | "Echoes" — thematically related quotes from other articles | Quote thread pulled from `article_edges` + quote store |
+
+**2-column Section 2 layout:** Left column shows 3-5 key takeaways as a scannable list. Right column shows the article's constellation — a small star map of connected articles with the current article as the center node. Clickable nodes link to the connected article's search page (not direct URL — routes through `/search/?semantic=tag` to show the discovery path).
+
+**Constellation rendering (pre-baked SVG, zero runtime cost):** The constellation is computed once when the article is built and embedded as inline SVG in the Divi `et_pb_code` module. No D3.js loaded on the article page. This approach:
+- Zero CDN dependency (no D3 script tag on article pages)
+- Zero runtime computation in the reader's browser
+- Renders identically across all devices
+- No `<br>` injection risk from WordPress `wpautop`
+
+**Search discovery via clickable nodes:** Clicking a constellation node does NOT go directly to the connected article. It goes to `/search/?semantic=tag_name`, which shows *all* articles sharing that concept tag — revealing the full cluster, not just a single connection, and rewarding exploration.
+
+**WordPress content update pattern for Divi (critical):**
+
+When pushing complex Divi content (multi-column layouts, inline SVG, embedded JS) to WordPress via SSH, use the **SCP file → WP-CLI** pattern. NOT PHP eval-file with heredoc string escaping.
+
+```bash
+# CORRECT: SCP content file → wp post update
+scp content.html bitnami@<WP_SERVER_IP>:/tmp/content.html
+ssh bitnami@<WP_SERVER_IP> "chmod 644 /tmp/content.html && \
+  sudo wp post update <id> /tmp/content.html --path=/opt/bitnami/wordpress && \
+  rm /tmp/content.html"
+
+# WRONG: PHP eval-file with string escaping (breaks on complex Divi content)
+# PHP heredoc escaping corrupts quotes, SVG attributes, and JS template literals
+# This pattern works for simple PHP updates but fails on Divi shortcode-heavy content
+```
+
+**Why string escaping breaks:** Divi content contains hundreds of escaped quotes in shortcode attributes, inline SVG path data, and JS template literals. Escaping these for PHP string injection produces cascading corruption. The SCP pattern treats content as a raw file — no escaping needed. Discovered Session 163 (260328).
+
+**Running the connection engine:**
+
+```bash
+# Process all articles and rebuild the full graph
+.venv/bin/python "005 Operations/Execution/tig_connection_engine.py" --rebuild
+
+# Process a single article (by WordPress post ID)
+.venv/bin/python "005 Operations/Execution/tig_connection_engine.py" --post-id 29578
+
+# Dry run (compute edges, don't write to DB or WordPress)
+.venv/bin/python "005 Operations/Execution/tig_connection_engine.py" --dry-run
+```
+
+**New article builder features (v1.2.0 vs v1.1.0):**
+- 2-column Section 2 (Key Takeaways left + Constellation preview right)
+- Section 5 "Echoes" — thematically related quotes from other articles
+- Semantic tags passed to `process_video_content.py` LLM prompt (v2.5.0) for consistent extraction
+- Watch/Read toggle (video embed vs. article text) — carried from v1.1.0
+- Timestamped chapter navigation — carried from v1.1.0
+- TIG Izm pull-quotes — carried from v1.1.0
+- SEO VideoObject JSON-LD — carried from v1.1.0
 
 ### Environment Variables
 
@@ -2241,7 +2304,8 @@ When the primary Gemini transcription path fails (frame limit exceeded on long v
 ### Related Files
 
 - **Directive:** `005 Operations/Directives/process_video_content.md`
-- **Scripts:** `005 Operations/Execution/process_video_content.py` (v2.4.0), `extract_video_frames.py` (v1.2.0), `process_content_review.py`
+- **Scripts:** `005 Operations/Execution/process_video_content.py` (v2.5.0), `extract_video_frames.py` (v1.2.0), `process_content_review.py`, `tig_connection_engine.py` (v1.0.0), `tig_article_builder.py` (v1.2.0)
+- **Database:** `005 Operations/Data/tig_graph.db` (semantic_tags, article_edges, concepts tables)
 - **Workflow:** `005 Operations/Workflows/content-review-workflow.json`
 
 ### chaplaintig.com Video-to-Article Pipeline (Session 160+)
@@ -2250,10 +2314,14 @@ Automated pipeline that transforms YouTube playlist videos into full Divi-format
 
 **Architecture:**
 ```
-Daily Cron → detect new playlist videos
-  → process_video_content.py (Gemini transcribe + Claude article)
-  → tig_article_builder.py (Divi template + inline frames + attribution)
-  → WordPress draft (PHP eval-file via SSH)
+Cron (2 AM Pacific, 15 videos) OR Cron (8 AM/2 PM/8 PM Pacific, 5 videos)
+  → tig_video_pipeline_orchestrator.py v1.1.0 [lock file guard — fcntl.LOCK_NB]
+  → detect new playlist videos (source_published_at from YouTube metadata)
+  → process_video_content.py (Gemini transcribe + Claude article + semantic tags)
+  → tig_connection_engine.py (extract tags → compute edges → bake constellation SVG)
+  → tig_article_builder.py (Divi template + 2-col Section 2 + Echoes + constellation)
+  → WordPress draft (SCP content file → wp post update → rm) [backdated to source_published_at]
+  → wisdom_indexer.py (auto-index new article into wisdom.db)
   → hq_action_queue row (type: video_article, status: pending)
   → HQ Dashboard Action Queue panel (Publish / Edit Draft / Reject)
   → hq_action_log → write_back_dirty_items.py
@@ -2264,24 +2332,30 @@ Daily Cron → detect new playlist videos
 
 | Script | Version | Purpose |
 |--------|---------|---------|
-| `tig_video_pipeline_orchestrator.py` | v1.0.0 | Daily entry point: detect → process → build → draft |
-| `tig_article_builder.py` | v1.1.0 | Divi article with Watch/Read toggle, chapters, inline frames, attribution |
-| `tig_publish_article.py` | v1.0.1 | Publish approved drafts + queue Vista Social (chmod 644 fix for NamedTemporaryFile → SCP) |
+| `tig_video_pipeline_orchestrator.py` | v1.1.0 | Daily entry point: detect → process → build → draft → wisdom index. Lock file guard, `source_published_at` backdating |
+| `tig_article_builder.py` | v1.2.0 | Divi article with 2-col Section 2 (takeaways + constellation), Section 5 Echoes, Watch/Read toggle |
+| `tig_connection_engine.py` | v1.0.0 | Semantic tag extraction, edge computation, constellation SVG generation, quote threading |
+| `process_video_content.py` | v2.5.0 | Gemini transcribe + Claude article + semantic_tags in LLM prompt |
+| `tig_publish_article.py` | v1.0.1 | Publish approved drafts + queue Vista Social |
 
 **Frame Verification (Two-Phase):**
 1. **Phase 1 (Gemini watching video):** Identifies 5-8 key visual moments with descriptions
 2. **Phase 2 (Gemini Vision per frame):** Verifies each frame, receiving Phase 1's context to prevent false rejections
 
-**Article Template Sections:** (1) Video Hero with Watch/Read toggle, (2) Key Takeaways, (3) Article body with sticky chapter nav + inline frames at matching sections, (4) Related articles, (5) Connection footer. Dark theme (#0a0a1a), PT Sans/PT Serif, #33e8d8 accent.
+**Article Template Sections (v1.2.0):** (1) Video Hero with Watch/Read toggle, (2) 2-column: Key Takeaways + Constellation preview (pre-baked SVG), (3) Article body with sticky chapter nav + inline frames at matching sections, (4) Related articles, (5) "Echoes" — thematically related quotes from other articles. Dark theme (#0a0a1a), PT Sans/PT Serif, #33e8d8 accent.
 
 **Attribution:** "Original video by [Channel Name](channel URL) -- Watch on YouTube" with both linked.
 
 **Data Files:**
-- Playlist mapping: `003 Entities/Taxonomies/chaplaintig_playlist_categories.yaml`
+- Playlist mapping: `003 Entities/Taxonomies/chaplaintig_playlist_categories.yaml` (112 playlists, 10 clusters, zero unmapped)
 - Processed tracker: `.tmp/tig_processed_videos.json`
 - Frame rules: `005 Operations/Directives/video_frame_extraction.md`
+- Knowledge graph: `005 Operations/Data/tig_graph.db` (article_nodes, semantic_tags, article_edges, concepts, social_posts)
+- Wisdom engine plan: `005 Operations/Directives/chaplaintig_wisdom_engine.md`
 
-**Test Results (Session 160+):** Photography (post 29578), WHELHO Relationships: WIRED body language (29579), NatGeo ping pong (29580), ABC4 dad/son (29581). Session 162: 4 articles published live via HQ Action Queue (first end-to-end pipeline test).
+**Test Results:** Photography (post 29578), WHELHO Relationships: WIRED body language (29579), NatGeo ping pong (29580), ABC4 dad/son (29581). Session 162: 4 articles published live via HQ Action Queue (first end-to-end pipeline test). Session 163: Interconnection layer deployed — constellation + Echoes on every article. Session 164: FAA Part 107 (29586), Gaussian Splatting (29587), Houdini (29588) — all backdated to original YouTube publish dates.
+
+**Playlist Mapping Status (Session 164):** ALL 112 playlists mapped — zero unmapped. 10 explore clusters total (`explore-spatial-craft` added as 10th, WP category ID 109). All Creative Production playlists now tagged with `realm-mind`.
 
 ---
 
@@ -4186,7 +4260,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v3.95 by generate_public_manual.py"
-generated: "2026-03-28 08:54"
+generated: "2026-03-29 00:49"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9772,4 +9846,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-28 08:54 (v3.95)*
+*Last updated: 2026-03-29 00:49 (v3.95)*
