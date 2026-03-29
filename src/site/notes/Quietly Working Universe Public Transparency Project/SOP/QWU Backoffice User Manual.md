@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-29 07:07 | Source version: 3.97
+> Generated: 2026-03-29 22:19 | Source version: 3.98
 
 # QWU Backoffice User Manual
 
-**Version: 3.96 | Started: 251223 | Updated: 260329**
+**Version: 3.98 | Started: 251223 | Updated: 260329**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2252,6 +2252,40 @@ ssh bitnami@<WP_SERVER_IP> "chmod 644 /tmp/content.html && \
 - TIG Izm pull-quotes — carried from v1.1.0
 - SEO VideoObject JSON-LD — carried from v1.1.0
 
+### Social Video Clip Generation (Remotion) — Evaluation Phase
+
+Remotion is a React-based programmatic video framework (MIT licensed) being evaluated for generating branded social media video clips from chaplaintig.com articles. Each clip is a 30-66 second kinetic typography animation designed as a teaser linking back to the full article.
+
+**Project Location:** `/home/<VM_USER>/chaplaintig-video-clips/` (outside the vault — Node.js project)
+
+**Directive:** `005 Operations/Directives/chaplaintig_video_generation.md` — comprehensive brand generation guide with pacing rules, scene types, color/font tokens, wonder effects, and parameterized input schema.
+
+**How it works:**
+```
+Article content files → Creative brief (quote selection, scene assembly)
+  → Remotion React composition → Headless Chrome render → MP4
+```
+
+**Brand Rules (locked in):**
+- **Pacing:** 10-13 seconds per scene (1-3 lines), 15-17 seconds (4+ lines), 2-3 second gaps between text reveals
+- **Colors:** Dark bg `#0a0a1a`, Aurora Teal accent `#33e8d8`, Stardust text `#e8e4f0`
+- **Fonts:** PT Serif (quotes, headlines), PT Sans (labels, CTAs) — loaded via `@remotion/google-fonts` (CSS @import fails in headless render)
+- **Animation:** Spring physics for all text reveals (no linear interpolation)
+- **Output:** 1080x1920 vertical (Reels/TikTok primary), square and landscape variants planned
+- **Mood:** "Late night conversation about things that matter" — contemplative, cinematic, not flashy
+
+**Scene Types:** HOOK → QUOTE → TURN → LANDING → CLOSE (mix per article)
+
+**Rendering:**
+```bash
+cd /home/<VM_USER>/chaplaintig-video-clips
+npx remotion render PingPongClip --output out/ping-pong-teaser.mp4
+```
+
+Render time: ~90 seconds for a 66-second clip on claude-dev VM (2 concurrent threads). No duration limits — Remotion renders frame-by-frame.
+
+**Status:** Proof of concept complete (ping pong article, 3 iterations). Brand guide written. Next: parameterized `ArticleClip` component + `render_social_clip.py` orchestrator script for pipeline integration.
+
 ### Environment Variables
 
 ```bash
@@ -4266,8 +4300,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.97 by generate_public_manual.py"
-generated: "2026-03-29 07:07"
+source: "Auto-generated from private manual v3.98 by generate_public_manual.py"
+generated: "2026-03-29 22:19"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9853,4 +9887,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-29 07:07 (v3.97)*
+*Last updated: 2026-03-29 22:19 (v3.98)*
