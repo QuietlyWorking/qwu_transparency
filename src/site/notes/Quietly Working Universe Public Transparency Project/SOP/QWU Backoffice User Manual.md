@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-30 02:18 | Source version: 4.0
+> Generated: 2026-03-30 02:21 | Source version: 4.0
 
 # QWU Backoffice User Manual
 
@@ -4307,7 +4307,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v4.0 by generate_public_manual.py"
-generated: "2026-03-30 02:18"
+generated: "2026-03-30 02:21"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -6327,7 +6327,7 @@ This audit serves both operational health and educational purposes—providing s
 | Meeting Intelligence | ✅ Active | 100% | SuiteDash CRM integrated |
 | Morning Briefing | ✅ Active | 100% | Project tasks included |
 | Daily Synthesis | ✅ Active | 100% | Goals context included |
-| Expert Monitoring | ✅ Active | 100% | YouTube, 8 experts |
+| Expert Monitoring | ✅ Active | 100% | YouTube, 54 channels monitored |
 | BNI Member Enrichment | ✅ Active | 100% | Full pipeline |
 | Inbox Processing | ✅ Active | 95% | Dual-input working |
 | Wisdom Synthesis | ✅ Active | 90% | Architecture complete |
@@ -9893,4 +9893,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-30 02:18 (v4.0)*
+*Last updated: 2026-03-30 02:21 (v4.0)*
