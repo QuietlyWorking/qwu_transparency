@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-30 19:40 | Source version: 4.1
+> Generated: 2026-03-30 23:54 | Source version: 4.2
 
 # QWU Backoffice User Manual
 
-**Version: 4.1 | Started: 251223 | Updated: 260330**
+**Version: 4.2 | Started: 251223 | Updated: 260330**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -95,7 +95,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 76. [[#WHL WHELHO App ⭐ NEW]]
 77. [[#Cloudflare & DNS Management ⭐ NEW]]
 78. [[#QWF App Registry ⭐ NEW]]
-79. [[#Session Log]]
+79. [[#Testimonial Intelligence Pipeline ⭐ NEW]]
+80. [[#Session Log]]
 
 ---
 
@@ -4306,8 +4307,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.1 by generate_public_manual.py"
-generated: "2026-03-30 19:40"
+source: "Auto-generated from private manual v4.2 by generate_public_manual.py"
+generated: "2026-03-30 23:54"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9882,6 +9883,89 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
+## Testimonial Intelligence Pipeline ⭐ NEW
+
+**Added: March 30, 2026** | **Directive:** `005 Operations/Directives/testimonial_intelligence.md`
+
+Automatically discovers, curates, and publishes testimonials about Chaplain TIG from multiple sources with appropriate approval workflows.
+
+### Architecture
+
+```
+Sources (meetings, LinkedIn, manual) → Extract → Score (Claude FLAGSHIP) → Pipeline
+    │
+    ├── Public source → TIG approval in HQ → Publish to WP
+    └── Private source → Giver approval (Ezer email) → TIG approval → Publish to WP
+```
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `extract_testimonials.py` | Main orchestrator — extract, score, advance pipeline |
+| `extract_testimonials_meetings.py` | Second-pass LLM on meeting transcripts for praise of TIG |
+| `extract_testimonials_linkedin.py` | Apify actor scrapes LinkedIn recommendations |
+| `score_testimonial.py` | Quality score (0-1) + WHELHO realm mapping |
+| `testimonial_giver_approval.py` | Ezer sends warm approval email via Graph API |
+| `sync_testimonials_to_hq.py` | Push to HQ action queue for TIG review |
+| `publish_testimonials_wp.py` | Generate Divi shortcode, push to WordPress |
+| `sync_testimonials_to_wp.py` | Sync JSON cache to WP for shortcode widget |
+
+### WordPress Widget
+
+Custom mu-plugin `tig-testimonials-widget.php` deployed to `wp-content/mu-plugins/`. Shortcode: `[tig_testimonials]`
+
+| Style | Usage | Description |
+|-------|-------|-------------|
+| `slider` | `[tig_testimonials style="slider"]` | Hero slider with progress bar, pause on hover, realm-colored dots |
+| `wall` | `[tig_testimonials style="wall"]` | Full-width glassmorphism masonry wall, scroll-reveal animation |
+| `grid` | `[tig_testimonials style="grid"]` | Static grid layout |
+| `featured` | `[tig_testimonials style="featured"]` | Single large centered testimonial |
+| `ticker` | `[tig_testimonials style="ticker"]` | Auto-scrolling horizontal ticker |
+
+Options: `count`, `realm`, `speed`, `theme` (dark/light), `featured` (true/false), `order` (quality/recent/random).
+
+### HQ Command Center
+
+Voices page (Lovable prompts 109-111):
+- Filter tabs: All, Needs Review, Giver Approval, Approved, Published, Archived
+- Per-card actions: Ask Giver, Approve Direct, Archive, Publish, Feature, Edit inline
+- Two-state giver badge: "Not Yet Asked" (gray) vs "Awaiting Reply" (amber)
+- Manual Add form with auto-set giver approval toggle by source type
+
+### Database
+
+Table: `hq_testimonials` (Supabase, HQ project)
+Pipeline states: extracted → giver_pending → giver_approved → tig_pending → approved → published
+
+### Automation
+
+| Cron | Frequency | Purpose |
+|------|-----------|---------|
+| `sync_testimonials_to_wp.py` | Every 5 min | Sync published testimonials JSON to WordPress |
+| `testimonial_giver_approval.py` | Every 5 min | Send emails when TIG clicks "Send Request" in HQ |
+| `ezer_respond.py` (n8n) | Every 15 min | Detect giver approval/decline replies, update Supabase |
+
+**Critical rule:** Pipeline does NOT auto-advance to `giver_pending`. Testimonials from private sources stay at `extracted` until TIG explicitly clicks "Send Request" in HQ. Prevents accidental emails.
+
+### Key URLs
+
+- chaplaintig.com/voices/ (WordPress page, post ID 29667)
+- hq.quietlyworking.org → Voices tab
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| WordPress mu-plugin development | PHP, shortcodes, CSS animation, vanilla JS | ⭐⭐ |
+| Supabase pipeline state machine | Database design, RLS policies, PostgREST API | ⭐⭐ |
+| Glassmorphism CSS | CSS backdrop-filter, color-mix, masonry layout | ⭐⭐ |
+| Intersection Observer animations | JavaScript, scroll-driven UX, progressive enhancement | ⭐⭐ |
+| Apify web scraping | API integration, actor execution, data parsing | ⭐⭐ |
+| Email template design | HTML email, Microsoft Graph API, conversational UX | ⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -9893,4 +9977,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-30 19:40 (v4.1)*
+*Last updated: 2026-03-30 23:54 (v4.2)*
