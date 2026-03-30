@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-30 00:56 | Source version: 3.99
+> Generated: 2026-03-30 02:18 | Source version: 4.0
 
 # QWU Backoffice User Manual
 
-**Version: 3.99 | Started: 251223 | Updated: 260330**
+**Version: 4.0 | Started: 251223 | Updated: 260330**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2379,7 +2379,7 @@ Cron (2 AM Pacific, 15 videos) OR Cron (8 AM/2 PM/8 PM Pacific, 5 videos)
 1. **Phase 1 (Gemini watching video):** Identifies 5-8 key visual moments with descriptions
 2. **Phase 2 (Gemini Vision per frame):** Verifies each frame, receiving Phase 1's context to prevent false rejections
 
-**Article Template Sections (v1.2.0):** (1) Video Hero with Watch/Read toggle, (2) 2-column: Key Takeaways + Constellation preview (pre-baked SVG), (3) Article body with sticky chapter nav + inline frames at matching sections, (4) Related articles, (5) "Echoes" — thematically related quotes from other articles. Dark theme (#0a0a1a), PT Sans/PT Serif, #33e8d8 accent.
+**Article Template Sections (v1.3.0):** (1) Video Hero with Watch/Read toggle, (2) 2-column: Key Takeaways + Constellation preview with backlinks bar (pre-baked SVG), (3) Article body with sticky chapter nav + inline frames + clickable wiki links + "Read Next ↓" anchor in Chapters sidebar, (4) Read Next — top 3 related articles with one-liners and shared tags, (5) "Echoes" — authority-ranked wisdom from same expert, shared themes, AND full wisdom.db library (actionable wisdom gets gold #E8B833 border + lightning bolt; authority badges for vendor_official/expert_validated). Dark theme (#0a0a1a), PT Sans/PT Serif, #33e8d8 accent.
 
 **Attribution:** "Original video by [Channel Name](channel URL) -- Watch on YouTube" with both linked.
 
@@ -2401,6 +2401,8 @@ Cron (2 AM Pacific, 15 videos) OR Cron (8 AM/2 PM/8 PM Pacific, 5 videos)
 **Content-Driven Categorization (Session 167):** WordPress categories are now assigned by actual video content, not playlist membership. The orchestrator (v1.2.0) runs a scoring algorithm at step 1.5 (after content processing, before article building) that scores `topics`, `key_concepts` (from intel.md), `semantic_tags`, `summary_text`, `title`, `channel`, `visual_richness`, and `suggested_use` against signal definitions in `003 Entities/Taxonomies/chaplaintig_content_category_signals.yaml`. Playlist mapping is a +1 bonus and fallback only. Discovered 103+ miscategorized videos across 14 playlists (worst: Unreal Engine 37, DaVinci Resolve 25). All 35 existing WordPress articles recategorized. Validated against 5 known mismatches (100% correct).
 
 **Batch Processing Server Protection (Session 167):** `run_tier1_batch.py` v1.1.0 adds three safeguards after a MariaDB OOM-kill from 37 back-to-back pipeline runs: (1) 30-second inter-video delay (configurable `--delay`), (2) default `--max 10` batch cap, (3) pre-video memory check via SSH to WPMU — if available RAM < 2GB, waits 60s and retries 3 times before skipping. 4GB swap file also added to WPMU server (Session 166).
+
+**Smart Linking & Cross-Referencing (Session 168):** Five interconnection enhancements deployed across all 62 articles via `tig_backfill_enhancements.py` v1.0.0: (1) **Clickable wiki links** — `[[Concept]]` resolves to article URL (`/?p=ID`) from tig_graph.db or falls back to WordPress search (`/?s=...`); teal for matched, dim for search. (2) **WordPress tags** — semantic tags from tig_graph.db auto-created as WP post_tag taxonomy via `wp_set_post_terms` in PHP eval-file; 423 tags set across 62 articles. (3) **Backlink awareness** — "Referenced by X articles" bar below constellation, queries bidirectional `article_edges` table. (4) **wisdom.db-powered Echoes** — third source in `build_quote_threads()` queries `wisdom_query.py` by article topics, deduplicates, authority-ranks (vendor_official > expert_validated > community); actionable wisdom gets gold border (#E8B833) + lightning bolt prefix. (5) **Read Next** — top 3 related articles as clickable cards with one-liners and shared tags, positioned as standalone Divi section between article body and Echoes; Chapters sidebar includes "Read Next ↓" anchor link. Backfill script fetches `wp_post_id` from HQ Supabase (not local JSON). Key gotcha: semantic tags live in `tig_graph.db`, NOT `_metadata.json`.
 
 ---
 
@@ -4304,8 +4306,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v3.99 by generate_public_manual.py"
-generated: "2026-03-30 00:56"
+source: "Auto-generated from private manual v4.0 by generate_public_manual.py"
+generated: "2026-03-30 02:18"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9891,4 +9893,4 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 
 ---
 
-*Last updated: 2026-03-30 00:56 (v3.99)*
+*Last updated: 2026-03-30 02:18 (v4.0)*
