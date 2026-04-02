@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-03-31 14:42 | Source version: 4.2
+> Generated: 2026-04-02 00:21 | Source version: 4.3
 
 # QWU Backoffice User Manual
 
-**Version: 4.2 | Started: 251223 | Updated: 260331**
+**Version: 4.3 | Started: 251223 | Updated: 260401**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -2374,7 +2374,7 @@ Cron (2 AM Pacific, 15 videos) OR Cron (8 AM/2 PM/8 PM Pacific, 5 videos)
 | `generate_constellation_map.py` | v1.0.0 | Full-universe D3.js constellation map: tig_graph.db → 85+ nodes → WordPress post 29573 (`/map/`). Auto-triggered by orchestrator |
 | `generate_tier1_priority_list.py` | v1.0.0 | Rank all YouTube videos by visitor value → select Tier 1 (50) across 10 clusters. Output: `.tmp/tier1_priority_list.json` |
 | `process_video_content.py` | v2.5.0 | Gemini transcribe + Claude article + semantic_tags in LLM prompt |
-| `tig_publish_article.py` | v1.0.1 | Publish approved drafts + queue Vista Social |
+| `tig_publish_article.py` | v1.1.0 | Publish approved drafts + queue Vista Social + write back wp_post_id to wp_article.json and tig_graph.db |
 
 **Frame Verification (Two-Phase):**
 1. **Phase 1 (Gemini watching video):** Identifies 5-8 key visual moments with descriptions
@@ -2402,6 +2402,8 @@ Cron (2 AM Pacific, 15 videos) OR Cron (8 AM/2 PM/8 PM Pacific, 5 videos)
 **Content-Driven Categorization (Session 167):** WordPress categories are now assigned by actual video content, not playlist membership. The orchestrator (v1.2.0) runs a scoring algorithm at step 1.5 (after content processing, before article building) that scores `topics`, `key_concepts` (from intel.md), `semantic_tags`, `summary_text`, `title`, `channel`, `visual_richness`, and `suggested_use` against signal definitions in `003 Entities/Taxonomies/chaplaintig_content_category_signals.yaml`. Playlist mapping is a +1 bonus and fallback only. Discovered 103+ miscategorized videos across 14 playlists (worst: Unreal Engine 37, DaVinci Resolve 25). All 35 existing WordPress articles recategorized. Validated against 5 known mismatches (100% correct).
 
 **Batch Processing Server Protection (Session 167):** `run_tier1_batch.py` v1.1.0 adds three safeguards after a MariaDB OOM-kill from 37 back-to-back pipeline runs: (1) 30-second inter-video delay (configurable `--delay`), (2) default `--max 10` batch cap, (3) pre-video memory check via SSH to WPMU — if available RAM < 2GB, waits 60s and retries 3 times before skipping. 4GB swap file also added to WPMU server (Session 166).
+
+**Read Next Backfill & wpautop Fix (Session 172):** `wp_post_id` was NULL for all 112 rows in tig_graph.db — the column existed but was never populated because `tig_publish_article.py` didn't write it back after publishing. Matched 41 published WP posts to graph articles via `_tig_pipeline_uid` post meta. Backfilled wp_post_id in both tig_graph.db and 41 wp_article.json files. Fixed `tig_publish_article.py` (v1.0.1 → v1.1.0) to auto-write-back wp_post_id on publish. Fixed `build_read_next_section()` to skip unpublished articles (url=None). Discovered WordPress `wpautop` breaks `<div>` inside `<a>` tags — creates empty card bars. Fix: use `<span style="display:block">` instead of `<div>` for elements inside anchor tags. Rebuilt Read Next on 37 live articles (4 skipped — no published neighbors). See `memory/feedback_wpautop_gotcha.md`.
 
 **Smart Linking & Cross-Referencing (Session 168):** Five interconnection enhancements deployed across all 62 articles via `tig_backfill_enhancements.py` v1.0.0: (1) **Clickable wiki links** — `[[Concept]]` resolves to article URL (`/?p=ID`) from tig_graph.db or falls back to WordPress search (`/?s=...`); teal for matched, dim for search. (2) **WordPress tags** — semantic tags from tig_graph.db auto-created as WP post_tag taxonomy via `wp_set_post_terms` in PHP eval-file; 423 tags set across 62 articles. (3) **Backlink awareness** — "Referenced by X articles" bar below constellation, queries bidirectional `article_edges` table. (4) **wisdom.db-powered Echoes** — third source in `build_quote_threads()` queries `wisdom_query.py` by article topics, deduplicates, authority-ranks (vendor_official > expert_validated > community); actionable wisdom gets gold border (#E8B833) + lightning bolt prefix. (5) **Read Next** — top 3 related articles as clickable cards with one-liners and shared tags, positioned as standalone Divi section between article body and Echoes; Chapters sidebar includes "Read Next ↓" anchor link. Backfill script fetches `wp_post_id` from HQ Supabase (not local JSON). Key gotcha: semantic tags live in `tig_graph.db`, NOT `_metadata.json`.
 
@@ -4307,8 +4309,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.2 by generate_public_manual.py"
-generated: "2026-03-31 14:42"
+source: "Auto-generated from private manual v4.3 by generate_public_manual.py"
+generated: "2026-04-02 00:21"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9977,4 +9979,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-03-31 14:42 (v4.2)*
+*Last updated: 2026-04-02 00:21 (v4.3)*
