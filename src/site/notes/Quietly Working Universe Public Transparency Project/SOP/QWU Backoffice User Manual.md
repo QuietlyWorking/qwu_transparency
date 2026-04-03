@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-02 00:21 | Source version: 4.3
+> Generated: 2026-04-03 06:21 | Source version: 4.4
 
 # QWU Backoffice User Manual
 
-**Version: 4.3 | Started: 251223 | Updated: 260401**
+**Version: 4.4 | Started: 251223 | Updated: 260403**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -96,7 +96,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 77. [[#Cloudflare & DNS Management ⭐ NEW]]
 78. [[#QWF App Registry ⭐ NEW]]
 79. [[#Testimonial Intelligence Pipeline ⭐ NEW]]
-80. [[#Session Log]]
+80. [[#QSP Local Growth Engine ⭐ NEW]]
+81. [[#Session Log]]
 
 ---
 
@@ -2142,33 +2143,40 @@ The pipeline auto-detects whether a video has visual value worth capturing as fr
 .venv/bin/python "005 Operations/Execution/extract_video_frames.py" "https://youtube.com/watch?v=xxx" --timestamps "0:01 2:15 4:42"
 ```
 
-### Discord Review Commands
+### Content Review (HQ Command Center)
 
-Reply in `#content-review` channel:
+**As of v1.5.0 (Apr 2026), all content review happens in HQ Command Center.** Discord receives transparency notifications only.
 
-| Command | Action |
-|---------|--------|
-| `approve` | Approve most recent pending content |
-| `approve <uid>` | Approve specific content by UID |
-| `reject` | Reject and archive content |
-| `edit: <instructions>` | Regenerate with specific changes |
-| `rewrite intro` | Rewrite the introduction |
-| `shorter` | Reduce length by ~30% |
-| `more personal` | Increase vulnerability/personal tone |
+1. Content pipeline creates draft → writes to HQ Supabase `hq_action_queue`
+2. TIG reviews in HQ Action Queue (title, topics, routing suggestions, WP preview link)
+3. TIG approves/rejects in HQ → `hq_action_log` entry created
+4. n8n write-back pipeline (every 5 min) processes: route → adapt → publish → distribute
+5. Discord receives outcome notification ("Published! 25 posts scheduled across 6 programs")
 
-### Automated Review Processing
+**Legacy:** Discord commands (approve/reject/edit) are deprecated in `process_content_review.py` v1.3.0. CLI `--approve`/`--reject` flags still work for direct vault operations.
 
-The n8n workflow `content-review-workflow.json` polls every 5 minutes:
-1. SSH to Azure VM
-2. Run `process_content_review.py`
-3. Process any approve/reject/edit commands
-4. Log actions to #agent-log
+### Unified Content Distribution System (v1.0.0)
+
+After approval, content flows through 4 automated phases:
+
+| Phase | Script | Purpose |
+|-------|--------|---------|
+| P2: Route | `route_content_programs.py` | Score 7 QWF programs for relevance, generate per-program "Big Why" statements |
+| P3: Adapt | `adapt_content_voice.py` | Voice-adapted social posts per program per platform (tig-standard, woh-combat, l4g-b2b) |
+| P4: Distribute | `distribute_content_social.py` | Schedule 15-25 posts across Vista Social over 14 days |
+
+**Content Atoms model:** Each video produces atoms (core insight, quotable moments, key stats, visual assets, Big Why statements). Programs assemble their own posts from these atoms. See `005 Operations/Directives/content_distribution.md` for full architecture.
+
+**Big Why Rule:** Every cross-program share must explain why THIS content matters to THAT audience. Never generic "our founder posted this."
 
 ### Content Lifecycle
 
 ```
 000 Inbox/___Content/{uid}/     → Draft (pending_review)
-000 Inbox/___Approved/{uid}/    → Approved (ready for distribution)
+  _metadata.json                → Status, topics, content_atoms, program_routing
+  social_variants.json          → Voice-adapted posts per program/platform
+  distribution_log.json         → What was posted where and when
+000 Inbox/___Approved/{uid}/    → Approved (moved by sync_from_hq)
 ```
 
 ### Article Connection Engine (v1.0.0) — Interconnected Article Universe
@@ -2374,7 +2382,10 @@ Cron (2 AM Pacific, 15 videos) OR Cron (8 AM/2 PM/8 PM Pacific, 5 videos)
 | `generate_constellation_map.py` | v1.0.0 | Full-universe D3.js constellation map: tig_graph.db → 85+ nodes → WordPress post 29573 (`/map/`). Auto-triggered by orchestrator |
 | `generate_tier1_priority_list.py` | v1.0.0 | Rank all YouTube videos by visitor value → select Tier 1 (50) across 10 clusters. Output: `.tmp/tier1_priority_list.json` |
 | `process_video_content.py` | v2.5.0 | Gemini transcribe + Claude article + semantic_tags in LLM prompt |
-| `tig_publish_article.py` | v1.1.0 | Publish approved drafts + queue Vista Social + write back wp_post_id to wp_article.json and tig_graph.db |
+| `tig_publish_article.py` | v1.2.0 | Publish approved WP drafts + write back wp_post_id (social distribution handled by distribute_content_social.py) |
+| `route_content_programs.py` | v1.0.0 | Score content against 7 QWF programs, generate Big Why statements, extract content atoms |
+| `adapt_content_voice.py` | v1.0.0 | Voice-adapted social posts per program/platform (tig-standard, woh-combat, l4g-b2b) |
+| `distribute_content_social.py` | v1.0.0 | Schedule adapted posts across Vista Social profiles, spread over 14 days |
 
 **Frame Verification (Two-Phase):**
 1. **Phase 1 (Gemini watching video):** Identifies 5-8 key visual moments with descriptions
@@ -4309,8 +4320,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.3 by generate_public_manual.py"
-generated: "2026-04-02 00:21"
+source: "Auto-generated from private manual v4.4 by generate_public_manual.py"
+generated: "2026-04-03 06:21"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8054,6 +8065,42 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | GCC migration | Executed 2026-03-17 — 6 accounts, 6 domains, 3 campaigns ported |
 | Phase 3e | Executive Pulse DEPLOYED. Schema v4 (8 tables). Role system upgraded (Owner>Admin>Manager>Viewer). Prompts 032-033 deployed. |
 | Phase 3f | Place ID Verification. Schema v5 deployed (confidence tracking). `lookup-place-id` edge function deployed. Prompt 034 ready. Backend confidence gate active. |
+| Phase 4 (Planned) | **Local Growth Engine** — BrightLocal API integration, citation health dashboard, geo-grid rank visualization, GBP audit/optimization queue, schema markup generator, on-page SEO audit (Lighthouse), monthly cross-product performance report. Agency white-label architecture baked in (nullable `agency_id` + `brand_config`). Directive: `qsp_local_growth_engine.md`. |
+
+### Local Growth Engine (Planned — April 2026)
+
+New QSP module providing local SEO services to all supporters. Replaces $1,500-3,000+/mo external SEO agency with built-in capabilities.
+
+**External Integration:** BrightLocal Track agency account ($79/mo, 6-10 locations). QWF absorbs cost. Covers QWF internal properties (5) + GreenCal (4 companies).
+
+**BrightLocal Track Features Used:**
+- Citation Tracker (NAP consistency across 50-300+ directories)
+- Local Search Grid (geo-grid rank tracking across service area)
+- Local Rank Tracker (weekly keyword position tracking)
+- GBP Audit (profile completeness scoring + recommendations)
+- GBP Post Scheduler (publishes directly to Google Business Profile)
+- White-label reporting (QWF-branded reports)
+- API access (pay-per-request: ~$3/mo per location)
+
+**Built-In Features (No External Cost):**
+- Schema Markup Generator — JSON-LD from QSP business data (LocalBusiness, Service, FAQ, Review, BreadcrumbList, Organization)
+- On-Page SEO Audit — Google Lighthouse API crawl with prioritized fix list
+- Monthly Performance Report — Cross-product pull (QWR + QSP + QQT + QNT + BrightLocal), AI-generated insights, exportable PDF
+- GBP Optimization Queue — Actionable task cards from BrightLocal audit data
+- Local Keyword Matrix — Service x city keyword combinations via QWR DataForSEO
+
+**Agency White-Label Architecture (Built Into Phase 4, Launched Later):**
+All new tables include nullable `agency_id` column. Reports use `brand_config` object (logo, name, colors). RBAC scoped by `agency_id` + `organization_id`. Enables future Tier 2 Agency supporters (e.g., (R)after Thoughts) to white-label the entire QWF stack.
+
+**New Supabase Tables (Planned):**
+- `qsp_citation_health` — Directory-level NAP consistency
+- `qsp_local_rankings` — Keyword positions + geo-grid data
+- `qsp_gbp_audit` — GBP completeness score + recommendations
+- `qsp_seo_health` — Overall local SEO health score
+- `qsp_onpage_audit` — Lighthouse audit results per URL
+- `qsp_monthly_reports` — Generated report data + PDF references
+- `qsp_schema_output` — Generated JSON-LD per location
+- `agency_brand_config` — White-label branding per agency
 | AccuLynx sync | Active — 3,384 jobs synced for GreenCal. Safety gate + audit logging + soft-delete pattern. `sync_audit_log` table deployed (immutable, RLS-protected). |
 | QWF Passport | Deployed — `generate-crossover-token` (QSP) + `verify-crossover-token` (QWR, QQT, QNT) |
 | Contact Form | Deployed — `submit-contact-form` edge function + centralized pipeline |
@@ -9979,4 +10026,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-02 00:21 (v4.3)*
+*Last updated: 2026-04-03 06:21 (v4.4)*
