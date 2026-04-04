@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-04 04:29 | Source version: 4.6
+> Generated: 2026-04-04 19:09 | Source version: 4.7
 
 # QWU Backoffice User Manual
 
@@ -4328,8 +4328,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.6 by generate_public_manual.py"
-generated: "2026-04-04 04:29"
+source: "Auto-generated from private manual v4.7 by generate_public_manual.py"
+generated: "2026-04-04 19:09"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9685,7 +9685,8 @@ WHELHO occupies a unique dual role in QWF:
 
 ### Key Concepts
 
-- **Planet Metaphor:** User's life = a planet with 8 realms. Core values create gravitational pull. Elements orbit between crust (current state) and core (aspirational state).
+- **Planet Metaphor:** User's life = a planet with 4 layers (Core → Mantle → Crust → Atmosphere) and 8 realms. Core values create gravitational pull. Elements orbit between crust (current state) and core (aspirational state). The Atmosphere represents external factors users can't control but must account for.
+- **Density = Stability:** The denser the core values, the more inherently stable the planet — atmospheric storms don't wobble a planet with a dense core. This is the central physics teaching: the planet *shows* users their growth without explanation.
 - **8 Realms:** Spirit, Mind, Body, Relationships, Money, Recreation, Work, Charity — each a segment on the 3D planet surface
 - **Values Discovery Flow:** Excavation → Illumination → Recognition → Choice → Commitment — AI-assisted pattern detection surfaces values from freeform responses
 - **Two-Track Development:** Track A (React code, done by code students) and Track B (Spline 3D scene design, done by 3D art students) merge at integration
@@ -9725,6 +9726,8 @@ WHELHO occupies a unique dual role in QWF:
 | `planet_snapshots` | Year-over-year planet state |
 | `contact_submissions` | Access requests, contact form (anon insert) |
 | `bug_reports` | Alpha/beta bug reports (auth insert + select own) |
+| `atmosphere_elements` | External factors per realm (temperature, inflation, etc.) with severity scale |
+| `atmosphere_checkins` | Temporal snapshots of atmosphere element readings |
 
 ### Phase Roadmap
 
@@ -9734,7 +9737,7 @@ WHELHO occupies a unique dual role in QWF:
 | 1: Planet + Onboarding | Spline 3D planet, formation animation, realm interactions, React-Spline integration | In Progress |
 | 2: Values Discovery | Excavation → Commitment arc, AI-assisted pattern detection, core glow | Not Started |
 | 3: Realms + Elements | Realm zoom, element CRUD, crust/core positions, magnetic pull visualization | Not Started |
-| 4: Living Practice | Conversational check-ins, progress on planet, celebration particles | Not Started |
+| 4: Living Practice + Atmosphere | Conversational check-ins, progress on planet, celebration particles, atmosphere layer (external factors, wobble mechanics, empathy prompts) | Not Started |
 | 5: Purpose Window | Work + Charity pattern detection, breadcrumb surfacing | Not Started |
 | 6: Polish + Launch | Mobile optimization, MP bridge, beta, landing page, launch | Not Started |
 
@@ -10034,4 +10037,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-04 04:29 (v4.6)*
+*Last updated: 2026-04-04 19:09 (v4.7)*
