@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-04 20:25 | Source version: 4.71
+> Generated: 2026-04-04 21:10 | Source version: 4.72
 
 # QWU Backoffice User Manual
 
@@ -2714,7 +2714,7 @@ Monitor LinkedIn profiles of watched experts for new posts. LinkedIn has become 
 .venv/bin/python "005 Operations/Execution/linkedin_monitor.py" --check --process
 ```
 
-**n8n Workflow:** `linkedin-intelligence-workflow.json` (every 6 hours)
+**n8n Workflow:** LinkedIn Intelligence Monitor (mX6DOn0TrNwZO5dY) — every 3 days at 1 AM Pacific. Changed from 6-hour schedule on 2026-04-04 to optimize Apify costs (~$60/mo savings). LinkedIn content persists on profiles for months, so 3-day polling captures everything without data loss. For time-sensitive checks, run manually: `python linkedin_monitor.py --expert "Name" --process`
 
 **Cost:** ~$5 per 1,000 posts via Apify (`apimaestro/linkedin-profile-posts`)
 
@@ -4330,8 +4330,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.71 by generate_public_manual.py"
-generated: "2026-04-04 20:25"
+source: "Auto-generated from private manual v4.72 by generate_public_manual.py"
+generated: "2026-04-04 21:10"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10039,4 +10039,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-04 20:25 (v4.71)*
+*Last updated: 2026-04-04 21:10 (v4.72)*
