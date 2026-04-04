@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-04 01:21 | Source version: 4.5
+> Generated: 2026-04-04 04:29 | Source version: 4.6
 
 # QWU Backoffice User Manual
 
-**Version: 4.4 | Started: 251223 | Updated: 260403**
+**Version: 4.5 | Started: 251223 | Updated: 260404**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -625,13 +625,21 @@ Students completing this module will learn:
 
 The self-hosted n8n instance uses pinned version tags for stability.
 
-**Current Version:** 2.8.0 (as of 2026-02-11)
+**Current Version:** 2.14.2 (upgraded 2026-04-04 from 2.8.0)
 
 | Property | Value |
 |----------|-------|
-| Image | `docker.n8n.io/n8nio/n8n:2.8.0` |
+| Image | `docker.n8n.io/n8nio/n8n:2.14.2` |
 | Location | `~/n8n/docker-compose.yml` on qwu-n8n |
 | Monitor Workflow | "n8n Version Monitor" (checks Mondays 9 AM) |
+| Port Binding | `127.0.0.1:5678` (localhost only, Caddy proxies HTTPS) |
+
+**Security Hardening (2026-04-04):**
+- UFW firewall enabled: ports 22 (SSH), 80 (HTTP), 443 (HTTPS) only
+- fail2ban installed: SSH brute-force protection via `sshd` jail
+- Unattended-upgrades enabled: automatic OS security patches
+- Port 5678 restricted to localhost (was previously exposed on all interfaces)
+- Docker CE updated 29.1.4 → 29.3.1
 
 **Update Procedure:**
 ```bash
@@ -640,21 +648,21 @@ ssh qwu-n8n
 
 # 2. Backup database
 cd ~/n8n
-docker exec n8n-postgres pg_dump -U n8n n8n | gzip > backup_$(date +%Y%m%d).sql.gz
+~/scripts/backup_n8n_postgres.sh
+docker exec n8n-postgres pg_dump -U n8n n8n | gzip > backups/backup_pre_upgrade_$(date +%Y%m%d).sql.gz
 
 # 3. Update version in docker-compose.yml
-# Change: image: docker.n8n.io/n8nio/n8n:2.8.0
+# Change: image: docker.n8n.io/n8nio/n8n:2.14.2
 # To:     image: docker.n8n.io/n8nio/n8n:X.Y.Z
 
 # 4. Pull new image and restart
-docker compose pull n8n && docker compose up -d
+docker compose pull n8n && docker compose down && docker compose up -d
 
 # 5. Verify version
 docker exec n8n n8n --version
 
 # 6. Verify all workflows still active
-docker exec n8n-postgres psql -U n8n -d n8n -c \
-  "SELECT COUNT(*) as total, SUM(CASE WHEN active THEN 1 ELSE 0 END) as active FROM workflow_entity;"
+docker exec n8n n8n list:workflow --active=true --onlyId | wc -l
 ```
 
 **Version Monitoring (v2.0.0 - Release Intelligence):**
@@ -4320,8 +4328,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.5 by generate_public_manual.py"
-generated: "2026-04-04 01:21"
+source: "Auto-generated from private manual v4.6 by generate_public_manual.py"
+generated: "2026-04-04 04:29"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10026,4 +10034,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-04 01:21 (v4.5)*
+*Last updated: 2026-04-04 04:29 (v4.6)*
