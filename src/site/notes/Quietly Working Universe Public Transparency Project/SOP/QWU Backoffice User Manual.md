@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-04 21:10 | Source version: 4.72
+> Generated: 2026-04-05 19:18 | Source version: 4.72
 
 # QWU Backoffice User Manual
 
@@ -4331,7 +4331,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v4.72 by generate_public_manual.py"
-generated: "2026-04-04 21:10"
+generated: "2026-04-05 19:18"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8131,9 +8131,12 @@ Each tenant stores QQT/QWR API keys in the `integrations` table. Python sync scr
 | `compute_kpi_snapshots.py` | All QSP source tables | `kpi_snapshots` | Nightly (pending n8n) |
 | `check_qsp_alerts.py` | `alert_rules` → `alert_history` | SMS, Discord, in-app | Post-sync (pending n8n) |
 | `sync_acculynx_data.py` | AccuLynx CRM API v2 | `acculynx_jobs`, `acculynx_appointments` | Manual (v1.1.0, safety gate integrated) |
+| `extract_acculynx_past_customers.py` | AccuLynx CRM API v2 | CSV output (`.tmp/`) | Manual (v1.0.0, warm campaign extraction) |
 | `sync_safety_gate.py` | Pre/post-sync validation module | `sync_audit_log` | Called by sync scripts |
 
 All scripts support `--dry-run` and `--tenant-id` flags. AccuLynx sync includes `--force` flag to bypass the safety gate (row-count sanity check blocks syncs where incoming rows < 50% of existing). The `migrate_gcc_to_qsp.py` script was a one-time migration from GCC to QSP GreenCal tenant (executed 2026-03-17).
+
+**AccuLynx Custom Fields API (discovered 2026-04-05):** AccuLynx released custom fields support on 2026-03-30 (API v2.2607.0). Endpoints: `GET/PUT /api/v2/contacts/{id}/custom-fields`, `GET/PUT /api/v2/jobs/{id}/custom-fields`, `GET /api/v2/company-settings/custom-fields`. Webhooks: `contact.custom-field.value_changed`, `job.custom-field.value_changed`. GreenCal has 1 job-level field ("Confirmer"). No contact-level DNC field yet — recommendation pending with Megan.
 
 ### Reference
 
@@ -10039,4 +10042,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-04 21:10 (v4.72)*
+*Last updated: 2026-04-05 19:18 (v4.72)*
