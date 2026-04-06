@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-06 05:03 | Source version: 4.72
+> Generated: 2026-04-06 19:34 | Source version: 4.73
 
 # QWU Backoffice User Manual
 
@@ -4330,8 +4330,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.72 by generate_public_manual.py"
-generated: "2026-04-06 05:03"
+source: "Auto-generated from private manual v4.73 by generate_public_manual.py"
+generated: "2026-04-06 19:34"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8482,7 +8482,7 @@ COST SOURCES (7 variable sources)
   │     └── Anthropic Direct ($15/$75 per MTok — Ezer edge function)
   ├── Apify (~$45/mo) → collect_apify_costs.py
   ├── Azure VMs (~$150/mo) → azure_costs.py
-  ├── Supabase (~$85/mo) → collect_app_metrics.py
+  ├── Supabase (~$135/mo) → collect_app_metrics.py
   ├── ESP VPS ($3/mo) → hardcoded
   ├── Betterstack ($0/mo) → lifetime license
   └── Email ($0/mo) → included in M365/SES
@@ -8516,13 +8516,13 @@ OUTPUT SURFACES
 |--------|-------------|-------------------|-------------|
 | Azure VMs | ~$150 | `azure_costs.py` via Cost Management API | Per-resource, daily |
 | LLM APIs (OpenRouter) | ~$90 | `model_config.py` logs to `llm_usage.jsonl` | Per-call, per-model, per-app |
-| Supabase | ~$85 | `collect_app_metrics.py` (tier-based) | Per-app, per-tier |
+| Supabase | ~$135 | `collect_app_metrics.py` (tier-based) | Per-app, per-tier |
 | Apify | ~$45 | `collect_apify_costs.py` via REST API | Per-actor, per-run, per-day |
 | ESP VPS | ~$3 | Hardcoded ($35.49/year) | Fixed |
 | Cloudflare Pages | $0 | Free tier (unlimited bandwidth) | Per-project |
 | Betterstack | $0 | Lifetime AppSumo (2 stacked codes): 200 monitors, 10 status pages, 5 members | N/A |
 | Email (Graph/SES) | $0 | Included in existing licenses | N/A |
-| **Total** | **~$373/mo** | | |
+| **Total** | **~$423/mo** | | |
 
 **Cost Optimization Note (March 2026):** QWR frontend hosting migrated from Lovable ($320/yr per project on Pro plan) to Cloudflare Pages (free tier, unlimited bandwidth). As additional apps migrate, each saves ~$320/yr in Lovable hosting costs. Lovable remains the build tool (AI-assisted UI development via prompts) but is no longer required for hosting.
 
@@ -8534,9 +8534,8 @@ The Supabase cost is computed dynamically, not hardcoded per-app:
 |-----------|-------------|-------|
 | Org base (Pro) | $25.00 | Single "Quietly Working" org |
 | Compute credit | -$10.00 | Included in Pro plan |
-| 6x MICRO projects | $60.00 | QQT, QMP, QSP, QNT, QKN, Pocket Ez ($10 each) |
-| 2x NANO projects | $10.00 | QWR, HQ ($5 each) |
-| **Total** | **$85.00** | |
+| 12x MICRO projects | $120.00 | QWR, HQ, QQT, QRP, QSP, QNT, QKN, Pocket EZ, L4G, QTR, WHL, GreenCal CC ($10 each) |
+| **Total** | **$135.00** | Verified 2026-04-06 (invoice KWNZSK-00017) |
 
 Helper function `_app_monthly_cost()` in `collect_app_metrics.py` computes per-app cost:
 `(base_org_cost - compute_credit) / total_apps + compute_tier_cost`
@@ -8669,7 +8668,7 @@ As of v2.4, the Digital Twin at `twin.quietlyworking.org` displays a full Operat
 - Monthly burn total with per-source breakdown (LLM, Azure, Supabase, Apify, ESP)
 - Variable budget progress bar ($400/mo target) with day-of-month context and month-end projection
 - LLM Intelligence panel: tier cards (Flagship/Standard/Fast/Image), top scripts by cost
-- Infrastructure panel: Azure MTD, Supabase ($85), ESP ($2.96), Betterstack (Free), Email (Free)
+- Infrastructure panel: Azure MTD, Supabase ($135), ESP ($2.96), Betterstack (Free), Email (Free)
 
 **What's excluded (security):** No API keys, server IPs, `.env` variable names, Supabase project IDs, credential names, user emails, or full file paths.
 
@@ -10042,4 +10041,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-06 05:03 (v4.72)*
+*Last updated: 2026-04-06 19:34 (v4.73)*
