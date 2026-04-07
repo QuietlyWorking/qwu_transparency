@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-06 19:34 | Source version: 4.73
+> Generated: 2026-04-07 04:16 | Source version: 4.74
 
 # QWU Backoffice User Manual
 
@@ -2179,6 +2179,8 @@ After approval, content flows through 4 automated phases:
 
 **Big Why Rule:** Every cross-program share must explain why THIS content matters to THAT audience. Never generic "our founder posted this."
 
+**Complete Architecture Reference:** `004 Knowledge/Articles & Research/content_intelligence_system_architecture.md` — a comprehensive 1,500-line public-facing document covering the full pipeline (all 10 stages), the feeder network (6 automated monitors), tool wisdom libraries, gotchas/learnings, implementation recipes, and cost analysis. Includes Excalidraw visual flow diagram. Created Session 192 for the QWU Public Transparency Project.
+
 ### Content Lifecycle
 
 ```
@@ -4330,8 +4332,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.73 by generate_public_manual.py"
-generated: "2026-04-06 19:34"
+source: "Auto-generated from private manual v4.74 by generate_public_manual.py"
+generated: "2026-04-07 04:16"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10041,4 +10043,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-06 19:34 (v4.73)*
+*Last updated: 2026-04-07 04:16 (v4.74)*
