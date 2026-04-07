@@ -69,12 +69,12 @@ The Quietly Working Foundation runs 7 fundraising programs, each serving a diffe
 | Program | Code | Audience | Voice |
 |---------|------|----------|-------|
 | Quietly Working Foundation | QWF | Broad — youth empowerment supporters | TIG Standard (quiet strength) |
-| Master's Program | MP | Creative professionals + underserved youth | TIG Standard (student focus) |
-| Warriors of Hope | WOH | Adversity survivors, empowerment community | WOH Combat (loud, defiant) |
+| The Missing Pixel Project | MP | Underserved youth discovering creative careers + creative industry mentors | TIG Standard (student focus) |
+| War on Hopelessness | WOH | Adversity survivors, empowerment community | WOH Combat (loud, defiant) |
 | Locals 4 Good | L4G | Local business owners | L4G B2B (professional confidence) |
-| It Takes a Village (IYSR) | IYSR | Youth-serving organizations | TIG Standard (partnership focus) |
-| Quietly Working Creatives | QWC | Creative professionals | TIG Standard (creative angle) |
-| A Candle of Hope for Heroes | ACOFH | Gold Star families | Reverent (extreme sensitivity) |
+| International Youth Service Registry | IYSR | Youth-serving organizations | TIG Standard (partnership focus) |
+| Quietly Working Creative | QWC | Creative professionals | TIG Standard (creative angle) |
+| America's Children of Fallen Heroes | ACOFH | Children of fallen military and first responders | Reverent (extreme sensitivity) |
 
 That's 7 audiences, 25+ social profiles, 5 platforms (Instagram, Twitter/X, LinkedIn, Facebook, TikTok), and 3 distinct brand voices.
 
@@ -661,7 +661,7 @@ This is where one piece of content becomes many, each speaking in the right voic
 
 | Voice | Programs | Energy | Key Traits | Punctuation |
 |-------|----------|--------|-----------|-------------|
-| TIG Standard | QWF, MP, IYSR, QWC | Quiet strength | Vulnerable warrior, nerdy mystic, authentic vulnerability | Ellipsis (...) always — NEVER em dashes |
+| TIG Standard | QWF, MP, IYSR, QWC, ACOFH (reverent) | Quiet strength | Vulnerable warrior, nerdy mystic, authentic vulnerability | Ellipsis (...) always — NEVER em dashes |
 | WOH Combat | WOH | Loud action | Battle cry, combat verbs, defiant, calls to action | Exclamation points OK, short punchy sentences |
 | L4G B2B | L4G | Professional confidence | Business-value-first, ROI-focused, minimal emoji | Clean, professional, no spirituality |
 
@@ -712,7 +712,7 @@ The LLM picks the best verified frame for each post based on caption relevance:
   "platform": "instagram",
   "voice": "woh-combat",
   "content": "They said only big studios could do this. They said you needed million-dollar budgets...\n\nThey. Were. WRONG.\n\nThis researcher just proved that one person with the right AI tools can produce what used to take a 50-person VFX team.\n\nYour limitation was never talent. It was access. And that barrier just crumbled.",
-  "hashtags": ["#WarriorsOfHope", "#NeverQuit", "#AICreativity", "#ProveThemWrong"],
+  "hashtags": ["#WarOnHopelessness", "#NeverQuit", "#AICreativity", "#ProveThemWrong"],
   "media": "frame_08m42s.png",
   "atoms_used": ["core_insight", "big_why_woh", "visual_chart_comparison"],
   "big_why": "The creative tools that were gatekept by studios are now in YOUR hands. No permission needed."
@@ -986,7 +986,7 @@ Each voice profile has a defined post structure:
 4. CTA — direct invitation + gentle encouragement
 5. Hashtags
 
-**WOH Combat** (Warriors of Hope):
+**WOH Combat** (War on Hopelessness):
 1. Hook — defiant statement, combat energy
 2. Body — battle cry, empowerment
 3. Point — "you are powerful"
@@ -1005,7 +1005,7 @@ Beyond voice consistency, certain content triggers additional review:
 
 | Gate | Trigger | Action |
 |------|---------|--------|
-| **ACOFH Sensitivity** | Any content touching Gold Star families | Heightened review: no humor, no casual tone, reverent approach. Flag if topic seems too sensitive for social. |
+| **ACOFH Sensitivity** | Any content touching children of fallen military or first responders | Heightened review: no humor, no casual tone, reverent approach. Flag if topic seems too sensitive for social. |
 | **Grief/Loss Detection** | Content mentioning death, loss, fallen heroes | Manual review required even if ACOFH isn't in routing |
 | **Hope Filter** | Post uses guilt, shame, or fear as motivator | Rejected. QWF builds people up — never manipulates through negative emotion. |
 | **Youth Safety** | Content involving or targeting youth | Additional review for age-appropriateness |
