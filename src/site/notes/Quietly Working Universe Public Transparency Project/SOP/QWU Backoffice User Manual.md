@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-07 04:16 | Source version: 4.74
+> Generated: 2026-04-07 17:24 | Source version: 4.75
 
 # QWU Backoffice User Manual
 
@@ -94,6 +94,7 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 75. [[#Weavy Creative Production System ⭐ NEW]]
 76. [[#WHL WHELHO App ⭐ NEW]]
 77. [[#Cloudflare & DNS Management ⭐ NEW]]
+78. [[#Puzzle Operations Blueprint ⭐ NEW]]
 78. [[#QWF App Registry ⭐ NEW]]
 79. [[#Testimonial Intelligence Pipeline ⭐ NEW]]
 80. [[#QSP Local Growth Engine ⭐ NEW]]
@@ -4332,8 +4333,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.74 by generate_public_manual.py"
-generated: "2026-04-07 04:16"
+source: "Auto-generated from private manual v4.75 by generate_public_manual.py"
+generated: "2026-04-07 17:24"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10032,6 +10033,47 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
+## Puzzle Operations Blueprint ⭐ NEW
+
+**Added: April 7, 2026** | **Reference:** `memory/puzzle_mcp.md`
+
+Puzzle is the visual operations layer for QWF — mapping teams, roles, processes, and tools into an interactive blueprint. Future foundation for QOP (Quietly Operating).
+
+### Setup
+
+- **Plan:** AppSumo Tier 3 Optimizer Lifetime (6 seats, unlimited workspaces)
+- **Workspace:** "Quietly Working" (ID 6096)
+- **MCP Integration:** HTTP MCP via `https://app.puzzleapp.io/mcp`
+- **VSCode Config:** `claude-code.mcpServers.puzzle` in user `settings.json`
+- **Auth:** OAuth per chat session (token may cache across sessions)
+
+### VSCode Remote SSH Gotcha
+
+When using Claude Code via VSCode Remote SSH, the OAuth callback redirects to `localhost` on the **local machine**, but the MCP listener runs on the **remote VM**. Fix: forward the callback port in VSCode's Ports panel before opening the auth URL. The port number changes each auth attempt — check the URL.
+
+### Current Workspace State (April 7, 2026)
+
+| Component | Count | Status |
+|-----------|-------|--------|
+| Teams | 5 | Created (QWF Leadership, QWC Creative Dept, Missing Pixel, Backoffice Operations, Product Development) |
+| Roles | 5 | Created with reporting connections |
+| Tool Groups | 5 | Created with 17 tools mapped |
+| Processes | 0 | Blocked — `create_process` endpoint returning 500 (reported to Puzzle support) |
+
+### Known Issues
+
+- `create_process` MCP endpoint returns Internal Server Error regardless of payload size (reported April 7, 2026)
+- Also has "Easy Mode IT" workspace (separate from QWF operations)
+
+### 🎓 Missing Pixel Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| MCP Server Configuration | OAuth flows, VSCode settings, API integration | ⭐⭐ |
+| Operations Blueprint Design | Organizational modeling, process mapping, VOSPA framework | ⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -10043,4 +10085,4 @@ Pipeline states: extracted → giver_pending → giver_approved → tig_pending 
 
 ---
 
-*Last updated: 2026-04-07 04:16 (v4.74)*
+*Last updated: 2026-04-07 17:24 (v4.75)*
