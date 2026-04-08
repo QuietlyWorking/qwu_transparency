@@ -22,6 +22,11 @@
 ### War on Hopelessness #WOH
 ### Chaplain TIG #TIG
 <br>
+## Built from Broken
+*Real problems we face running AI-powered nonprofit operations... and the real solutions we build. Every fix exists because something failed first. We show the receipts.*
+
+- [[Quietly Working Universe Public Transparency Project/Built from Broken/Vol 1 — When Your AI Agent Keeps Forgetting What It Already Knows\|Vol 1 — When Your AI Agent Keeps Forgetting What It Already Knows]] — How a 50-line Python hook stopped our AI agent from repeatedly ignoring its own documentation
+
 ## Tools
 These are the tools that the #QWU uses.
 - [[Quietly Working Universe Public Transparency Project/The Tool Shed\|The QWU Tool Shed]] — All 48+ tools we use, scored on Heart, Soul, and 12 other metrics
