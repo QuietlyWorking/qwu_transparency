@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-07 17:34 | Source version: 4.75
+> Generated: 2026-04-08 03:01 | Source version: 4.76
 
 # QWU Backoffice User Manual
 
-**Version: 4.5 | Started: 251223 | Updated: 260404**
+**Version: 4.76 | Started: 251223 | Updated: 260407**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -98,7 +98,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 78. [[#QWF App Registry ⭐ NEW]]
 79. [[#Testimonial Intelligence Pipeline ⭐ NEW]]
 80. [[#QSP Local Growth Engine ⭐ NEW]]
-81. [[#Session Log]]
+81. [[#TWL Preload Hook ⭐ NEW]]
+82. [[#Session Log]]
 
 ---
 
@@ -1295,6 +1296,8 @@ QCM is a homegrown context management system (v2.1.0) that automatically recover
 - Directive: `005 Operations/Directives/context_management.md`
 
 **Redundancy detection (v2.1.0):** Inspired by DeepSeek's Engram paper ("Conditional Memory via Scalable Lookup"), the redundancy detector measures how often the agent re-reads the same file or re-runs the same search within a session — wasted "compute" that could be served from cache. Baseline (52 sessions): 29.2% average redundancy ratio, ~9,471 wasted tokens/session. Files read in 5+ distinct sessions are flagged as "engram candidates" for potential persistent caching. Metrics sync daily to HQ Supabase via `sync_hq_agent_efficiency.py` and display on the HQ Command Center dashboard.
+
+**TWL Preload Hook (v1.0.0, Session 195):** A separate UserPromptSubmit hook (`.claude/hooks/twl_preload.py`) that scans user messages for domain keywords and injects reminders to read relevant Tool Wisdom Libraries. Not part of QCM proper but follows the same hook architecture pattern. 14 domains mapped. See [[#TWL Preload Hook ⭐ NEW]] for details.
 
 **Security design:** Zero external dependencies (Python stdlib only), no network access, no credential access, fail-open (never blocks Claude), all data in `.tmp/` (ephemeral). Built in-house after security analysis rejected context-mode (npm supply chain risk with 30+ API keys on the VM).
 
@@ -4333,8 +4336,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.75 by generate_public_manual.py"
-generated: "2026-04-07 17:34"
+source: "Auto-generated from private manual v4.76 by generate_public_manual.py"
+generated: "2026-04-08 03:01"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8078,13 +8081,19 @@ Shared Supabase database with `tenant_id` column + RLS (following QQT's proven p
 | GCC migration | Executed 2026-03-17 — 6 accounts, 6 domains, 3 campaigns ported |
 | Phase 3e | Executive Pulse DEPLOYED. Schema v4 (8 tables). Role system upgraded (Owner>Admin>Manager>Viewer). Prompts 032-033 deployed. |
 | Phase 3f | Place ID Verification. Schema v5 deployed (confidence tracking). `lookup-place-id` edge function deployed. Prompt 034 ready. Backend confidence gate active. |
-| Phase 4 (Planned) | **Local Growth Engine** — BrightLocal API integration, citation health dashboard, geo-grid rank visualization, GBP audit/optimization queue, schema markup generator, on-page SEO audit (Lighthouse), monthly cross-product performance report. Agency white-label architecture baked in (nullable `agency_id` + `brand_config`). Directive: `qsp_local_growth_engine.md`. |
+| Phase 4 (Active) | **Local Growth Engine** — BrightLocal API integration (citation sync live), citation health dashboard, geo-grid rank visualization, GBP audit/optimization queue, schema markup generator, on-page SEO audit (Lighthouse), monthly cross-product performance report. Agency white-label architecture baked in (nullable `agency_id` + `brand_config`). 4 Supabase tables deployed. First GreenCal citation sync complete (score 32, 31 active, 15 NAP issues). Directive: `qsp_local_growth_engine.md`. |
 
-### Local Growth Engine (Planned — April 2026)
+### Local Growth Engine (Active — April 2026)
 
 New QSP module providing local SEO services to all supporters. Replaces $1,500-3,000+/mo external SEO agency with built-in capabilities.
 
-**External Integration:** BrightLocal Track agency account ($79/mo, 6-10 locations). QWF absorbs cost. Covers QWF internal properties (5) + GreenCal (4 companies).
+**External Integration:** BrightLocal Track agency account ($79/mo, 6-10 locations). QWF absorbs cost. Covers QWF internal properties (5) + GreenCal (4 companies). No nonprofit discount available (confirmed via support email thread, Session 195).
+
+**BrightLocal API Status (as of April 7, 2026):**
+- Single API key for all endpoints (Management + Data APIs share one key)
+- CT (Citation Tracker) Data API works via GET requests (docs incorrectly say POST)
+- LSRC, GBP, and Reviews Data API endpoints returning 404 — under investigation by BrightLocal support (ticket #710654)
+- Bug report drafted and sent as Outlook reply to support thread
 
 **BrightLocal Track Features Used:**
 - Citation Tracker (NAP consistency across 50-300+ directories)
@@ -8105,11 +8114,13 @@ New QSP module providing local SEO services to all supporters. Replaces $1,500-3
 **Agency White-Label Architecture (Built Into Phase 4, Launched Later):**
 All new tables include nullable `agency_id` column. Reports use `brand_config` object (logo, name, colors). RBAC scoped by `agency_id` + `organization_id`. Enables future Tier 2 Agency supporters (e.g., (R)after Thoughts) to white-label the entire QWF stack.
 
-**New Supabase Tables (Planned):**
-- `qsp_citation_health` — Directory-level NAP consistency
-- `qsp_local_rankings` — Keyword positions + geo-grid data
-- `qsp_gbp_audit` — GBP completeness score + recommendations
-- `qsp_seo_health` — Overall local SEO health score
+**Supabase Tables — Deployed (Session 195):**
+- `qsp_citation_health` — Directory-level NAP consistency (created via Management API)
+- `qsp_local_rankings` — Keyword positions + geo-grid data (created via Management API)
+- `qsp_gbp_audit` — GBP completeness score + recommendations (created via Management API)
+- `qsp_seo_health` — Overall local SEO health score (created via Management API)
+
+**Supabase Tables — Planned:**
 - `qsp_onpage_audit` — Lighthouse audit results per URL
 - `qsp_monthly_reports` — Generated report data + PDF references
 - `qsp_schema_output` — Generated JSON-LD per location
@@ -8135,6 +8146,7 @@ Each tenant stores QQT/QWR API keys in the `integrations` table. Python sync scr
 | `check_qsp_alerts.py` | `alert_rules` → `alert_history` | SMS, Discord, in-app | Post-sync (pending n8n) |
 | `sync_acculynx_data.py` | AccuLynx CRM API v2 | `acculynx_jobs`, `acculynx_appointments` | Manual (v1.1.0, safety gate integrated) |
 | `extract_acculynx_past_customers.py` | AccuLynx CRM API v2 | CSV output (`.tmp/`) | Manual (v1.0.0, warm campaign extraction) |
+| `sync_brightlocal_data.py` | BrightLocal CT Data API | `qsp_citation_health` | Manual (v1.0.0, first GreenCal sync complete) |
 | `sync_safety_gate.py` | Pre/post-sync validation module | `sync_audit_log` | Called by sync scripts |
 
 All scripts support `--dry-run` and `--tenant-id` flags. AccuLynx sync includes `--force` flag to bypass the safety gate (row-count sanity check blocks syncs where incoming rows < 50% of existing). The `migrate_gcc_to_qsp.py` script was a one-time migration from GCC to QSP GreenCal tenant (executed 2026-03-17).
@@ -8148,7 +8160,7 @@ All scripts support `--dry-run` and `--tenant-id` flags. AccuLynx sync includes 
 - **System Status:** `002 Projects/_Quietly Spotting/QSP-System-Status.md`
 - **Product Directive:** `005 Operations/Directives/quietly_spotting.md`
 - **Lovable Prompts (archived):** `002 Projects/_Quietly Spotting/lovable-prompts/001-034`
-- **Sync Scripts:** `005 Operations/Execution/sync_qqt_submissions.py`, `sync_qwr_articles.py`, `sync_qsp_sending_accounts.py`, `sync_qsp_dmarc_domains.py`, `sync_qsp_campaigns.py`, `sync_qsp_reviews.py`, `compute_kpi_snapshots.py`, `check_qsp_alerts.py`
+- **Sync Scripts:** `005 Operations/Execution/sync_qqt_submissions.py`, `sync_qwr_articles.py`, `sync_qsp_sending_accounts.py`, `sync_qsp_dmarc_domains.py`, `sync_qsp_campaigns.py`, `sync_qsp_reviews.py`, `sync_brightlocal_data.py`, `compute_kpi_snapshots.py`, `check_qsp_alerts.py`
 - **Migration Script:** `005 Operations/Execution/migrate_gcc_to_qsp.py` (one-time, executed 2026-03-17)
 - **Safety Module:** `005 Operations/Execution/sync_safety_gate.py` (pre/post-sync validation, batch checking, audit logging)
 - **Data Safety Directive:** `005 Operations/Directives/supporter_data_safety.md` (foundational — live supporter data handling)
@@ -10074,6 +10086,42 @@ When using Claude Code via VSCode Remote SSH, the OAuth callback redirects to `l
 
 ---
 
+## TWL Preload Hook ⭐ NEW
+
+**Added: April 7, 2026** | **Reference:** `005 Operations/Directives/context_management.md`
+
+A UserPromptSubmit hook that automatically detects domain keywords in user messages and injects system reminders to read relevant Tool Wisdom Libraries before beginning work. Part of the self-annealing system — ensures agents consult domain-specific gotchas and patterns without relying on human reminders.
+
+### How It Works
+
+1. User submits a message mentioning a domain keyword (e.g., "BrightLocal", "n8n", "Supabase")
+2. `.claude/hooks/twl_preload.py` scans the message against a keyword-to-TWL mapping
+3. If matched, injects a system reminder: "Read [TWL directive] before proceeding"
+4. Agent reads the TWL, gaining access to gotchas, working examples, and vendor intelligence
+
+### Domain Coverage (14 domains)
+
+All 14 TWLs on disk are mapped, plus additional domains for supporter systems, email, QSP, ESP, and Cloudflare. Keywords include tool names, common abbreviations, and related concepts.
+
+### Drift Detection (Session Wrap-Up Step 3B)
+
+The `/session-wrap-up` skill now includes a drift detection step that compares TWLs on disk (`005 Operations/Directives/*_tool_wisdom.md`) against the hook's keyword configuration. If a TWL exists on disk but is not mapped in the hook (or vice versa), it flags the mismatch for correction.
+
+### File Locations
+
+- Hook script: `.claude/hooks/twl_preload.py`
+- Hook configuration: `.claude/settings.json` (registered as UserPromptSubmit hook)
+- TWL directives: `005 Operations/Directives/*_tool_wisdom.md`
+
+### Training Opportunities
+
+| Component | Skills Developed | Difficulty |
+|-----------|------------------|------------|
+| Hook system design | Event-driven architecture, keyword matching, system prompts | ⭐⭐ |
+| Drift detection | Configuration auditing, file system comparison, self-healing systems | ⭐⭐ |
+
+---
+
 ## Session Log
 
 > [!NOTE] Session Log Redacted
@@ -10085,4 +10133,4 @@ When using Claude Code via VSCode Remote SSH, the OAuth callback redirects to `l
 
 ---
 
-*Last updated: 2026-04-07 17:34 (v4.75)*
+*Last updated: 2026-04-08 03:01 (v4.76)*
