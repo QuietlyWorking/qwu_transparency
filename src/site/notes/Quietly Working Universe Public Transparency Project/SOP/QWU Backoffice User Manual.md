@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-08 03:05 | Source version: 4.77
+> Generated: 2026-04-08 06:26 | Source version: 4.78
 
 # QWU Backoffice User Manual
 
@@ -99,7 +99,8 @@ A comprehensive guide to the QWU Backoffice agent workspace, covering architectu
 79. [[#Testimonial Intelligence Pipeline ⭐ NEW]]
 80. [[#QSP Local Growth Engine ⭐ NEW]]
 81. [[#TWL Preload Hook ⭐ NEW]]
-82. [[#Session Log]]
+82. [[#QWB Quietly Webbing ⭐ NEW]]
+83. [[#Session Log]]
 
 ---
 
@@ -2780,10 +2781,11 @@ DISCORD_WEBHOOK_INTEL_DIGEST="xxx"  # #intel-digest notifications
 **Scripts:**
 - `expert_registry.py` - Expert profile management
 - `youtube_monitor.py` - YouTube channel monitoring
-- `twitter_monitor.py` - Twitter/X monitoring via Apify
+- `twitter_monitor.py` v1.0.2 - Twitter/X monitoring via Apify (now logs WARNING for A/B experts with empty handles)
 - `linkedin_monitor.py` - LinkedIn monitoring via Apify
 - `newsletter_monitor.py` - Outlook newsletter monitoring
 - `digest_generator.py` - Intelligence digest generation
+- `audit_expert_platforms.py` v1.0.0 - Platform gap audit (`--priority`, `--platform`, `--json` flags)
 
 **Workflows:**
 - `expert-intelligence-workflow.json` (YouTube)
@@ -4336,8 +4338,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.77 by generate_public_manual.py"
-generated: "2026-04-08 03:05"
+source: "Auto-generated from private manual v4.78 by generate_public_manual.py"
+generated: "2026-04-08 06:26"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9899,6 +9901,7 @@ Centralized registry of all QWF apps with hosting, database, domain, and develop
 | **PEZ** | Pocket Ez | Lovable | — | — | `<SUPABASE_PROJECT_POCKET>` | Planned |
 | **QMP** | Missing Pixel | Lovable | — | — | `tmljwjrpujmnrybofxht` | Planned |
 | **AH** | Aim High BNI | CF Pages | `aim-high-bni` | `aimhighbni.com` | `caeiaprjizteokoenzad` (shared with QNT) | Production |
+| **QWB** | Quietly Webbing | CF Pages | `greencal-website` (POC) | `quietlywebbing.org` | — (static site) | Concept |
 
 ### Frontend Development Workflow
 
@@ -10148,4 +10151,4 @@ The `/session-wrap-up` skill now includes a drift detection step that compares T
 
 ---
 
-*Last updated: 2026-04-08 03:05 (v4.77)*
+*Last updated: 2026-04-08 06:26 (v4.78)*
