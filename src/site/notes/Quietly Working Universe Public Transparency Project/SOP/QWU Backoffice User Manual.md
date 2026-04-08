@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-08 06:27 | Source version: 4.78
+> Generated: 2026-04-08 07:11 | Source version: 4.79
 
 # QWU Backoffice User Manual
 
@@ -4338,8 +4338,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.78 by generate_public_manual.py"
-generated: "2026-04-08 06:27"
+source: "Auto-generated from private manual v4.79 by generate_public_manual.py"
+generated: "2026-04-08 07:11"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10165,7 +10165,7 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 - **Sandbox:** `sandbox.greencalinc.org` (live, 22 pages)
 - **Repo:** `QuietlyWorking/greencal-website` (private)
 - **Stack:** React + Vite + Tailwind CSS v4 on CF Pages
-- **Status:** Visual audit complete (5.6/10 avg), fix sprint in progress
+- **Status:** Audit fix sprint complete (9/10 top fixes applied, 35 files modified, 612+ lines fabricated content removed). Formspree integration for lead capture. Deployed and live.
 
 ### Key Documents
 
@@ -10185,4 +10185,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-08 06:27 (v4.78)*
+*Last updated: 2026-04-08 07:11 (v4.79)*
