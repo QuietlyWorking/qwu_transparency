@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-08 03:02 | Source version: 4.76
+> Generated: 2026-04-08 03:05 | Source version: 4.77
 
 # QWU Backoffice User Manual
 
-**Version: 4.76 | Started: 251223 | Updated: 260407**
+**Version: 4.77 | Started: 251223 | Updated: 260407**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -4336,8 +4336,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.76 by generate_public_manual.py"
-generated: "2026-04-08 03:02"
+source: "Auto-generated from private manual v4.77 by generate_public_manual.py"
+generated: "2026-04-08 03:05"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8247,7 +8247,7 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 - **Meeting pipeline:** `qnt_meeting_pipeline.py` — chat parsing, artifact download, Vision slide analysis, recap generation
 - **Presentation media:** `process_presentation_media.py` — PDF/PPTX/video→images for Vision analysis
 
-### Current State (March 20, 2026)
+### Current State (April 7, 2026)
 
 | Component | Status |
 |-----------|--------|
@@ -8261,21 +8261,29 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 | Stripe | Configured (TEST MODE) — 2 products, 4 prices, webhook |
 | Alpha tenant | Aim High BNI — 27 members (17 active, 2 on leave, 8 alumni), 2,373 historical visitors imported |
 | Timezone fix | Prompt 021 deployed — 8 affected areas fixed |
-| Database | 32 tables, 11 migrations, full RLS |
+| Database | 35 tables, 12 migrations, full RLS (added: `chapter_testimonials`, `card_shares`, `card_clicks`) |
 | Newsletter system | 3-step composer, 11 section types, template management, send-newsletter edge function |
 | Recognition engine | "You Got Caught" member appreciation with public web archive |
 | Speaker management | Meeting templates, speaker queue, materials collection, planning timeline, message sequences, dues tracking |
 | Landing page | Botanical palette, warm cream nav, full-color logo, contact form, 50+ features showcased |
 | Alpha readiness | Alpha badge, bug reporter, landing page alpha gate (Prompt 029) |
 | Branding | Custom logo, fern icon, favicon suite, botanical palette deployed |
+| Aim High website | `aimhighbni.com` — standalone CF Pages site (Vite+React+TS+Tailwind), live data from QNT Supabase via anon key |
+| Business cards | `generate_business_cards.py` — Pillow-based card generator, 18 cards, trackable sharing via `card_shares`/`card_clicks` tables |
+| Card sharing | `/card/:slug` CF Pages Function with OG meta tags for social previews, `increment_card_share_clicks` RPC |
 
 ### Reference
 
-- **GitHub Repo:** `https://github.com/QuietlyWorking/quietly-networking` (CF Pages source; push to `main` → GitHub Actions → auto-deploy)
+- **GitHub Repo (QNT):** `https://github.com/QuietlyWorking/quietly-networking` (CF Pages source; push to `main` → GitHub Actions → auto-deploy)
+- **GitHub Repo (Aim High):** `https://github.com/QuietlyWorking/aim-high-bni` (CF Pages; push to `main` → GitHub Actions → auto-deploy)
 - **Production URL:** `https://quietlynetworking.org`
+- **Aim High URL:** `https://aimhighbni.com` (CNAME → `aim-high-bni.pages.dev`)
 - **System Status:** `002 Projects/_Quietly Networking/QNT-System-Status.md`
-- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py` (v1.4.0), `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`, `qnt_meeting_pipeline.py`, `process_presentation_media.py`
+- **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py` (v1.4.0), `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`, `qnt_meeting_pipeline.py`, `process_presentation_media.py`, `generate_business_cards.py`
 - **Edge Functions:** `enrich-visitor`, `verify-crossover-token` (QWF Passport), `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`, `send-newsletter`, `submit-contact-form`
+- **CF Pages Functions:** `/card/:slug` (OG meta tag card sharing with click tracking)
+- **Supabase RPC:** `increment_card_share_clicks` (atomic click counter for card shares)
+- **CF Pages Env Vars:** `QNT_SERVICE_ROLE_KEY` (for card tracking function on aim-high-bni project)
 
 ---
 
@@ -9814,6 +9822,7 @@ QWU uses **two** Cloudflare API tokens with different permission scopes:
 | `quietlynetworking.org` | — | CF Pages | QNT (migrated 2026-03-20) |
 | `locals4good.org` | — | CF Pages | L4G (migrated 2026-03-19) |
 | `whelho.org` | `4e73ca94aad582ed7157175b5a1f6fca` | CF Pages | WHELHO |
+| `aimhighbni.com` | — | CF Pages | Aim High BNI chapter site (CNAME → `aim-high-bni.pages.dev`) |
 | `preciousmonster.org` | — | — | Reserved (MP lore) |
 | `preciousmonster.com` | — | — | Reserved (MP lore) |
 
@@ -9839,7 +9848,7 @@ Apps on CF Pages deploy via `wrangler pages deploy`:
 cd /home/<VM_USER>/whelho && npm run build
 npx wrangler pages deploy dist --project-name=whelho
 
-# QWR, L4G, QNT deploy via GitHub Actions (auto on push to main)
+# QWR, L4G, QNT, Aim High BNI deploy via GitHub Actions (auto on push to main)
 # WHELHO deploys via direct wrangler (GH Actions secrets pending)
 ```
 
@@ -9889,12 +9898,13 @@ Centralized registry of all QWF apps with hosting, database, domain, and develop
 | **WHL** | WHELHO | CF Pages | `whelho` | `whelho.org` | `nvimpjmhiondaxtrwlny` | Alpha |
 | **PEZ** | Pocket Ez | Lovable | — | — | `<SUPABASE_PROJECT_POCKET>` | Planned |
 | **QMP** | Missing Pixel | Lovable | — | — | `tmljwjrpujmnrybofxht` | Planned |
+| **AH** | Aim High BNI | CF Pages | `aim-high-bni` | `aimhighbni.com` | `caeiaprjizteokoenzad` (shared with QNT) | Production |
 
 ### Frontend Development Workflow
 
 | Hosting | How to Make Changes | Deploy Process |
 |---------|-------------------|----------------|
-| **CF Pages** (QWR, L4G, QNT, WHL) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
+| **CF Pages** (QWR, L4G, QNT, WHL, AH) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
 | **Lovable** (all others) | Write numbered Lovable prompt files | Paste prompt into Lovable editor → preview → deploy |
 
 **Migration path:** Apps on Lovable migrate to CF Pages before onboarding external supporters. QWR completed this migration on 2026-03-10. L4G completed on 2026-03-19. QNT completed on 2026-03-20. New Track A apps (like WHELHO) skip Lovable entirely.
@@ -9959,6 +9969,11 @@ All QWF apps follow a 4-tier animation architecture that prevents over-engineeri
 | Theme System Implementation | CSS custom properties, accessibility, dark mode patterns | ⭐⭐ |
 | GSAP Scroll Animation (Tier 2) | GSAP timeline API, ScrollTrigger, React hooks, accessibility (reduced motion) | ⭐⭐⭐ |
 | Spline 3D Integration (Tier 3) | WebGL, 3D design, React-Spline events API, lazy loading, performance optimization | ⭐⭐⭐ |
+| Standalone Tenant Websites | Vite+React+TS+Tailwind on CF Pages, live Supabase data via anon key, DNS cutover | ⭐⭐ |
+| Pillow Business Card Generation | Python image generation, batch processing, dynamic text/photo compositing | ⭐⭐ |
+| OG Meta Tag Social Previews | CF Pages Functions, Open Graph protocol, link sharing with click tracking | ⭐⭐ |
+| Headshot Scraping & Storage | Web scraping member photos, Supabase Storage upload, image pipeline | ⭐⭐ |
+| RLS Policy Design for Public Reads | Supabase Row-Level Security for anon public access, multi-table policy strategy | ⭐⭐ |
 
 ---
 
@@ -10133,4 +10148,4 @@ The `/session-wrap-up` skill now includes a drift detection step that compares T
 
 ---
 
-*Last updated: 2026-04-08 03:02 (v4.76)*
+*Last updated: 2026-04-08 03:05 (v4.77)*
