@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 06:43 | Source version: 4.81
+> Generated: 2026-04-09 15:19 | Source version: 4.82
 
 # QWU Backoffice User Manual
 
-**Version: 4.80 | Started: 251223 | Updated: 260409**
+**Version: 4.82 | Started: 251223 | Updated: 260409**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -4342,8 +4342,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.81 by generate_public_manual.py"
-generated: "2026-04-09 06:43"
+source: "Auto-generated from private manual v4.82 by generate_public_manual.py"
+generated: "2026-04-09 15:19"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -8253,7 +8253,7 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 - **Meeting pipeline:** `qnt_meeting_pipeline.py` — chat parsing, artifact download, Vision slide analysis, recap generation
 - **Presentation media:** `process_presentation_media.py` — PDF/PPTX/video→images for Vision analysis
 
-### Current State (April 7, 2026)
+### Current State (April 9, 2026)
 
 | Component | Status |
 |-----------|--------|
@@ -8272,11 +8272,13 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 | Recognition engine | "You Got Caught" member appreciation with public web archive |
 | Speaker management | Meeting templates, speaker queue, materials collection, planning timeline, message sequences, dues tracking |
 | Landing page | Botanical palette, warm cream nav, full-color logo, contact form, 50+ features showcased |
+| UX clickability | Dashboard MetricCards, visitor rows, relationship pairs, leaderboard names, inviter names — all clickable with intuitive navigation (Apr 9, 2026) |
 | Alpha readiness | Alpha badge, bug reporter, landing page alpha gate (Prompt 029) |
 | Branding | Custom logo, fern icon, favicon suite, botanical palette deployed |
-| Aim High website | `aimhighbni.com` — standalone CF Pages site (Vite+React+TS+Tailwind), live data from QNT Supabase via anon key |
+| Aim High website | `aimhighbni.com` — Astro 5 SSR on CF Pages (migrated from React SPA 2026-04-09), multi-tenant middleware, live data from QNT Supabase. Client JS: ~5KB (form islands only). |
 | Business cards | `generate_business_cards.py` — Pillow-based card generator, 18 cards, trackable sharing via `card_shares`/`card_clicks` tables |
-| Card sharing | `/card/:slug` CF Pages Function with OG meta tags for social previews, `increment_card_share_clicks` RPC |
+| Card sharing | `/card/[slug]` Astro API route with OG meta tags for social previews, `increment_card_share_clicks` RPC |
+| Form backends | `/api/rsvp` (→ `visitors` table), `/api/testimonial` (→ `chapter_testimonials` table) — Astro API routes with CF runtime env |
 
 ### Reference
 
@@ -8287,9 +8289,9 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 - **System Status:** `002 Projects/_Quietly Networking/QNT-System-Status.md`
 - **Backend Scripts:** `005 Operations/Execution/qnt_webhook_receiver.py` (v1.4.0), `qnt_visitor_pipeline.py`, `qnt_roster_sync.py`, `qnt_import_historical_visitors.py`, `qnt_newsletter_pipeline.py`, `qnt_meeting_pipeline.py`, `process_presentation_media.py`, `generate_business_cards.py`
 - **Edge Functions:** `enrich-visitor`, `verify-crossover-token` (QWF Passport), `sync-roster`, `create-checkout-session`, `create-portal-session`, `stripe-webhook`, `sync-member-count`, `send-newsletter`, `submit-contact-form`
-- **CF Pages Functions:** `/card/:slug` (OG meta tag card sharing with click tracking)
+- **Astro API Routes (aim-high-bni):** `/card/[slug]` (OG card sharing + click tracking), `/api/rsvp` (visitor registration), `/api/testimonial` (testimonial submission)
 - **Supabase RPC:** `increment_card_share_clicks` (atomic click counter for card shares)
-- **CF Pages Env Vars:** `QNT_SERVICE_ROLE_KEY` (for card tracking function on aim-high-bni project)
+- **CF Pages Env Vars (aim-high-bni):** `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `AIM_HIGH_ORG_ID`, `QNT_SERVICE_ROLE_KEY` (runtime SSR + API routes)
 
 ---
 
@@ -10189,4 +10191,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 06:43 (v4.81)*
+*Last updated: 2026-04-09 15:19 (v4.82)*
