@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 22:38 | Source version: 4.83
+> Generated: 2026-04-09 22:40 | Source version: 4.85
 
 # QWU Backoffice User Manual
 
@@ -4342,8 +4342,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.83 by generate_public_manual.py"
-generated: "2026-04-09 22:38"
+source: "Auto-generated from private manual v4.85 by generate_public_manual.py"
+generated: "2026-04-09 22:40"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -5810,6 +5810,14 @@ This enables:
 - Power team matching from visitor's ideal customer profile
 - Bidirectional referral opportunities
 
+**Entity Protection (v3.3.0):**
+
+`enrich_visitor.py` includes a **BNI-Active write guard** to prevent visitor enrichment from overwriting active member entity files. This was added after an April 9, 2026 incident where the phone/email dedup scanner matched a visitor to a member and overwrote the member's entire entity file.
+
+Two layers of protection:
+1. **Dedup scan skip:** The phone/email matching loop skips any entity with a `BNI-Active` tag
+2. **Hard block before write:** Even if dedup isn't triggered, the script refuses to write visitor data to any file with `BNI-Active` in its frontmatter tags
+
 **Environment Variables:**
 ```bash
 APIFY_API_TOKEN="your-apify-token"  # LinkedIn person search
@@ -6150,12 +6158,12 @@ Visitor cards now pull enriched data from entity files for **symmetric intellige
 
 ### Data Extraction
 
-The chat parser (`process_bni_chat.py` v2.3.0) extracts:
+The chat parser (`process_bni_chat.py` v2.4.0) extracts:
 
 | Data Type | Detection Method |
 |-----------|------------------|
 | **Participants** | Matches against vault entity files + display name parsing |
-| **Visitors** | Prefixes like "VIP -", "BNI -", or announced by chapter admin |
+| **Visitors** | Prefixes: "VIP -", "VIP ", "S/BNI -", "S/BNI ", "BNI -", "Guest -", "Visitor -" |
 | **Referrals** | Keywords: "referral", "passing", "thank you for referring" |
 | **1-2-1 Requests** | Patterns like "@Name let's 121", "would love to 1:1 with Name" |
 | **Announcements** | Keywords + REQUIRES URL (dates alone not sufficient) |
@@ -8273,6 +8281,10 @@ The AI processing engine runs on claude-dev with a FastAPI webhook receiver:
 | Speaker management | Meeting templates, speaker queue, materials collection, planning timeline, message sequences, dues tracking |
 | Landing page | Botanical palette, warm cream nav, full-color logo, contact form, 50+ features showcased |
 | UX clickability | Dashboard MetricCards, visitor rows, relationship pairs, leaderboard names, inviter names — all clickable with intuitive navigation (Apr 9, 2026) |
+| Visitor Epic Profiles | Enrichment data rendered on Overview tab — summary, services, power teams, connection hooks, life hints, reviews with stars/trends, LinkedIn card, personality traits (Apr 9, 2026) |
+| Connection reports | Markdown-rendered via react-markdown, RLS super admin bypass, correct column mappings (Apr 9, 2026) |
+| Card upload | Members can upload own card image (JPG/PNG/WebP, 5MB) via drag-and-drop on card builder (Apr 9, 2026) |
+| Permission controls | Edit controls respect impersonation (useEffectiveUser), card builder has ownership check (Apr 9, 2026) |
 | Alpha readiness | Alpha badge, bug reporter, landing page alpha gate (Prompt 029) |
 | Branding | Custom logo, fern icon, favicon suite, botanical palette deployed |
 | Aim High website | `aimhighbni.com` — Astro 5 SSR on CF Pages (migrated from React SPA 2026-04-09), multi-tenant middleware, live data from QNT Supabase. Client JS: ~5KB (form islands only). |
@@ -10191,4 +10203,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 22:38 (v4.83)*
+*Last updated: 2026-04-09 22:40 (v4.85)*
