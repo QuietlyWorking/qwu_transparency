@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 04:46 | Source version: 4.81
+> Generated: 2026-04-09 06:40 | Source version: 4.81
 
 # QWU Backoffice User Manual
 
@@ -4343,7 +4343,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v4.81 by generate_public_manual.py"
-generated: "2026-04-09 04:46"
+generated: "2026-04-09 06:40"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10123,7 +10123,7 @@ A UserPromptSubmit hook that automatically detects domain keywords in user messa
 
 ### Domain Coverage (14 domains)
 
-All 14 TWLs on disk are mapped, plus additional domains for supporter systems, email, QSP, ESP, and Cloudflare. Keywords include tool names, common abbreviations, and related concepts.
+All 15 TWLs on disk are mapped (added GSAP in Session 197), plus additional domains for supporter systems, email, QSP, ESP, and Cloudflare. Keywords include tool names, common abbreviations, and related concepts.
 
 ### Drift Detection (Session Wrap-Up Step 3B)
 
@@ -10189,4 +10189,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 04:46 (v4.81)*
+*Last updated: 2026-04-09 06:40 (v4.81)*
