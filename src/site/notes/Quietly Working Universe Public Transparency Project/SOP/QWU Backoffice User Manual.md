@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 00:24 | Source version: 4.80
+> Generated: 2026-04-09 04:46 | Source version: 4.81
 
 # QWU Backoffice User Manual
 
@@ -3684,9 +3684,13 @@ Notes with `dg-publish: true` in YAML frontmatter become eligible for transparen
 - Omit the field, or set `dg-publish: false`
 
 **Automated sync:**
-- After every `/session-wrap-up` (Step 3C)
+- **Immediately after pushing any `dg-publish: true` file** — agents run the sync as a follow-up step (CLAUDE.md v1.32.2 rule)
+- After every `/session-wrap-up` (Step 4C)
 - Daily at 4 AM Pacific via n8n workflow `YnawyFKfnrOao12P`
 - Discord notification to `#system-status` on success/failure
+
+**Content series on the transparency site:**
+- **Built from Broken** — Problems we face running AI-powered nonprofit operations and the real solutions we build. Series guide at `Quietly Working Universe Public Transparency Project/Built from Broken/_Series-Guide.md` (not published). Each volume gets `dg-publish: true` + `series: Built from Broken` + `built-from-broken` tag in frontmatter.
 
 **Safety features:**
 - Private User Manual (`QWU Backoffice User Manual.md`) is blocklisted by filename stem — only the `[PUBLIC]` version passes
@@ -4338,8 +4342,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.80 by generate_public_manual.py"
-generated: "2026-04-09 00:24"
+source: "Auto-generated from private manual v4.81 by generate_public_manual.py"
+generated: "2026-04-09 04:46"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10185,4 +10189,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 00:24 (v4.80)*
+*Last updated: 2026-04-09 04:46 (v4.81)*
