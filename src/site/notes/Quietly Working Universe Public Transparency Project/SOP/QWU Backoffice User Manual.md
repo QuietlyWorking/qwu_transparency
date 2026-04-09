@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 06:40 | Source version: 4.81
+> Generated: 2026-04-09 06:43 | Source version: 4.81
 
 # QWU Backoffice User Manual
 
@@ -4343,7 +4343,7 @@ Format: Searchable markdown with YAML frontmatter
 type: meeting-transcript
 tags: [transcript, imported]
 source: "Auto-generated from private manual v4.81 by generate_public_manual.py"
-generated: "2026-04-09 06:40"
+generated: "2026-04-09 06:43"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -7025,7 +7025,7 @@ Each QWU site has its own context that shapes Ezer's behavior:
                           │
                           ▼
 ┌──────────────────────────────────────────────────────────────┐
-│  CENTRAL API (twin.quietlyworking.org:8767)                  │
+│  CENTRAL API (twin.quietlyworking.org:8765)                  │
 │  ┌─────────────────────────────────────────────────────────┐ │
 │  │ /api/ezer            - Chat (site-aware system prompts) │ │
 │  │ /api/ezer/identity   - Get/validate device tier         │ │
@@ -9364,7 +9364,7 @@ WordPress Site (any of 11 QWF sites)
   → [qwf_ecosystem] shortcode
     → widget.js loader (0.48 KB)
       → widget.bundle.js (17 KB, Preact + Shadow DOM)
-        → GET /api/ecosystem (Digital Twin, port 8767)
+        → GET /api/ecosystem (Digital Twin, port 8765)
           → ecosystem_registry.json (50 entities)
           → live metrics (Supabase, Betterstack, supervisors)
 ```
@@ -9435,7 +9435,7 @@ Overrides applied as CSS custom properties on Shadow DOM root. Partial overrides
 | Framework | Preact 10.x (3 KB React alternative) |
 | Build | Vite 6.x, IIFE output, Terser |
 | Isolation | Shadow DOM (no style leakage) |
-| API | Digital Twin server (Python, port 8767) |
+| API | Digital Twin server (Python, port 8765) |
 | Data | Static JSON registry + live metric merge |
 | WordPress | mu-plugin, `[qwf_ecosystem]` shortcode |
 
@@ -10189,4 +10189,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 06:40 (v4.81)*
+*Last updated: 2026-04-09 06:43 (v4.81)*
