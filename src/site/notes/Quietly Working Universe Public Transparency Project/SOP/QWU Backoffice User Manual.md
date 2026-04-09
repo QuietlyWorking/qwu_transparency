@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 22:41 | Source version: 4.85
+> Generated: 2026-04-09 23:15 | Source version: 4.86
 
 # QWU Backoffice User Manual
 
@@ -4342,8 +4342,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.85 by generate_public_manual.py"
-generated: "2026-04-09 22:41"
+source: "Auto-generated from private manual v4.86 by generate_public_manual.py"
+generated: "2026-04-09 23:15"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -10099,19 +10099,45 @@ Puzzle is the visual operations layer for QWF — mapping teams, roles, processe
 
 When using Claude Code via VSCode Remote SSH, the OAuth callback redirects to `localhost` on the **local machine**, but the MCP listener runs on the **remote VM**. Fix: forward the callback port in VSCode's Ports panel before opening the auth URL. The port number changes each auth attempt — check the URL.
 
-### Current Workspace State (April 7, 2026)
+### Current Workspace State (April 9, 2026)
 
 | Component | Count | Status |
 |-----------|-------|--------|
 | Teams | 5 | Created (QWF Leadership, QWC Creative Dept, Missing Pixel, Backoffice Operations, Product Development) |
 | Roles | 5 | Created with reporting connections |
-| Tool Groups | 5 | Created with 17 tools mapped |
-| Processes | 0 | Blocked — `create_process` endpoint returning 500 (reported to Puzzle support) |
+| Tool Groups | 5 | Created with 32 tools mapped |
+| Workflows | 7 | Created — 20 sections, 77 steps, 66 connections |
+
+### Operational Workflows (Built April 9, 2026)
+
+All 7 workflows include role assignments, tool references, step connections, and rich markdown notes.
+
+| Workflow | Sections | Steps | Owner |
+|----------|----------|-------|-------|
+| Content Pipeline | Capture, Analysis, Approval & Distribution | 9 | Claude Agent |
+| Lead Gen | Discovery, Enrichment, Delivery | 9 | Claude Agent |
+| Relationships | Data Ingestion, Intelligence, Action | 8 | Claude Agent + Ezer |
+| Email Comms | Classification, Drafting, Review & Send | 7 | Ezer + TIG |
+| Meeting Intel | Pre-Meeting, Post-Meeting, Follow-Up | 8 | Claude Agent + Ezer |
+| Infrastructure | Health Checks, Monitoring & Alerting | 8 | Claude Agent |
+| VOSPA | Discovery, Scoring & Prioritization, Delivery | 10 | QWC Consultant + TIG |
+
+Section names prefixed with workflow context (e.g., "Content Pipeline: Capture") for canvas readability. Each section has markdown notes explaining purpose, business rationale, flow position, and ownership.
+
+### Tab Organization (Pending)
+
+All workflows currently share one canvas tab. Feature request submitted to Puzzle team (April 9, 2026) for MCP tab creation/management. Feedback board: `feedback.puzzleapp.io`. Until available, manual tab creation in UI or wait for MCP endpoint.
 
 ### Known Issues
 
-- `create_process` MCP endpoint returns Internal Server Error regardless of payload size (reported April 7, 2026)
+- `create_process` bug **RESOLVED** (April 8-9, 2026) — was caused by Anthropic timeouts on Puzzle's backend. Brian confirmed fix, we verified.
+- Static API token not yet available — OAuth per-session only. Feature request logged on Puzzle feedback board.
 - Also has "Easy Mode IT" workspace (separate from QWF operations)
+
+### Key Contacts
+
+- **Brian Ragone** — Founder/CEO (brian@puzzleapp.io), warm relationship, attended BNI
+- **Jolly Amurao** — Senior Product Operations (support@puzzleapp.io), primary support, escalates to engineering
 
 ### 🎓 Missing Pixel Training Opportunities
 
@@ -10119,6 +10145,8 @@ When using Claude Code via VSCode Remote SSH, the OAuth callback redirects to `l
 |-----------|------------------|------------|
 | MCP Server Configuration | OAuth flows, VSCode settings, API integration | ⭐⭐ |
 | Operations Blueprint Design | Organizational modeling, process mapping, VOSPA framework | ⭐⭐ |
+| Workflow Modeling via API | Structured process creation, step typing, role assignment, connection mapping | ⭐⭐⭐ |
+| Vendor Relationship Management | Bug reporting, feature requests, professional email communication | ⭐ |
 
 ---
 
@@ -10203,4 +10231,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 22:41 (v4.85)*
+*Last updated: 2026-04-09 23:15 (v4.86)*
