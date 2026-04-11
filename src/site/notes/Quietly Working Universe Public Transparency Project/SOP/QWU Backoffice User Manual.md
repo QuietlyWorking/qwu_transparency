@@ -4,11 +4,11 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-09 23:39 | Source version: 4.86
+> Generated: 2026-04-11 08:24 | Source version: 4.88
 
 # QWU Backoffice User Manual
 
-**Version: 4.82 | Started: 251223 | Updated: 260409**
+**Version: 4.88 | Started: 251223 | Updated: 260410**
 
 A comprehensive guide to the QWU Backoffice agent workspace, covering architecture, daily operations, automation, and development workflows. These notes serve both as operational documentation and educational curriculum for Missing Pixel students.
 
@@ -4342,8 +4342,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.86 by generate_public_manual.py"
-generated: "2026-04-09 23:39"
+source: "Auto-generated from private manual v4.88 by generate_public_manual.py"
+generated: "2026-04-11 08:24"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9920,6 +9920,7 @@ Centralized registry of all QWF apps with hosting, database, domain, and develop
 | **QMP** | Missing Pixel | Lovable | — | — | `tmljwjrpujmnrybofxht` | Planned |
 | **AH** | Aim High BNI | CF Pages | `aim-high-bni` | `aimhighbni.com` | `caeiaprjizteokoenzad` (shared with QNT) | Production |
 | **QWB** | Quietly Webbing | CF Pages | `greencal-website` (POC) | `quietlywebbing.org` | — (static site) | Concept |
+| **QCP** | Quietly Capsuling | CF Pages (planned) | `quietly-capsuling` (planned) | — | — | Concept |
 
 ### Frontend Development Workflow
 
@@ -10163,9 +10164,9 @@ A UserPromptSubmit hook that automatically detects domain keywords in user messa
 3. If matched, injects a system reminder: "Read [TWL directive] before proceeding"
 4. Agent reads the TWL, gaining access to gotchas, working examples, and vendor intelligence
 
-### Domain Coverage (15 domains)
+### Domain Coverage (18 domains)
 
-All 16 TWLs on disk are mapped (added Starlight in Session 200), plus additional domains for supporter systems, email, QSP, ESP, and Cloudflare. Keywords include tool names, common abbreviations, and related concepts.
+All 19 TWLs on disk are mapped (added SvelteKit, Cloudflare Pages, Claude Agent SDK in Session 204), plus additional domains for supporter systems, email, QSP, ESP. Keywords include tool names, common abbreviations, and related concepts.
 
 ### Drift Detection (Session Wrap-Up Step 3B)
 
@@ -10231,4 +10232,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-09 23:39 (v4.86)*
+*Last updated: 2026-04-11 08:24 (v4.88)*
