@@ -4,7 +4,7 @@
 > [!INFO] PUBLIC VERSION
 > This is the public, redacted version of the QWU Backoffice User Manual. Sensitive data (IPs, credentials, project IDs, personal names) has been replaced with descriptive placeholders like `<VM_IP>` or `[Member Name]`. The structure and educational content are preserved for transparency and Missing Pixel student training.
 >
-> Generated: 2026-04-11 08:24 | Source version: 4.88
+> Generated: 2026-04-11 08:26 | Source version: 4.89
 
 # QWU Backoffice User Manual
 
@@ -4342,8 +4342,8 @@ Format: Searchable markdown with YAML frontmatter
 ---
 type: meeting-transcript
 tags: [transcript, imported]
-source: "Auto-generated from private manual v4.88 by generate_public_manual.py"
-generated: "2026-04-11 08:24"
+source: "Auto-generated from private manual v4.89 by generate_public_manual.py"
+generated: "2026-04-11 08:26"
 date: 2025-07-18
 topic: "Time with Sue & [Participant]"
 duration_minutes: 69
@@ -9905,31 +9905,37 @@ Centralized registry of all QWF apps with hosting, database, domain, and develop
 
 ### App Table
 
-| App | Program | Hosting | GitHub Repo | Domain | Supabase Project | Stage |
-|-----|---------|---------|-------------|--------|------------------|-------|
-| **QWR** | Quietly Writing | CF Pages | `quietly-writing` | `quietlywriting.org` | `<SUPABASE_PROJECT_ID>` | Production |
-| **QQT** | Quietly Quoting | Lovable | — | `quietlyquoting.org` | `wrumuuxjnyplzykibwsj` | Beta |
-| **QNT** | Quietly Networking | CF Pages | `quietly-networking` | `quietlynetworking.org` | `caeiaprjizteokoenzad` | Alpha |
-| **QKN** | Quietly Knocking | Lovable | — | `quietlyknocking.org` | `mepdsaqmsooxmjsmlcut` | Alpha |
-| **QSP** | Quietly Spotting | Lovable | — | `quietlyspotting.org` | `lsfplhkgpiakhvtvsfic` | Production |
-| **QTR** | Quietly Tracking | Lovable | — | `quietlytracking.org` | `ipdrexcbaqoazhpohfco` | Foundation |
-| **L4G** | Locals 4 Good | CF Pages | `locals4good` | `locals4good.org` | `<SUPABASE_PROJECT_ID_L4G>` | Beta |
-| **HQ** | Command Center | Lovable | — | `hq.quietlyworking.org` | `<SUPABASE_PROJECT_ID>` (shared with QWR) | Production |
-| **WHL** | WHELHO | CF Pages | `whelho` | `whelho.org` | `nvimpjmhiondaxtrwlny` | Alpha |
-| **PEZ** | Pocket Ez | Lovable | — | — | `<SUPABASE_PROJECT_POCKET>` | Planned |
-| **QMP** | Missing Pixel | Lovable | — | — | `tmljwjrpujmnrybofxht` | Planned |
-| **AH** | Aim High BNI | CF Pages | `aim-high-bni` | `aimhighbni.com` | `caeiaprjizteokoenzad` (shared with QNT) | Production |
-| **QWB** | Quietly Webbing | CF Pages | `greencal-website` (POC) | `quietlywebbing.org` | — (static site) | Concept |
-| **QCP** | Quietly Capsuling | CF Pages (planned) | `quietly-capsuling` (planned) | — | — | Concept |
+| App | Program | Hosting | Framework | GitHub Repo | Domain | Supabase Project | Stage |
+|-----|---------|---------|-----------|-------------|--------|------------------|-------|
+| **QWR** | Quietly Writing | CF Pages | React → SvelteKit (P3) | `quietly-writing` | `quietlywriting.org` | `<SUPABASE_PROJECT_ID>` | Production |
+| **QQT** | Quietly Quoting | Lovable | → SvelteKit (P4) | — | `quietlyquoting.org` | `wrumuuxjnyplzykibwsj` | Beta |
+| **QNT** | Quietly Networking | CF Pages | React | `quietly-networking` | `quietlynetworking.org` | `caeiaprjizteokoenzad` | Alpha |
+| **QKN** | Quietly Knocking | Lovable | → SvelteKit (P5) | — | `quietlyknocking.org` | `mepdsaqmsooxmjsmlcut` | Alpha |
+| **QSP** | Quietly Spotting | CF Pages | React → SvelteKit (P2) | `quietly-spotting` | `quietlyspotting.org` | `lsfplhkgpiakhvtvsfic` | Production |
+| **QTR** | Quietly Tracking | Lovable | → SvelteKit (P6) | — | `quietlytracking.org` | `ipdrexcbaqoazhpohfco` | Foundation |
+| **L4G** | Locals 4 Good | CF Pages | React (stay) | `locals4good` | `locals4good.org` | `<SUPABASE_PROJECT_ID_L4G>` | Beta |
+| **HQ** | Command Center | Lovable | Lovable (stay) | — | `hq.quietlyworking.org` | `<SUPABASE_PROJECT_ID>` (shared with QWR) | Production |
+| **WHL** | WHELHO | CF Pages | React | `whelho` | `whelho.org` | `nvimpjmhiondaxtrwlny` | Alpha |
+| **PEZ** | Pocket Ez | Lovable | — | — | — | `<SUPABASE_PROJECT_POCKET>` | Planned |
+| **QMP** | Missing Pixel | Lovable | — | — | — | `tmljwjrpujmnrybofxht` | Planned |
+| **AH** | Aim High BNI | CF Pages | React | `aim-high-bni` | `aimhighbni.com` | `caeiaprjizteokoenzad` (shared with QNT) | Production |
+| **QWB** | Quietly Webbing | CF Pages | SvelteKit (P1) | — (planned) | `quietlywebbing.org` | — | Planned |
+| **QCP** | Quietly Capsuling | CF Pages | SvelteKit | — (planned) | — | — | Concept |
 
 ### Frontend Development Workflow
 
-| Hosting | How to Make Changes | Deploy Process |
-|---------|-------------------|----------------|
-| **CF Pages** (QWR, L4G, QNT, WHL, AH) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
-| **Lovable** (all others) | Write numbered Lovable prompt files | Paste prompt into Lovable editor → preview → deploy |
+| Hosting | Framework | How to Make Changes | Deploy Process |
+|---------|-----------|-------------------|----------------|
+| **CF Pages** (QWR, QSP, L4G, QNT, WHL, AH) | React (current) / SvelteKit (target) | Direct code commits to GitHub repo | Push to `main` → GitHub Actions → `wrangler pages deploy` (auto) |
+| **Lovable** (HQ only) | React (Lovable-managed) | Write numbered Lovable prompt files | Paste prompt into Lovable editor → preview → deploy |
 
-**Migration path:** Apps on Lovable migrate to CF Pages before onboarding external supporters. QWR completed this migration on 2026-03-10. L4G completed on 2026-03-19. QNT completed on 2026-03-20. New Track A apps (like WHELHO) skip Lovable entirely.
+**SvelteKit migration (decided 2026-04-11):** All supporter-facing apps migrate to SvelteKit before onboarding active supporters. Zero current supporters = zero risk window. QWB is the greenfield template app (P1). QSP migrates during Content tab build (P2). QWR migrates frontend (P3). Lovable apps (QQT/QKN/QTR) skip React entirely → go directly to SvelteKit/CF Pages (P4-6). L4G and HQ stay on current frameworks. See `005 Operations/Directives/qwf_content_intelligence_platform.md`.
+
+### Content Intelligence Platform (Decided 2026-04-11)
+
+The chaplaintig.com content creation pipeline is being productized into a unified cross-app system: **QSP is the cockpit, QWR is the engine, QWB is the runway.** Every supporter gets an AI content strategist that monitors their industry experts (Wisdom Library), identifies content opportunities (QSP SEO gaps), writes articles in their brand voice with heritage references (QWR), generates social content, and (Agency tier) auto-publishes via Vista Social.
+
+Key features: Content tab in QSP (Wisdom Feed, Draft Queue, Calendar, Performance Feedback), "Why This Article" transparency cards, auto-generate threshold, federated settings mirror (QWR/QQT/QNT settings visible in QSP). Full directive: `005 Operations/Directives/qwf_content_intelligence_platform.md`.
 
 ### Supabase Service Role Key Env Vars
 
@@ -10232,4 +10238,4 @@ QWB gives supporters a complete digital presence — website, content, SEO, anal
 
 ---
 
-*Last updated: 2026-04-11 08:24 (v4.88)*
+*Last updated: 2026-04-11 08:26 (v4.89)*
